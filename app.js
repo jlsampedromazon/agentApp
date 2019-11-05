@@ -76,18 +76,29 @@ var express                 = require('express'),
     })
 
 // NEW ROUTE - save input from new entry form show me all content again
-app.post("/edit", function(req,res){
-    // Create Loi
-        console.log(req.body);
-        // Loi.create(req.body.blog, function(err, newBlog){
-        //     if (err) {
-        //         res.render("new");
-        //     } else {
-        //         res.redirect("blogs");
-        //     }
-        // })
-})
+    app.post("/edit", function(req,res){
 
+            console.log(req.body);
+            
+            Loi.create(req.body.opp, function(err, newLoi){
+                if (err) {
+                    res.render("new");
+                } else {
+                    res.redirect("success");
+                }
+            })
+    })
+
+    // INDEX ROUTE - show me all the content
+    app.get("/success", function(req,res){
+        Loi.find({}, function(err,lois){
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('success', {lois: lois})
+            }
+        })
+    })
 
 
 
