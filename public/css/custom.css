@@ -1,0 +1,25 @@
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+    padding-top: 70px;
+}
+
+.header {
+    font-family: 'Audiowide', cursive;
+}
+
+.main.container {
+    margin: auto;
+}
+
+#submitDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    width: 100%;
+}
