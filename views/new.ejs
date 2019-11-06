@@ -11,6 +11,7 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+        <link rel="stylesheet" href="css/calendar.min.css">
         <link rel="stylesheet" href="/css/custom.css">
 
     </head>
@@ -66,8 +67,8 @@
             <!-- Tenant ID -->
 
             <div class="field">
-                <label for="opp[tenantID]">Tenant's ID Number:</label>
-                <input type="text" placeholder="Enter Passport, FIN or NRIC..." name="opp[tenantID]">
+                <label for="opp[tenantId]">Tenant's ID Number:</label>
+                <input type="text" placeholder="Enter Passport, FIN or NRIC..." name="opp[tenantId]">
             </div>
             
             <!--Monthly Rent  -->
@@ -76,14 +77,39 @@
                 <label for="opp[rentAmount]">Monthly Rent (S$):</label>
                 <input type="text" placeholder="Enter number only..." name="opp[rentAmount]">
             </div>
+                        
+            <!--Bank Name  -->
             
+            <div class="field">
+                    <label for="opp[bank]">Landlord's Bank Name:</label>
+                    <input type="text" placeholder="Enter Bank Name..." name="opp[bank]">
+            </div>
+                        
+            <!--Bank Account  -->
+            
+            <div class="field">
+                    <label for="opp[account]">Landlord's Bank Acct. No.:</label>
+                    <input type="text" placeholder="Enter Acct. No. (incl. dashes)..." name="opp[account]">
+                </div>    
+                
             <!-- Lease Period -->
             
             <div class="field">
-                <label for="opp[period]">Period of Lease (in months):</label>
-                <input type="text" placeholder="Enter lease duration..." name="opp[period]">
+                <label for="opp[leasePeriod]">Period of Lease (in months):</label>
+                <input type="text" placeholder="Enter lease duration..." name="opp[leasePeriod]">
             </div>
-
+            
+            <!-- Start Date -->
+            
+            <div class="field">
+                    <label for="opp[startDate]"><i class="fa fa-calendar"></i>  Lease Start Date:</label>
+                    <div class="ui calendar" id="example1">
+                            <div class="ui input icon ">
+                              <input type="text" placeholder="Enter Start Date..." name="opp[startDate]">
+                            </div>
+                    </div>
+            </div>
+    
             <!-- Diplomatic Clause -->
 
             <div class="ui segment">
@@ -109,5 +135,8 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/semantic.min.js"></script>
     <script src="js/custom.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <script>$('#example1').calendar({type: 'date'});</script>
+
 </body>
 </html>

@@ -23,3 +23,8 @@ body {
 .button {
     width: 100%;
 }
+
+#mce_0 {
+    min-height: 100%;
+
+}

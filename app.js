@@ -8,7 +8,11 @@ var express                 = require('express'),
     User                    = require('./models/user'),
     methodOverride          = require ("method-override"),
     sanitizer               = require("express-sanitizer"),
+    moment                  = require('moment'),
+    format                  = require('format-number'),
+    numConverter            = require('number-to-words'),
     
+    numFormat               = format({integerSeparator: ',', prefix: 'S$'}),
     app                     = express();
 
 // EXPRESS CONFIG
@@ -45,6 +49,11 @@ var express                 = require('express'),
         res.locals.currentUser = req.user;
         next();
     })
+// EXPORTING DATE CAPABILITY
+
+    // exports.index = function(req, res) {
+    //     res.render('edit', { moment: moment });
+    // }
 
 // =============
 //   DB SCHEMAS
@@ -60,6 +69,9 @@ var express                 = require('express'),
         rentAmount: String,
         leasePeriod: String,
         diplo: String,
+        bank: String,
+        account: String,
+        startDate: Date,
         created: {type:Date, default:Date.now}
     })
 
@@ -84,32 +96,31 @@ var express                 = require('express'),
                 if (err) {
                     res.render("new");
                 } else {
-                    res.redirect("success");
+                    newLoi.startDate = 
+                    res.render('edit', {loi: newLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
                 }
             })
     })
 
-    // INDEX ROUTE - show me all the content
-    app.get("/success", function(req,res){
-        Loi.find({}, function(err,lois){
-            if (err) {
-                console.log(err);
-            } else {
-                res.render('success', {lois: lois})
-            }
-        })
-    })
-
-
-
-
-
-
-
-
-
-
-
+    // app.get("/edit", function(req,res) {
+    //     var testDate = new Date("October 13, 2014");
+    //     var testLoi = {
+    //         _id: "5dc10945014fda20f790ded1",
+    //         address: "33 Rochester Drive",
+    //         landlordName: "Jose Sampedro Mazon",
+    //         landlordId: "039348u",
+    //         tenantName: "Elena Mazon Heras",
+    //         tenantId: "837456H",
+    //         rentAmount: "3000",
+    //         leasePeriod: "24",
+    //         bank: "UOB",
+    //         account: "456-654-321",
+    //         startDate: testDate,
+    //         __v:0
+    //         }
+        
+    //         res.render("edit", {loi: testLoi, moment: moment, numFormat: numFormat, numConverter: numConverter});
+    // })
 
 // SECRET ROUTE
     app.get("/secret", isLoggedIn, function(req,res) {
