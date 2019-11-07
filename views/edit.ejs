@@ -50,11 +50,12 @@
 
         <!-- Download PDF -->
 
-        <button id="pdf" class="ui violet basic button big">Download PDF</button>
+        <!-- <button id="pdf" class="ui violet basic button big">Download PDF</button> -->
 
         <!-- END of Download PDF -->
 
-       <form action="/test" method='POST'>
+       <form action="/pdftest" method='POST'>
+        <input type="submit">
         <textarea name='testMCE'>
             <p style="margin: 0cm -1.2pt 2.85pt -1.45pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
@@ -308,6 +309,7 @@
             <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                 <br></p>
+        <div style="page-break-before:always;">
             <table class="MsoTableGrid"
                 style="width: 435.35pt; border-collapse: collapse; border: none; margin-left: 0;" border="1"
                 cellspacing="0" cellpadding="0"
@@ -420,6 +422,7 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
             <p style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="center"
                 data-mce-style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
@@ -432,8 +435,9 @@
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: normal; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                 <br></p>
+        <div style="page-break-before:always;">
             <h1 style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;"
-                data-mce-style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;">
+            data-mce-style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;">
                 ********** LANDLORD ACCEPTANCE COPY **********</h1>
             <p style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="center"
@@ -443,9 +447,9 @@
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                 <br></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-align: center;"
+            <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-align: center;">
+                data-mce-style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                 I, <strong><%= loi.landlordName %></strong>(ID No.: <%= loi.landlordId %>) hereby accept the offer to lease the
                 above-mentioned premises on the terms and conditions mentioned in the Letter of Intent.</p>
             <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-align: center;"
@@ -562,7 +566,7 @@
                     </tr>
                 </tbody>
             </table>
-
+        </div>
         </textarea>
     </form>
 

@@ -131,14 +131,29 @@ var express                 = require('express'),
         console.log(req.body);
     })
 
+    // app.get("/test", function(req,res){
+    //     // res.redirect('https://media.api2pdf.com/98fbab80-0116-11ea-bb0c-3f12940cb437?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJSHKEFTKBQX2AUYQ%2F20191107%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20191107T042515Z&X-Amz-Expires=86400&X-Amz-Signature=97927488a1d81d826895469fe9a5441dec2b83f0947ce08b3f558006da174b08&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%2298fbab80-0116-11ea-bb0c-3f12940cb437.pdf%22&response-content-type=application%2Fpdf')
+    //     res.redirect('http://www.google.com/');
+    // })
+
 // PATH TO TEST PDF
 
 app.post("/pdftest", function(req,res){
-    var test = req.body['testObj'];
-    a2pClient.headlessChromeFromHtml(test).then(function(result) {
+    var htmlToConvert = req.body['testMCE'];
+
+    a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
         console.log(result);
+        pdfWeb = result.pdf;
+        res.redirect(pdfWeb);
     });
+
 })
+
+
+
+
+
+
 
 // SECRET ROUTE
     app.get("/secret", isLoggedIn, function(req,res) {
