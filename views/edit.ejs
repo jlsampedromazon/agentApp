@@ -46,6 +46,14 @@
             <a href="#" class="item">New LOI</a>
             </div>
         </div>
+        <!-- END of Navbar -->
+
+        <!-- Download PDF -->
+
+        <button id="pdf" class="ui violet basic button big">Download PDF</button>
+
+        <!-- END of Download PDF -->
+
        <form action="/test" method='POST'>
         <textarea name='testMCE'>
             <p style="margin: 0cm -1.2pt 2.85pt -1.45pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
@@ -563,5 +571,11 @@
     <script src="js/semantic.min.js"></script>
     <script src="js/custom.js"></script>
     <script type="text/javascript" src="js/calendar.min.js"></script>
+    <script>
+        $("#pdf").click(function(){
+            var htmlInput = tinymce.activeEditor.getContent();
+            $.post("/pdftest", {testObj: htmlInput});
+        })
+    </script>
 </body>
 </html>

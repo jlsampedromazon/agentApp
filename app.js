@@ -11,7 +11,9 @@ var express                 = require('express'),
     moment                  = require('moment'),
     format                  = require('format-number'),
     numConverter            = require('number-to-words'),
+    Api2Pdf                 = require('api2pdf');   
     
+    a2pClient               = new Api2Pdf('1d3eeb76-f00f-42e9-b265-0a2925c28690');
     numFormat               = format({integerSeparator: ',', prefix: 'S$'}),
     app                     = express();
 
@@ -128,6 +130,15 @@ var express                 = require('express'),
         res.send(req.body['testMCE']);
         console.log(req.body);
     })
+
+// PATH TO TEST PDF
+
+app.post("/pdftest", function(req,res){
+    var test = req.body['testObj'];
+    a2pClient.headlessChromeFromHtml(test).then(function(result) {
+        console.log(result);
+    });
+})
 
 // SECRET ROUTE
     app.get("/secret", isLoggedIn, function(req,res) {
