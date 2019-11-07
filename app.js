@@ -102,25 +102,32 @@ var express                 = require('express'),
             })
     })
 
-    // app.get("/edit", function(req,res) {
-    //     var testDate = new Date("October 13, 2014");
-    //     var testLoi = {
-    //         _id: "5dc10945014fda20f790ded1",
-    //         address: "33 Rochester Drive",
-    //         landlordName: "Jose Sampedro Mazon",
-    //         landlordId: "039348u",
-    //         tenantName: "Elena Mazon Heras",
-    //         tenantId: "837456H",
-    //         rentAmount: "3000",
-    //         leasePeriod: "24",
-    //         bank: "UOB",
-    //         account: "456-654-321",
-    //         startDate: testDate,
-    //         __v:0
-    //         }
+    app.get("/edit", function(req,res) {
+        var testDate = new Date("October 13, 2014");
+        var testLoi = {
+            _id: "5dc10945014fda20f790ded1",
+            address: "33 Rochester Drive",
+            landlordName: "Jose Sampedro Mazon",
+            landlordId: "039348u",
+            tenantName: "Elena Mazon Heras",
+            tenantId: "837456H",
+            rentAmount: "3000",
+            leasePeriod: "24",
+            bank: "UOB",
+            account: "456-654-321",
+            startDate: testDate,
+            __v:0
+            }
         
-    //         res.render("edit", {loi: testLoi, moment: moment, numFormat: numFormat, numConverter: numConverter});
-    // })
+            res.render("edit", {loi: testLoi, moment: moment, numFormat: numFormat, numConverter: numConverter});
+    })
+
+// PATH TO TEST TINYMCE SAVE
+
+    app.post("/test", function(req,res){
+        res.send(req.body['testMCE']);
+        console.log(req.body);
+    })
 
 // SECRET ROUTE
     app.get("/secret", isLoggedIn, function(req,res) {
