@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LeaseAgreement.SG for Agents</title>
+
+    <% include partials/boilerLinks.ejs %>
+
+</head>
+
+<body>
+
+    <% include partials/navbar.ejs %>
+
+
+    <div class="ui main text container">
+        <h1>WELCOME!</h1>
+
+        <% lois.forEach(function(loi){ %>
+
+        <div>
+            <h2><%= loi.address %></h2>
+            <h5><%= loi.tenantName %></h5>
+            <p><%= loi.rentAmount %></p>
+            <a href="/records/<%= loi._id %>">Edit</a>
+        </div>
+
+        <% }) %>
+
+    </div>
+
+    <% include partials/boilerScripts.ejs %>
+
+
+</body>
+
+</html>

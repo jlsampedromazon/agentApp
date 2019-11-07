@@ -8,12 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>LeaseAgreement.SG for Agents</title>
     
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
-        <link rel="stylesheet" href="css/calendar.min.css">
-        <link rel="stylesheet" href="css/custom.css">
-
+        <% include partials/boilerLinks.ejs %>
 
         <script src="https://cdn.tiny.cloud/1/tcu7wzuijq2kr1cmlp0pzf3o79z4k3qap72crqx8yzfbwc78/tinymce/5/tinymce.min.js"></script>
 
@@ -36,17 +31,7 @@
     </head>
     <body>
     
-        <!-- Navbar by Semantic UI -->
-        <div class="ui fixed inverted menu">
-            <div class="container ui">
-                <div class="header item">
-                    LexKnights
-                </div>
-            <a href="#" class="item">Records</a>;
-            <a href="#" class="item">New LOI</a>
-            </div>
-        </div>
-        <!-- END of Navbar -->
+        <% include partials/navbar.ejs %>
 
         <!-- Download PDF -->
 
@@ -54,16 +39,16 @@
 
         <!-- END of Download PDF -->
 
-       <form action="/pdftest" method='POST'>
+       <form action="/records/<%= loi.id %>?_method=PUT" method="POST">
         <input type="submit">
-        <textarea name='testMCE'>
+        <textarea name='opp[fullText]'>
             <p style="margin: 0cm -1.2pt 2.85pt -1.45pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
                 data-mce-style="margin: 0cm -1.2pt 2.85pt -1.45pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                 <span style="position: relative; z-index: 251659264;" data-mce-style="position: relative; z-index: 251659264;"><span
                         style="position: absolute; left: -10px; top: -5px; width: 58px; height: 51px;"
                         data-mce-style="position: absolute; left: -10px; top: -5px; width: 58px; height: 51px;"><img
-                            src="img/propnexLogo.png" width="58" height="51"></span></span>&nbsp;</p>
+                            src="/img/propnexLogo.png" width="58" height="51"></span></span>&nbsp;</p>
             <p style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="center"
                 data-mce-style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
@@ -570,16 +555,13 @@
         </textarea>
     </form>
 
-    <!-- Boostrap, JQuery & Custom Scripts -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/semantic.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script type="text/javascript" src="js/calendar.min.js"></script>
-    <script>
+    <% include partials/boilerScripts.ejs %>
+
+    <!-- <script>
         $("#pdf").click(function(){
             var htmlInput = tinymce.activeEditor.getContent();
             $.post("/pdftest", {testObj: htmlInput});
         })
-    </script>
+    </script> -->
 </body>
 </html>

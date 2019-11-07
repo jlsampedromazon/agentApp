@@ -8,32 +8,21 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>LeaseAgreement.SG for Agents</title>
     
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
-        <link rel="stylesheet" href="css/calendar.min.css">
-        <link rel="stylesheet" href="css/custom.css">
+        <% include partials/boilerLinks.ejs %>
+        
+        <link rel="stylesheet" href="/css/calendar.min.css">
+
 
     </head>
     <body>
     
-        <!-- Navbar by Semantic UI -->
-        <div class="ui fixed inverted menu">
-            <div class="container ui">
-                <div class="header item">
-                    LexKnights
-                </div>
-            <a href="#" class="item">Records</a>;
-            <a href="#" class="item">New LOI</a>
-            </div>
-        </div>
-        
+        <% include partials/navbar.ejs %>
 
     <div class="ui main text container segment">
         
         <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> New LOI</div>
 
-        <form class="ui form" action="/edit" method="POST">
+        <form id="newForm" class="ui form" action="/records" method="POST">
 
 
             <!-- Property Address -->
@@ -103,7 +92,7 @@
             
             <div class="field">
                     <label for="opp[startDate]"><i class="fa fa-calendar"></i>  Lease Start Date:</label>
-                    <div class="ui calendar" id="example1">
+                    <div class="ui calendar" id="ical">
                             <div class="ui input icon ">
                               <input type="text" placeholder="Enter Start Date..." name="opp[startDate]">
                             </div>
@@ -132,11 +121,16 @@
     </div>
 
     <!-- Boostrap, JQuery & Custom Scripts -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/semantic.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script type="text/javascript" src="js/calendar.js"></script>
-    <script>$('#example1').calendar({type: 'date'});</script>
+
+    <% include partials/boilerScripts.ejs %>
+
+    <script type="text/javascript" src="../js/calendar.js"></script>
+    <script>
+    $('#ical').calendar({type: 'date'});
+    $( "#newForm" ).submit(function(event) {
+        $(this).append('<input type="hidden" name="opp[fullText]" value="empty"/>');
+    });    
+</script>
 
 </body>
 </html>
