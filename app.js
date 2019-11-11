@@ -102,13 +102,14 @@ app.get("/records", function(req,res){
     })
 })
 
-// CREATE ROUTE
+// SHOW FORM - CREATE NEW TERMS (GET)
 
 app.get("/records/new", function(req,res) {
     res.render("new");
 })
 
-// NEW ROUTE - save input from new entry form show me all content again
+
+// EXECUTE - CREATE NEW TERMS (POST)
 app.post("/records", function(req,res){
 
     console.log(req.body);
@@ -123,7 +124,8 @@ app.post("/records", function(req,res){
     })
 })
 
-// SHOW ROUTE - show me more details about an entry
+
+// SHOW RECORD
 
 app.get("/records/:id", function(req,res){
     Loi.findById(req.params.id, function(err, foundLoi){
@@ -136,7 +138,7 @@ app.get("/records/:id", function(req,res){
 })
 
 
-// EDIT ROUTE
+// SHOW FORM - EDIT NEW TEXT (GET)
     app.get("/records/:id/editnew", function(req,res) {
 
         Loi.findById(req.params.id, function(err, foundLoi){
@@ -146,27 +148,11 @@ app.get("/records/:id", function(req,res){
                 res.render("edit", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
             }
         })
-
-        // var testDate = new Date("October 13, 2014");
-        // var testLoi = {
-        //     _id: "5dc10945014fda20f790ded1",
-        //     address: "33 Rochester Drive",
-        //     landlordName: "Jose Sampedro Mazon",
-        //     landlordId: "039348u",
-        //     tenantName: "Elena Mazon Heras",
-        //     tenantId: "837456H",
-        //     rentAmount: "3000",
-        //     leasePeriod: "24",
-        //     bank: "UOB",
-        //     account: "456-654-321",
-        //     startDate: testDate,
-        //     __v:0
-        //     }
-        
-            // res.render("edit", {loi: testLoi, moment: moment, numFormat: numFormat, numConverter: numConverter});
     })
 
-// UPDATE ROUTE - save edit input and show me the edited entry
+
+// EXECUTE - EDIT NEW TEXT (PUT)
+
 app.put("/records/:id", function(req,res){
 
     Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
@@ -177,6 +163,48 @@ app.put("/records/:id", function(req,res){
         }
     })
 }) 
+
+// SHOW FORM - UPDATE EXISTING TERMS (GET)
+
+app.get("/records/:id/update-terms", function(req,res) {
+    Loi.findById(req.params.id, function(err, foundLoi){
+        if (err) {
+            res.redirect("/records");
+        } else {
+            res.render("update-terms", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+        }
+    })
+})
+
+// EXECUTE - UPDATE EXISTING TERMS (PUT)
+
+app.put("/records/:id/update-terms", function(req,res){
+
+    Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+        if (err) {
+            res.redirect("/records");
+        } else {
+            console.log("Todo Correcto");
+            res.redirect("/records/"+req.params.id+"/update-text");
+        }
+    })
+}) 
+
+
+// SHOW FORM - UPDATE EXISTING TEXT (GET)
+app.get("/records/:id/update-text", function(req,res) {
+
+    Loi.findById(req.params.id, function(err, foundLoi){
+        if (err) {
+            console.log(err);
+            res.redirect("/records");
+        } else {
+            res.render("update-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+        }
+    })
+})
+
+
 // GENERATE PDF
 
 app.post("/generate-pdf", function(req,res){

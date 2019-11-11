@@ -118,10 +118,10 @@
             <p style="margin: 0cm 0cm 0.7pt -0.75pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.7pt -0.75pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>To: <span style="text-transform: uppercase"><%= loi.landlordName %></span></strong></p>
+                <strong>To: <span class="spanLandlordName" style="text-transform: uppercase"><%= loi.landlordName %></span></strong></p>
             <p style="margin: 0cm 0cm 0.0001pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 data-mce-style="margin: 0cm 0cm 0.0001pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>ID No.: <span style="text-transform: uppercase"><%= loi.landlordId %></span></strong></p>
+                <strong>ID No.: <span class="spanLandlordId" style="text-transform: uppercase"><%= loi.landlordId %></span></strong></p>
             <p style="margin: 0cm 0cm 0.7 -0.75pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
@@ -141,7 +141,7 @@
             <p style="margin: 0cm 0cm 0.7pt -0.25pt; text-align: left; line-height: 107%; text-indent: -0.5pt; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.7pt -0.25pt; text-align: left; line-height: 107%; text-indent: -0.5pt; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>RE: <span style="text-transform: uppercase"><%= loi.address %></span></strong></p>
+                <strong>RE: <span id="spanAddress" style="text-transform: uppercase"><%= loi.address %></span></strong></p>
             <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
@@ -149,33 +149,31 @@
             <p style="margin: 0cm 0cm 10.8pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 data-mce-style="margin: 0cm 0cm 10.8pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                 <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="I’m"
-                    data-mce-index="13">I’m</span> are pleased to inform you that <span class="mce-spellchecker-word"
-                    aria-invalid="spelling" data-mce-bogus="1" data-mce-word="M" data-mce-index="14">M</span>.
-                <strong><span style="text-transform: uppercase"><%= loi.tenantName %></span></strong><strong> (ID NO. <%= loi.tenantId %>) </span></strong>have indicated the
+                    data-mce-index="13">I’m</span> are pleased to inform you that <strong><span class="spanTenantName" style="text-transform: uppercase"><%= loi.tenantName %></span></strong><strong> (ID NO. <span id="spanTenantId"><%= loi.tenantId %></span>) </span></strong>have indicated the
                 intention to lease the above premises based on the following terms and conditions and subject to contract.</p>
             <ol style="margin-bottom: 0cm; margin-top: 0px;" data-mce-style="margin-bottom: 0cm; margin-top: 0px;">
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Rental</strong>: Singapore Dollars <strong><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</strong> <span class="mce-spellchecker-word"
+                    <strong>Rental</strong>: Singapore Dollars <strong><span class='spanRentAmount'><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</span></strong> <span class="mce-spellchecker-word"
                         aria-invalid="spelling" data-mce-bogus="1" data-mce-word="er" data-mce-index="21">per</span> month exclusive
                     of maintenance charges &amp; <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1"
-                        data-mce-word="GST" data-mce-index="22">GST</span> (if any), payable monthly in advance.<% if (loi.diplo == "yes") { %> The Diplomatic
+                        data-mce-word="GST" data-mce-index="22">GST</span> (if any), payable monthly in advance. <span class="spanDiplo"><% if (loi.diplo == "yes") { %> The Diplomatic
                     clause shall be applicable after <strong>TWELVE (12) months</strong> of occupation by the Tenant giving
                     <strong>TWO (2) </strong>calendar month’s notice or <strong>TWO (2) </strong>months rent in lieu of
-                    notice.<% } %></li>
+                    notice.<% } %></span></li>
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Period of Lease</strong>: <strong><span style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %></span> (<%= loi.leasePeriod %>) months</strong> with an option to renew for another
+                    <strong>Period of Lease</strong>: <strong><span class="spanLeasePeriod"><span style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %></span> (<%= loi.leasePeriod %>)</span> months</strong> with an option to renew for another
                     <strong> TWELVE (12) months</strong> at a mutually agreed rental by both parties concerned.</li>
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Commencement Date</strong>: The lease shall commence on the <strong><%= moment(loi.startDate).format('Do MMMM YYYY') %></strong>.</li>
+                    <strong>Commencement Date</strong>: The lease shall commence on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong>.</li>
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                     <strong><span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Handover"
                             data-mce-index="27">Handover</span> Date</strong>: The <span class="mce-spellchecker-word"
                         aria-invalid="spelling" data-mce-bogus="1" data-mce-word="handover" data-mce-index="28">handover</span> of
-                    the property shall be on the <strong><%= moment(loi.startDate).format('Do MMMM YYYY') %></strong>.</li>
+                    the property shall be on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong>.</li>
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                     <strong>Security Deposit</strong>: Equivalent to <strong>TWO (2) month's</strong> rental to be paid on or
@@ -229,14 +227,14 @@
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                     <strong>“Good Faith” Deposit</strong>: The tenant hereby makes a good faith deposit payment in the amount
-                    of Singapore Dollars <strong><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>) to <%= loi.landlordName %> at <%= loi.bank %> account <%= loi.account %></strong>. This good faith deposit shall form the first month advance
+                    of Singapore Dollars <strong><span class='spanRentAmount'><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</span> to <span class="spanLandlordName"><%= loi.landlordName %></span> at <%= loi.bank %> account <%= loi.account %></strong>. This good faith deposit shall form the first month advance
                     rental upon execution of the Tenancy Agreement.</li>
                 <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                     data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
                     <strong>Furniture, Fixtures &amp; Fittings</strong>:&nbsp; The Landlord shall provide the following:<ol
                         style="list-style-type: lower-roman; list-style-position: outside; margin-top: 12.5pt; margin-bottom: 12.5pt;"
                         data-mce-style="list-style-type: lower-roman; margin-top: 0cm; margin-bottom: 12.5pt;">
-                        <li style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
+                        <li style="margin: 12.5pt 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
                             data-mce-style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;">
                             To general clean and ensure fitted electrical appliances in good working condition.</li>
                         <li style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
@@ -251,7 +249,7 @@
                         data-mce-index="39">handover</span>:&nbsp;<ol
                         style="list-style-type: lower-roman; list-style-position: outside; margin-top: 12.5pt; margin-bottom: 12.5pt;"
                         data-mce-style="list-style-type: lower-roman; margin-top: 0cm; margin-bottom: 12.5pt;">
-                        <li style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
+                        <li style="margin: 12.5pt 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
                             data-mce-style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;">
                             Premises to be cleaned including all cabinets/wardrobes interior and all windows and to be in good move in condition.</li>
                         <li style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
@@ -391,13 +389,13 @@
                             data-mce-style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <%= loi.tenantName %></span></p>
+                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <span class="spanTenantName"><%= loi.tenantName %></span></span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
                                     data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <%=loi.tenantId %></span></p>
+                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <span class="spanTenantId"><%=loi.tenantId %></span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
                                     data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
@@ -423,7 +421,7 @@
         <div style="page-break-before:always;">
             <h1 style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;"
             data-mce-style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;">
-                ********** LANDLORD ACCEPTANCE COPY **********</h1>
+                LANDLORD ACCEPTANCE COPY</h1>
             <p style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="center"
                 data-mce-style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
@@ -435,7 +433,7 @@
             <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
                 align="left"
                 data-mce-style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                I, <strong><%= loi.landlordName %></strong>(ID No.: <%= loi.landlordId %>) hereby accept the offer to lease the
+                I, <strong><span class="spanLandlordName"><%= loi.landlordName %></span></strong>(ID No.: <span class="spanLandlordId"><%= loi.landlordId %></span>) hereby accept the offer to lease the
                 above-mentioned premises on the terms and conditions mentioned in the Letter of Intent.</p>
             <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-align: center;"
                 align="left"
@@ -514,13 +512,13 @@
                             data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;">
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <%= loi.landlordName %></span></p>
+                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <span class="spanLandlordName"><%= loi.landlordName %></span></span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
                                     data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <%= loi.landlordId %></span></p>
+                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <span class="spanLandlordId"><%= loi.landlordId %></span></span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
                                     data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
@@ -535,13 +533,13 @@
                             data-mce-style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <%= loi.tenantName %></span></p>
+                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: </span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
                                     data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <%=loi.tenantId %></span></p>
+                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: </span></p>
                             <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
                                 data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
                                     data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>

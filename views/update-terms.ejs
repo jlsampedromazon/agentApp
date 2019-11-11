@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>LeaseAgreement.SG for Agents</title>
+    
+        <% include partials/boilerLinks.ejs %>
+        
+        <link rel="stylesheet" href="/css/calendar.min.css">
+
+
+    </head>
+    <body>
+    
+        <% include partials/navbar.ejs %>
+
+    <div class="ui main text container segment">
+        
+        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> Update LOI</div>
+
+        <form id="updateForm" class="ui form" action="/records/<%= loi._id %>/update-terms?_method=PUT" method="POST">
+
+            <!-- Property Address -->
+
+            <div class="field">
+                <label for="opp[address]">Property Address:</label>
+                <input type="text" value="<%= loi.address %>" name="opp[address]">
+            </div>
+
+            <!-- Landlord Name -->
+
+            <div class="field">
+                <label for="opp[landlordName]">Landlord's Name:</label>
+                <input type="text" value="<%= loi.landlordName %>" name="opp[landlordName]">
+            </div>
+
+            <!-- Landlord ID -->
+
+            <div class="field">
+                <label for="opp[landlordId]">Landlord's ID Number:</label>
+                <input type="text" value="<%= loi.landlordId %>" name="opp[landlordId]">
+            </div>
+
+            <!-- Tenant Name -->
+
+            <div class="field">
+                <label for="opp[tenantName]">Tenant's Name:</label>
+                <input type="text" value="<%= loi.tenantName %>" name="opp[tenantName]">
+            </div>
+
+            <!-- Tenant ID -->
+
+            <div class="field">
+                <label for="opp[tenantId]">Tenant's ID Number:</label>
+                <input type="text" value="<%= loi.tenantId %>" name="opp[tenantId]">
+            </div>
+            
+            <!--Monthly Rent  -->
+            
+            <div class="field">
+                <label for="opp[rentAmount]">Monthly Rent (S$):</label>
+                <input type="text" value="<%= loi.rentAmount %>" name="opp[rentAmount]">
+            </div>
+                        
+            <!--Bank Name  -->
+            
+            <div class="field">
+                    <label for="opp[bank]">Landlord's Bank Name:</label>
+                    <input type="text" value="<%= loi.bank %>" name="opp[bank]">
+            </div>
+                        
+            <!--Bank Account  -->
+            
+            <div class="field">
+                    <label for="opp[account]">Landlord's Bank Acct. No.:</label>
+                    <input type="text" value="<%= loi.account %>" name="opp[account]">
+                </div>    
+                
+            <!-- Lease Period -->
+            
+            <div class="field">
+                <label for="opp[leasePeriod]">Period of Lease (in months):</label>
+                <input type="text" value="<%= loi.leasePeriod %>" name="opp[leasePeriod]">
+            </div>
+            
+            <!-- Start Date -->
+            
+            <div class="field">
+                    <label for="opp[startDate]"><i class="fa fa-calendar"></i>  Lease Start Date:</label>
+                    <div class="ui calendar" id="ical2">
+                            <div class="ui input icon ">
+                              <input type="text" value="<%= moment(loi.startDate).format('Do MMMM YYYY') %>" name="opp[startDate]">
+                            </div>
+                    </div>
+            </div>
+    
+            <!-- Diplomatic Clause -->
+
+            <div class="ui segment">
+                <div class="field">
+                  <div class="ui toggle checkbox">
+                    <input type="checkbox" name="opp[diplo]" value="yes" <% if (loi.diplo === "yes") {%> checked <% } %>>
+                    <label>Diplomatic Clause</label>
+                  </div>
+                </div>
+            </div>
+
+            <div id="submitDiv">
+
+                <input id="btnSubmitNew" class="ui violet basic button big" type="submit">
+
+            </div>
+            
+        </form>
+    
+    </div>
+
+    <!-- Boostrap, JQuery & Custom Scripts -->
+
+    <% include partials/boilerScripts.ejs %>
+
+    <script type="text/javascript" src="/js/calendar.js"></script>
+    <script>
+    $('#ical2').calendar({type: 'date'});
+    </script>
+
+</body>
+</html>
