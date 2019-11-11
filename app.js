@@ -97,7 +97,7 @@ app.get("/records", function(req,res){
         if (err) {
             console.log(err);
         } else {
-            res.render('records', {lois: lois})
+            res.render('records', {lois: lois, moment: moment, numFormat: numFormat, numConverter: numConverter})
         }
     })
 })
@@ -179,15 +179,17 @@ app.put("/records/:id", function(req,res){
 }) 
 // GENERATE PDF
 
-// app.post("/pdftest", function(req,res){
-//     var htmlToConvert = req.body['testMCE'];
+app.post("/generate-pdf", function(req,res){
+    // console.log(req.body.opp.fullText);
 
-//     a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
-//         console.log(result);
-//         pdfWeb = result.pdf;
-//         res.redirect(pdfWeb);
-//     });
-// })
+    var htmlToConvert = req.body.opp.fullText;
+
+    a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
+        console.log(result);
+        pdfWeb = result.pdf;
+        res.redirect(pdfWeb);
+    });
+})
 // // PATH TO TEST TINYMCE SAVE
 
 //     app.post("/test", function(req,res){

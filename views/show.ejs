@@ -17,14 +17,20 @@
 
     <% include partials/navbar.ejs %>
 
+    <div id="showButtons">
+        <a href="/records" class="ui black button showButton"><i class="fa fa-chevron-left"></i> &nbsp All Records</a>
+        <a href="/records/<%= loi._id %>/edit-terms" class="ui orange button showButton"><i class="fa fa-edit"></i> &nbsp Edit LOI</a>
+        <form id="requestPdf" action="/generate-pdf" method="POST">
+            <input id="hiddenText" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
+            <button class="ui red button"><i class="fa fa-download"></i> &nbsp Download PDF</button>
+        </form>
+    </div>
 
-    <div class="ui main text container segment">
+    <div class="ui main text container segment" id="showWindow">
         <%- loi.fullText %>
     </div>  
 
-
     <% include partials/boilerScripts.ejs %>
-
 
 </body>
 
