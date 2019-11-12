@@ -111,8 +111,6 @@ app.get("/records/new", function(req,res) {
 
 // EXECUTE - CREATE NEW TERMS (POST)
 app.post("/records", function(req,res){
-
-    console.log(req.body);
     
     Loi.create(req.body.opp, function(err, newLoi){
         if (err) {
@@ -162,6 +160,8 @@ app.put("/records/:id", function(req,res){
             res.redirect("/records/"+req.params.id);
         }
     })
+
+    console.log('PUT executed');
 }) 
 
 // SHOW FORM - UPDATE EXISTING TERMS (GET)
@@ -182,22 +182,33 @@ app.put("/records/:id/update-terms", function(req,res){
 
     Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
         if (err) {
-            res.redirect("/records");
+            res.redirect("/records/"+req.params.id+"/update-terms");
         } else {
-            console.log("Todo Correcto");
-            res.redirect("/records/"+req.params.id+"/update-text");
+            res.redirect("/records/"+req.params.id+"/edited-text");
         }
     })
 }) 
 
 
-// SHOW FORM - UPDATE EXISTING TEXT (GET)
+// SHOW OUTPUT - EDITED TEXT AFTER TERMS UPDATE (GET)
+app.get("/records/:id/edited-text", function(req,res) {
+
+    Loi.findById(req.params.id, function(err, foundLoi){
+        if (err) {
+            res.redirect("/records/"+req.params.id+"/update-terms");
+        } else {
+            res.render("edited-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+        }
+    })
+})
+
+// SHOW FORM - UPDATE EXISTING TEXT AFTER TERMS UPDATE (GET)
 app.get("/records/:id/update-text", function(req,res) {
 
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             console.log(err);
-            res.redirect("/records");
+            res.redirect("/records/"+req.params.id+"/edited-text");
         } else {
             res.render("update-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
         }
@@ -218,23 +229,9 @@ app.post("/generate-pdf", function(req,res){
         res.redirect(pdfWeb);
     });
 })
-// // PATH TO TEST TINYMCE SAVE
-
-//     app.post("/test", function(req,res){
-//         res.send(req.body['testMCE']);
-//         console.log(req.body);
-//     })
-
-    // app.get("/test", function(req,res){
-    //     // res.redirect('https://media.api2pdf.com/98fbab80-0116-11ea-bb0c-3f12940cb437?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJSHKEFTKBQX2AUYQ%2F20191107%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20191107T042515Z&X-Amz-Expires=86400&X-Amz-Signature=97927488a1d81d826895469fe9a5441dec2b83f0947ce08b3f558006da174b08&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%2298fbab80-0116-11ea-bb0c-3f12940cb437.pdf%22&response-content-type=application%2Fpdf')
-    //     res.redirect('http://www.google.com/');
-    // })
 
 
-
-
-
-
+    // // // // // // // 
 
 
 // SECRET ROUTE

@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>LeaseAgreement.SG for Agents</title>
+    
+        <% include partials/boilerLinks.ejs %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LeaseAgreement.SG for Agents</title>
+        <script src="https://cdn.tiny.cloud/1/tcu7wzuijq2kr1cmlp0pzf3o79z4k3qap72crqx8yzfbwc78/tinymce/5/tinymce.min.js"></script>
 
-    <% include partials/boilerLinks.ejs %>
+        <script>
+            tinymce.init({
+            selector: 'textarea',
+            height: '100vh',
+            theme: 'silver',
+            plugins:  'autosave lists autolink save',
+            toolbar:  'undo bold italic styleselect save',
+            mobile: {
+                theme: 'mobile',
+                plugins:  'autosave lists autolink save',
+                toolbar:  'undo bold italic styleselect save' 
+            }
+        
+            });
+        </script>
 
-</head>
+    </head>
+    <body>
+    
+        <% include partials/navbar.ejs %>
 
-<body>
-
-    <% include partials/navbar.ejs %>
-
-    <div id="showButtons">
-        <a href="/records" class="ui black button showButton"><i class="fa fa-chevron-left"></i> &nbsp All Records</a>
-        <a href="/records/<%= loi._id %>/update-terms" class="ui orange button showButton"><i class="fa fa-edit"></i> &nbsp Edit LOI</a>
-        <form id="requestPdf" action="/generate-pdf" method="POST">
-            <input id="hiddenText" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button class="ui red button"><i class="fa fa-download"></i> &nbsp Download PDF</button>
+        <form action="/records/<%= loi.id %>?_method=PUT" method="POST">
+            <input type="submit">
+            <textarea name='opp[fullText]'>
+                <%= loi.fullText %>
+            </textarea>
         </form>
-    </div>
+        
+        <% include partials/boilerScripts.ejs %>
 
-    <div class="ui main text container segment" id="showWindow">
-        <%- loi.fullText %>
-    </div>  
-
-    <% include partials/boilerScripts.ejs %>
-
-    <script>
-        $(".spanLandlordName").text("<%= loi.landlordName %>");
-        $(".spanLandlordId").text("<%= loi.landlordId %>");
-        $(".spanTenantName").text("<%= loi.tenantName %>");
-        $(".spanTenantId").text("<%= loi.tenantId %>");
-        $(".spanAddress").text("<%= loi.address %>");
-        $(".spanRentAmount").html('<span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)');
-        $(".spanLeasePeriod").text('<span style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %></span> (<%= loi.leasePeriod %>)');
-        $(".spanBank").text("<%= loi.bank %>");
-        $(".spanAccount").text("<%= loi.account %>");
-        $(".spanStartDate").text("<%= moment(loi.startDate).format('Do MMMM YYYY') %>");
-    </script>
-
-</body>
-
+    </body>
 </html>

@@ -18,20 +18,26 @@
     <% include partials/navbar.ejs %>
 
 
-    <div class="ui main text container">
+    <div class="ui main text container mainDiv">
         <h1 id="recordsHead">WELCOME!</h1>
-
+        
         <% lois.forEach(function(loi){ %>
-
-            <div class="ui segment container record">            
-                <h3><i class="fa fa-home"></i> <%= loi.address %></h2>
-                <div id="keyInfo">
-                    <h5 class="tenantInfo"><i class="fa fa-user"></i> <%= loi.tenantName %></h5>
-                    <p class="rentInfo"><i class="fa fa-money"> </i> <%- numFormat(loi.rentAmount) %></p>
-                </div>
-                <div id="recordOptions">
-                    <a href="/records/<%= loi._id %>">Show</a>
-                </div>
+    
+            <div class="ui segment container record" onclick="divClick('<%= loi._id %>')">
+                <h3><i class="fa fa-home"></i> <%= loi.address %></h3>
+                
+                <table id="keyInfo">
+                    <colgroup>
+                        <col width="70%">
+                        <col width="30%">    
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td class="tenantInfo"><h5><i class="fa fa-user"></i> <%= loi.tenantName %></h5></td>
+                            <td class="rentInfo"><p><i class="fa fa-money"> </i> <%- numFormat(loi.rentAmount) %></p></td>
+                        </tr>
+                    </tbody>
+                </table>            
             </div>
 
         <% }) %>
@@ -40,6 +46,13 @@
 
     <% include partials/boilerScripts.ejs %>
 
+    <script>
+        
+        function divClick(i) {
+            location.href = "/records/"+i;
+        }
+        
+    </script>
 
 </body>
 
