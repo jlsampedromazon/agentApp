@@ -35,515 +35,144 @@
 
     <form action="/records/<%= loi.id %>?_method=PUT" method="POST">
         <button class="ui green button btnFinalize"><i class="fa fa-check"></i> &nbsp Finalize</button>
-        <textarea name='opp[fullText]'>
-                <p style="margin: 0cm -1.2pt 2.85pt -1.45pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    align="left"
-                    data-mce-style="margin: 0cm -1.2pt 2.85pt -1.45pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    &nbsp;<span style="position: relative; z-index: 251659264;" data-mce-style="position: relative; z-index: 251659264;"><span
-                            style="position: absolute; left: -10px; top: -5px; width: 58px; height: 51px;"
-                            data-mce-style="position: absolute; left: -10px; top: -5px; width: 58px; height: 51px;"><img
-                                src="data:image/png;base64,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" width="58" height="51"></span></span>&nbsp;</p>
-            <p style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong><span style="font-size: 11.0pt; line-height: 107%;"
-                        data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></strong></p>
-            <p style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong><span style="font-size: 11.0pt; line-height: 107%;"
-                        data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></strong></p>
-            <p style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong><span style="font-size: 11.0pt; line-height: 107%;"
-                        data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></strong></p>
-            <div style="border: none; border-bottom: solid windowtext 1.0pt; padding: 0cm 0cm 1.0pt 0cm; margin-left: 0cm; margin-right: .05pt;"
-                data-mce-style="border: none; border-bottom: solid windowtext 1.0pt; padding: 0cm 0cm 1.0pt 0cm; margin-left: 0cm; margin-right: .05pt;">
-                <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; border: none; padding: 0cm; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    align="left"
-                    data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; border: none; padding: 0cm; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <span style="font-size: 8.0pt; line-height: 107%;" data-mce-style="font-size: 8.0pt; line-height: 107%;">480
-                        <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Lorong"
-                            data-mce-index="0">Lorong</span> 6 <span class="mce-spellchecker-word" aria-invalid="spelling"
-                            data-mce-bogus="1" data-mce-word="Toa" data-mce-index="1">Toa</span> <span class="mce-spellchecker-word"
-                            aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Payoh" data-mce-index="2">Payoh</span>, #10-01
-                        <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="HDB"
-                            data-mce-index="3">HDB</span> Hub East Wing, Singapore 310480 • Tel: (65) 6820 8000, Fax: (65) 6829
-                        6600</span></p>
-            </div>
-            <p style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong><span style="font-size: 11.0pt; line-height: 107%;"
-                        data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></strong></p>
-            <p style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0.05pt 0.0001pt 0cm; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong><span style="font-size: 11.0pt; line-height: 107%;"
-                        data-mce-style="font-size: 11.0pt; line-height: 107%;">LETTER OF INTENT (RESIDENTIAL) </span></strong></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <span style="font-size: 11.0pt; line-height: 107%;"
-                    data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <span style="font-size: 11.0pt; line-height: 107%;"
-                    data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <span style="font-size: 11.0pt; line-height: 107%;"
-                    data-mce-style="font-size: 11.0pt; line-height: 107%;">&nbsp;</span></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>Date:</strong> <%- moment().format('Do MMMM YYYY') %></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.7pt -0.75pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.7pt -0.75pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>To: <span class="spanLandlordName" style="text-transform: uppercase"><%= loi.landlordName %></span></strong></p>
-            <p style="margin: 0cm 0cm 0.0001pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.0001pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>ID No.: <span class="spanLandlordId" style="text-transform: uppercase"><%= loi.landlordId %></span></strong></p>
-            <p style="margin: 0cm 0cm 0.7 -0.75pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.0001pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.0001pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                Dear Sir/<span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Mdm"
-                    data-mce-index="11">Mdm</span>,</p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.7pt -0.25pt; text-align: left; line-height: 107%; text-indent: -0.5pt; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.7pt -0.25pt; text-align: left; line-height: 107%; text-indent: -0.5pt; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>RE: <span class="spanAddress" style="text-transform: uppercase"><%= loi.address %></span></strong></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 10.8pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 10.8pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="I’m"
-                    data-mce-index="13">I’m</span> are pleased to inform you that <strong><span class="spanTenantName" style="text-transform: uppercase"><%= loi.tenantName %></span></strong><strong> (ID NO. <span id="spanTenantId"><%= loi.tenantId %></span>) </span></strong>have indicated the
-                intention to lease the above premises based on the following terms and conditions and subject to contract.</p>
-            <ol style="margin-bottom: 0cm; margin-top: 0px;" data-mce-style="margin-bottom: 0cm; margin-top: 0px;">
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Rental</strong>: Singapore Dollars <strong><span class='spanRentAmount'><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</span></strong> <span class="mce-spellchecker-word"
-                        aria-invalid="spelling" data-mce-bogus="1" data-mce-word="er" data-mce-index="21">per</span> month exclusive
-                    of maintenance charges &amp; <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1"
-                        data-mce-word="GST" data-mce-index="22">GST</span> (if any), payable monthly in advance. <span id="spanDiplo"><% if (loi.diplo == "yes") { %> The Diplomatic
-                    clause shall be applicable after <strong>TWELVE (12) months</strong> of occupation by the Tenant giving
-                    <strong>TWO (2) </strong>calendar month’s notice or <strong>TWO (2) </strong>months rent in lieu of
-                    notice.<% } %></span></li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Period of Lease</strong>: <strong><span class="spanLeasePeriod"><span style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %></span> (<%= loi.leasePeriod %>)</span> months</strong> with an option to renew for another
-                    <strong> TWELVE (12) months</strong> at a mutually agreed rental by both parties concerned.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Commencement Date</strong>: The lease shall commence on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong>.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong><span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Handover"
-                            data-mce-index="27">Handover</span> Date</strong>: The <span class="mce-spellchecker-word"
-                        aria-invalid="spelling" data-mce-bogus="1" data-mce-word="handover" data-mce-index="28">handover</span> of
-                    the property shall be on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong>.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Security Deposit</strong>: Equivalent to <strong>TWO (2) month's</strong> rental to be paid on or
-                    before execution of the Tenancy Agreement.&nbsp; Security Deposit will be refunded to the tenant within fourteen
-                    (14) days after the lease expiry,&nbsp; provided no repair &amp;/or renovation works to be done thereafter in
-                    the event they were not made good by the tenant.&nbsp; Security Deposit is not allowed for off-setting
-                    of the monthly rental.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Minor Repair</strong>: All minor repairs below <strong>S$150.00</strong> per item shall be borne
-                    by the Tenant.&nbsp; Should the cost exceed <strong>S$150.00</strong> per repair the balance cost shall
-                    be borne by the Landlord. However, for the first 30 days of the tenancy term, the Landlord shall be fully
-                    responsible for all repairs.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Stamp Fees</strong>: The cost of stamping the tenancy agreement to be borne by the Tenant.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Legal Costs</strong>: Each party to bear its own legal cost for preparation of the tenancy agreement, if
-                    any.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Power Supply / Telephone &amp; Cable TV Charges</strong>: The Tenant shall be responsible for all
-                    charges for services supplied by <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1"
-                        data-mce-word="SP" data-mce-index="30">SP</span> Services, Power Gas, <span class="mce-spellchecker-word"
-                        aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Singtel" data-mce-index="31">Singtel</span> and
-                    <span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Starhub"
-                        data-mce-index="32">Starhub</span>.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Air-con Servicing</strong>: The Landlord shall carry out the initial servicing to all air-conditioning
-                    units and to ensure all problems (if any) are rectified prior to the commencement of lease. Quarterly servicing
-                    of air-con to be borne by the Tenant.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Electrical, plumbing and sanitary</strong>: The Landlord shall ensure all electrical, plumbing and
-                    sanitary fixtures and fittings are in good working condition.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Due Diligence</strong>: Prior to the execution of the Tenancy Agreement, the Tenant shall produce all
-                    relevant documents to verify that the Tenants/Permitted Occupiers are not prohibited immigrants under the
-                    provisions of the Immigration Act.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Tenancy Matters</strong>: Tenancy is subject to contract and formal Tenancy Agreement must be finalized
-                    and signed by the Landlord and the Tenant within <strong>SEVEN (07) days</strong> from
-                    the date of acceptance of this letter by the Landlord.&nbsp; In the event that the terms and conditions in the
-                    Tenancy Agreement cannot be agreed upon by both parties within the stipulated time, the Landlord shall forthwith
-                    return the good faith deposit to the Tenant without any deduction or interest thereafter neither party shall
-                    have any claim against the other.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>“Good Faith” Deposit</strong>: The tenant hereby makes a good faith deposit payment in the amount
-                    of Singapore Dollars <strong><span class='spanRentAmount'><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</span> to <span class="spanLandlordName"><%= loi.landlordName %></span> at <span id="spanBank"><%= loi.bank %></span> account <span id="spanAccount"><%= loi.account %></span></strong>. This good faith deposit shall form the first month advance
-                    rental upon execution of the Tenancy Agreement.</li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Furniture, Fixtures &amp; Fittings</strong>:&nbsp; The Landlord shall provide the following:<ol
-                        style="list-style-type: lower-roman; list-style-position: outside; margin-top: 12.5pt; margin-bottom: 12.5pt;"
-                        data-mce-style="list-style-type: lower-roman; margin-top: 0cm; margin-bottom: 12.5pt;">
-                        <li style="margin: 12.5pt 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
-                            data-mce-style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;">
-                            To general clean and ensure fitted electrical appliances in good working condition.</li>
-                        <li style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
-                            data-mce-style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;">
-                            To remove any furniture.</li>
+        <textarea id="mainMCE" name='opp[fullText]'>
+            <img src="data:image/png;base64,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" width="58" height="51"></span></span>&nbsp;</p>
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 10px">480 Lorong 6 Toa Payoh, #10-01 HDB Hub East Wing, Singapore 310480 • Tel: (65) 6820 8000, Fax: (65) 6829 6600</p>
+            <hr>
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 14px; text-align:center; font-weight: bolder; text-decoration: underline">LETTER OF INTENT (RESIDENTIAL)</p>
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>Date: <%- moment().format('Do MMMM YYYY') %></strong></p>
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>To: <span class="spanLandlordName"><%= loi.landlordName %></span></strong></p> 
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>ID Number: <span class="spanLandlordId"><%= loi.landlordId %></span></strong></p>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><em>(the "<strong>Landlord</strong>")</em></p>
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 12px">Dear Sir/Mdm,</p>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>RE: <span class="spanAddress" style="text-transform: uppercase"><%= loi.address %></span></strong>)</p>
+            <p style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">I am pleased to inform you that <strong><span class="spanTenantName" style="text-transform: uppercase"><%= loi.tenantName %></span> (ID NO. <span class="spanTenantId" style="text-transform: uppercase"><%= loi.tenantId %></span>)</strong> indicated the intention to lease the above premises based on the following terms and conditions and subject to contract:</p>
+            <ol style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">
+                <li style="margin-bottom: 12px;"><strong>Rental: </strong>Singapore Dollars <strong><span class="spanRentAmount" style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %> ONLY (<%- numFormat(loi.rentAmount) %>)</span></strong> per month exclusive of maintenance charges & GST (if any), payable monthly in advance. <span id='spanDiplo'><% if (loi.diplo == "yes") { %>The Diplomatic clause shall be applicable after <strong>TWELVE (12) months</strong> of occupation by the Tenant giving <strong>TWO (2) months</strong> notice or TWO (2) months rent in lieu of notice.<% } %></li>
+                <li style="margin-bottom: 12px;"><strong>Period of Lease: </strong><strong><span class="spanLeasePeriod" style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %> (<%= loi.leasePeriod %>) months</span></strong>with an option to renew for another <strong>TWELVE (12) months</strong> at a mutually agreed rental by both parties concerned.</span></li>
+                <li style="margin-bottom: 12px;"><strong>Commencement Date: </strong>The lease shall commence on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong> <em>(the "<strong>Commencement Date</strong>").</li>
+                <li style="margin-bottom: 12px;"><strong>Handover Date: </strong>The handover of the property shall take place on the Commencement Date.</li>
+                <li style="margin-bottom: 12px;"><strong>Security Deposit: </strong>Equivalent to <strong>TWO (2) month's rental</strong> to be paid on or before execution of the Tenancy Agreement.  Security Deposit will be refunded to the Tenant within <strong>FOURTEEN (14) days</strong> after the lease expiry,  provided no repair and/or renovation works to be done thereafter in the event they were not made good by the Tenant.  Security Deposit is not allowed for off-setting of the monthly rental.</li>
+                <li style="margin-bottom: 12px;"><strong>Minor Repairs: </strong>All minor repairs below <strong>$150.00</strong> per item shall be borne by the Tenant.  Should the cost exceed <strong>$150.00</strong> per repair the balance cost shall be borne by the Landlord. However, for the first 30 days of the tenancy term, the Landlord shall be fully responsible for all repairs.</li>
+                <li style="margin-bottom: 12px;"><strong>Stamp Fees: </strong>The cost of stamping the tenancy agreement to be borne by the Tenant.</li>
+                <li style="margin-bottom: 12px;"><strong>Legal Costs: </strong>Each party to bear its own legal cost for preparation of the tenancy agreement, if any.</li>
+                <li style="margin-bottom: 12px;"><strong>Power Supply / Telephone & Cable TV Charges: </strong>The Tenant shall be responsible for all charges for services supplied by SP Services, Power Gas, Singtel and Starhub.</li>
+                <li style="margin-bottom: 12px;"><strong>Air Conditioning Servicing: </strong>The Landlord shall carry out the initial servicing to all air-conditioning units and to ensure all problems (if any) are rectified prior to the commencement of lease. Quarterly servicing of air-con to be borne by the Tenant.</li>
+                <li style="margin-bottom: 12px;"><strong>Electrical, Plumbing and Sanitary: </strong>The Landlord shall ensure all electrical, plumbing and sanitary fixtures and fittings are in good working condition.</li>
+                <li style="margin-bottom: 12px;"><strong>Due Diligence: </strong>Prior to the execution of the Tenancy Agreement, the Tenant shall produce all relevant documents to verify that the Tenants/Permitted Occupiers are not prohibited immigrants under the provisions of the Immigration Act.</li>
+                <li style="margin-bottom: 12px;"><strong>Tenancy Matters: </strong>Tenancy is subject to contract and formal Tenancy Agreement must be finalized and signed by the Landlord and the Tenant within <strong>SEVEN (7) days</strong> from the date of acceptance of this letter by the Landlord.  In the event that the terms and conditions in the Tenancy Agreement cannot be agreed upon by both parties within the stipulated time, the Landlord shall forthwith return the good faith deposit to the Tenant without any deduction or interest thereafter neither party shall have any claim against the other.</li>
+                <li style="margin-bottom: 12px;"><strong>"Good Faith" Deposit: </strong>The Tenant hereby makes a good faith deposit payment in the amount of Singapore Dollars <strong><span class='spanRentAmount'><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</span> to <span class="spanLandlordName"><%= loi.landlordName %></span> at <span id="spanBank"><%= loi.bank %></span> account <span id="spanAccount"><%= loi.account %></span></strong>. This good faith deposit shall form the first month advance rental upon execution of the Tenancy Agreement.</li>
+                <li style="margin-bottom: 12px;"><strong>Furniture, Fixtures & Fittings: </strong>The Landlord shall provide the following:
+                    <ol style="margin-top: 12px; list-style-type: lower-roman;">
+                        <li style="margin-bottom: 12px;">To general clean and ensure fitted electrical appliances in good working condition.</li>
+                        <li>To remove any furniture.</li>
                     </ol>
                 </li>
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Tenancy Work</strong>:&nbsp; The Landlord shall carry out the following works prior to <span
-                        class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="handover"
-                        data-mce-index="39">handover</span>:&nbsp;<ol
-                        style="list-style-type: lower-roman; list-style-position: outside; margin-top: 12.5pt; margin-bottom: 12.5pt;"
-                        data-mce-style="list-style-type: lower-roman; margin-top: 0cm; margin-bottom: 12.5pt;">
-                        <li style="margin: 12.5pt 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
-                            data-mce-style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;">
-                            Premises to be cleaned including all cabinets/wardrobes interior and all windows and to be in good move in condition.</li>
-                        <li style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;"
-                            data-mce-style="margin: 0cm 0cm 12.5pt 0px; text-align: left; line-height: 110%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-indent: 24px;">
-                            Touch up paint to affected walls, if any.</li>
+                <li style="margin-bottom: 12px;"><strong>Tenancy Work: </strong>The Landlord shall carry out the following works prior to handover:
+                    <ol style="margin-top: 12px; list-style-type: lower-roman;">
+                         <li style="margin-bottom: 12px;">Premises to be cleaned including all cabinets/wardrobes interior and all windows and to be in good move in condition.</li>
+                         <li>Touch up paint to affected walls, if any.</li>
                     </ol>
                 </li>
+                <li style="margin-bottom: 12px;"><strong>Lapse of Offer: </strong>This offer shall lapse within <strong>ONE (1) day</strong> from the date hereof. In the event this offer is not accepted by the stipulated date, any deposit or monies received by the Landlord shall be returned to the Tenant immediately and thereafter neither party shall have any claims against the other.</li>
             </ol>
-            <ol style="margin-bottom: 0cm; margin-top: 0px;" start="17" data-mce-style="margin-bottom: 0cm; margin-top: 0px;">
-                <li style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="margin: 0cm 0cm 12.3pt 0px; text-align: justify; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                    <strong>Lapse Of Offer</strong>: This offer shall lapse within <strong>ONE (1)
-                        day</strong> from the date hereof. In the event this offer is not accepted by the stipulated date, any
-                    deposit or monies received by the Landlord shall be returned to the Tenant immediately and thereafter neither
-                    party shall have any claims against the other.</li>
-            </ol>
-            <p style="margin: 0cm 0cm 12.7pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 12.7pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                Yours faithfully,</p>
-            <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong><span class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="PROPNEX"
-                        data-mce-index="40">PROPNEX</span> REALTY <span class="mce-spellchecker-word" aria-invalid="spelling"
-                        data-mce-bogus="1" data-mce-word="PTE" data-mce-index="41">PTE</span> LTD (“<span
-                        class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="PropNex"
-                        data-mce-index="42">PropNex</span>”) </strong></p>
-            <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <em>(as agreed and confirmed by the Tenant)</em></p>
-            <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>&nbsp;</strong></p>
-            <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <strong>On <%- moment().format('Do MMMM YYYY') %></strong></p>
-            <p style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                data-mce-style="margin: 0cm 0cm 0.35pt 0.5pt; text-align: justify; text-indent: -0.5pt; line-height: 111%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            
-            <table class="MsoTableGrid"
-                style="width: 100%; border-collapse: collapse; border: none; margin-left: 0;" border="1"
-                cellspacing="0" cellpadding="0"
-                data-mce-style="width: 435.35pt; margin-left: auto; border-collapse: collapse; border: none; margin-left: 0;">
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 12px">Yours faithfully,</p>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>PROPNEX REALTY PTE LTD ("PROPNEX")</strong>")</p>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><em>(as agreed and confirmed by the Tenant)</em></p>
+            <br>
+            <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>On <%- moment().format('Do MMMM YYYY') %>:</strong></p>
+            <table style="width: 100%; border: 1px solid black; font-size: 12px;">
+                <colgroup>
+                    <col width="50%">
+                    <col width="50%">    
+                </colgroup>
                 <tbody>
-                    <tr>
-                        <td style="width: 217.65pt; border: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top"
-                            data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">Signed for <span
-                                            class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1"
-                                            data-mce-word="PropNex" data-mce-index="46">PropNex</span>:</span></strong></p>
+                    
+                    <tr style="border: 1px solid black">
+                        <td style="border: 1px solid black"><strong>Signed for PROPNEX:</strong></td>
+                        <td style="border: 1px solid black"><strong>Signed by the Tenant:</strong></td>
+                    </tr>
+                    
+                    <tr style="border: 1px solid black">
+                        <td style="border: 1px solid black; color: #d9d9d9">
+                            <em>Agent Sign Here:</em>
+                            <p> </p>
+                            <p> </p>
                         </td>
-                        <td style="width: 217.7pt; border: solid windowtext 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.7pt; border: solid windowtext 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">Signed for the
-                                        Tenant:</span></strong></p>
+                        <td style="border: 1px solid black; color: #d9d9d9">
+                            <em>Tenant Sign Here:</em>
+                            <p> </p>
+                            <p> </p>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial; color: #d9d9d9;"
-                                        data-mce-style="line-height: 111%; font-family: Arial; color: #d9d9d9;">[Agent Sign
-                                        Here]</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
+                    
+                    <tr style="border: 1px solid black">
+                        <td style="border: 1px solid black; font-weight: bold;">
+                            <p>Name:</p>
+                            <p>ID No.:</p>
+                            <p>Reg No.:</p>
                         </td>
-                        <td style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial; color: #d9d9d9;"
-                                        data-mce-style="line-height: 111%; font-family: Arial; color: #d9d9d9;">[Tenant
-                                        Sign Here]</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
+                        <td style="border: 1px solid black;">
+                            <p><strong>Name: </strong><span class="spanTenantName"><%= loi.tenantName %></span></p>
+                            <p><strong>ID No.: </strong><span class="spanTenantId"><%= loi.tenantId %></span></p>
+                            <p> </p>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name:</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.:</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;"><span
-                                        class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Reg"
-                                        data-mce-index="47">Reg</span>. No.:</span></p>
-                        </td>
-                        <td style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <span class="spanTenantName"><%= loi.tenantName %></span></span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <span class="spanTenantId"><%=loi.tenantId %></span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
-            <p style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br data-mce-bogus="1"></p>
-            <p><span style="font-size: 10.0pt; font-family: Arial, sans-serif; color: black;"
-                    data-mce-style="font-size: 10.0pt; font-family: Arial, sans-serif; color: black;"><img class="mce-pagebreak"
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-mce-resize="false"
-                        data-mce-placeholder=""></span></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: normal; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: normal; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-        <div style="page-break-before:always;">
-            <h1 style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;"
-            data-mce-style="margin: 0cm 0.1pt 0.0001pt 0cm; text-align: center; line-height: 107%; break-after: avoid; font-size: 10pt; font-family: Arial, sans-serif; color: black; font-weight: normal;">
-                LANDLORD ACCEPTANCE COPY</h1>
-            <p style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="center"
-                data-mce-style="margin: 0cm 0cm 0.0001pt 2.65pt; text-align: center; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-align: left; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                <br></p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 106%; font-size: 10pt; font-family: Arial, sans-serif; color: black;">
-                I, <strong><span class="spanLandlordName"><%= loi.landlordName %></span></strong>(ID No.: <span class="spanLandlordId"><%= loi.landlordId %></span>) hereby accept the offer to lease the
-                above-mentioned premises on the terms and conditions mentioned in the Letter of Intent.</p>
-            <p style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-align: center;"
-                align="left"
-                data-mce-style="margin: 0cm 0cm 0.0001pt; text-indent: 0cm; line-height: 107%; font-size: 10pt; font-family: Arial, sans-serif; color: black; text-align: center;">
-                <br></p>
-            <table class="MsoTableGrid"
-                style="width: 100%; margin-left: 0; border-collapse: collapse; border: none;" border="1"
-                cellspacing="0" cellpadding="0"
-                data-mce-style="width: 435.35pt; border-collapse: collapse; border: none;">
-                <tbody>
-                    <tr>
-                        <td style="width: 217.65pt; border: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top"
-                            data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">Signed by:</span></strong>
-                            </p>
-                        </td>
-                        <td style="width: 217.7pt; border: solid windowtext 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.7pt; border: solid windowtext 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">Signed by the Witness:</span></strong></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial; color: #d9d9d9;"
-                                        data-mce-style="line-height: 111%; font-family: Arial; color: #d9d9d9;">[Landlord
-                                        Sign Here]</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                        </td>
-                        <td style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial; color: #d9d9d9;"
-                                        data-mce-style="line-height: 111%; font-family: Arial; color: #d9d9d9;">[Witness
-                                        Sign Here]</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: center;" align="center"
-                                data-mce-style="text-align: center;"><strong><span
-                                        style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                        </td>
-                    </tr>
-                    <tr>
-                            <td style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.65pt; border: solid windowtext 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: <span class="spanLandlordName"><%= loi.landlordName %></span></span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: <span class="spanLandlordId"><%= loi.landlordId %></span></span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;"><span
-                                        class="mce-spellchecker-word" aria-invalid="spelling" data-mce-bogus="1" data-mce-word="Reg"
-                                        data-mce-index="47"></span></span></p>
-                        </td>
-                        <td style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;"
-                            valign="top"
-                            data-mce-style="width: 217.7pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;">
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">Name: </span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">ID No.: </span></p>
-                            <p class="MsoNormalCxSpMiddle" style="text-align: left;" align="left"
-                                data-mce-style="text-align: left;"><span style="line-height: 111%; font-family: Arial;"
-                                    data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></p>
-                            <p class="MsoNormalCxSpMiddle"><strong><span style="line-height: 111%; font-family: Arial;"
-                                        data-mce-style="line-height: 111%; font-family: Arial;">&nbsp;</span></strong></p>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
-        </div>
+            <div style="page-break-before:always;">
+                <br>
+                <p style="font-family: Arial, sans-serif; font-size: 14px; text-align:center; font-weight: bolder;">LANDLORD ACCEPTANCE COPY</p>
+                <br>
+                <p style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">I, <strong><span class="spanLandlordName"><%= loi.landlordName %></span></strong> (ID No.: <span class="spanLandlordId"><%= loi.landlordId %></span>) hereby accept the offer to lease the above-mentioned premises to the Tenant on the terms and conditions mentioned in the Letter of Intent.</p>
+                <table style="width: 100%; border: 1px solid black; font-size: 12px;">
+                        <colgroup>
+                            <col width="50%">
+                            <col width="50%">    
+                        </colgroup>
+                        <tbody>
+                            
+                            <tr style="border: 1px solid black">
+                                <td style="border: 1px solid black"><strong>Signed by the Landlord:</strong></td>
+                                <td style="border: 1px solid black"><strong>Signed by the Witness:</strong></td>
+                            </tr>
+                            
+                            <tr style="border: 1px solid black">
+                                <td style="border: 1px solid black; color: #d9d9d9">
+                                    <em>Landlord Sign Here:</em>
+                                    <p> </p>
+                                    <p> </p>
+                                </td>
+                                <td style="border: 1px solid black; color: #d9d9d9">
+                                    <em>Witness Sign Here:</em>
+                                    <p> </p>
+                                    <p> </p>
+                                </td>
+                            </tr>
+                            
+                            <tr style="border: 1px solid black">
+                                <td style="border: 1px solid black;">
+                                    <p><strong>Name: </strong><span class="spanLandlordName"><%= loi.landlordName %></span></p>
+                                    <p><strong>ID No.: </strong><span class="spanLandlordId"><%= loi.landlordId %></span></p>
+                                    <p> </p>
+                                </td>
+                                <td style="border: 1px solid black; font-weight: bold;">
+                                    <p>Name:</p>
+                                    <p>ID No.:</p>
+                                    <p> </p>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                </table>
+            </div>
         </textarea>
         <button class="ui green button btnFinalize"><i class="fa fa-check"></i> &nbsp Finalize</button>
     </form>
@@ -553,7 +182,7 @@
     <script>
             
             // Save fullText with new values from terms update form
-                var htmlInput   = $("#showWindow").html(),
+                var htmlInput   = $("#mainMCE").html(),
                     data        = {opp:{fullText: htmlInput}},
                     url         = "/records/" + "<%= loi._id %>";
 

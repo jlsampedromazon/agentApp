@@ -158,10 +158,11 @@ app.put("/records/:id", function(req,res){
             res.redirect("/records");
         } else {
             res.redirect("/records/"+req.params.id);
+            console.log('PUT executed');
         }
     })
 
-    console.log('PUT executed');
+
 }) 
 
 // SHOW FORM - UPDATE EXISTING TERMS (GET)

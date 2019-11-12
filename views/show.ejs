@@ -22,7 +22,7 @@
         <a href="/records/<%= loi._id %>/update-terms" class="ui orange button showButton"><i class="fa fa-edit"></i> &nbsp Edit LOI</a>
         <form id="requestPdf" action="/generate-pdf" method="POST">
             <input id="hiddenText" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button class="ui red button"><i class="fa fa-download"></i> &nbsp Download PDF</button>
+            <button id="btnDowload" class="ui red button"><i class="fa fa-download"></i> &nbsp Get PDF</button>
         </form>
     </div>
 

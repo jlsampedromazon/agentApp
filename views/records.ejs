@@ -21,7 +21,7 @@
     <div class="ui main text container mainDiv">
         <h1 id="recordsHead">WELCOME!</h1>
         
-        <% lois.forEach(function(loi){ %>
+        <% if (lois.length > 0) {lois.forEach(function(loi){ %>
     
             <div class="ui segment container record" onclick="divClick('<%= loi._id %>')">
                 <h3><i class="fa fa-home"></i> <%= loi.address %></h3>
@@ -40,7 +40,11 @@
                 </table>            
             </div>
 
-        <% }) %>
+        <% })} else { %>
+            <div id="noneYet" class="ui segment container record">
+                <h3>You have not created any LOIs yet. Click "New LOI" in the Navigation Menu above to get started.</h3>
+            </div>
+       <% } %>
 
     </div>
 

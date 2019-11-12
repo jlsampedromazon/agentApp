@@ -45,6 +45,12 @@
                 $("#spanBank").text("<%= loi.bank %>");
                 $("#spanAccount").text("<%= loi.account %>");
                 $(".spanStartDate").text("<%= moment(loi.startDate).format('Do MMMM YYYY') %>");
+                
+                if ($("#spanDiplo").text() == "" && "<%= loi.diplo %>" == "yes") {
+                    $("#spanDiplo").html("The Diplomatic clause shall be applicable after <strong>TWELVE (12) months</strong> of occupation by the Tenant giving <strong>TWO (2) months</strong> notice or TWO (2) months rent in lieu of notice.");
+                } else if ($("#spanDiplo").text() != "" && "<%= loi.diplo %>" == "yes") {
+                    $("#spanDiplo").html("");
+                }
 
             // Save fullText with new values from terms update form
                 var htmlInput   = $("#showWindow").html(),

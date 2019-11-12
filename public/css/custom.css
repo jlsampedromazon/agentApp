@@ -68,13 +68,18 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 90%;
     margin: auto;
 
 }
 
 .showButton {
     width: 33%;
+    padding: auto;
+}
+
+#btnDownload {
+    padding: auto;
 }
 
 #showWindow {
@@ -107,4 +112,10 @@ table {
 
 .mainDiv {
     padding-bottom: 30px;
+}
+
+#noneYet {
+    text-align: center;
+    justify-content: center;
+    display: flex;
 }

@@ -104,7 +104,7 @@
             <div class="ui segment">
                 <div class="field">
                   <div class="ui toggle checkbox">
-                    <input type="checkbox" name="opp[diplo]" value="yes">
+                    <input id="inputDiplo" type="checkbox" name="opp[diplo]" value="yes">
                     <label>Diplomatic Clause</label>
                   </div>
                 </div>
@@ -129,6 +129,9 @@
     $('#ical').calendar({type: 'date'});
     $( "#newForm" ).submit(function(event) {
         $(this).append('<input type="hidden" name="opp[fullText]" value="empty"/>');
+        if ($("#inputDiplo").is(':checked') == false) {
+            $(this).append('<input type="hidden" name="opp[diplo]" value="no"/>');
+        }
     });    
     </script>
 
