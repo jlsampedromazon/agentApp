@@ -28,63 +28,63 @@
 
             <div class="field">
                 <label for="opp[address]">Property Address:</label>
-                <input type="text" value="<%= loi.address %>" name="opp[address]">
+                <input type="text" value="<%= loi.address %>" name="opp[address]" required>
             </div>
 
             <!-- Landlord Name -->
 
             <div class="field">
                 <label for="opp[landlordName]">Landlord's Name:</label>
-                <input type="text" value="<%= loi.landlordName %>" name="opp[landlordName]">
+                <input type="text" value="<%= loi.landlordName %>" name="opp[landlordName]" required>
             </div>
 
             <!-- Landlord ID -->
 
             <div class="field">
                 <label for="opp[landlordId]">Landlord's ID Number:</label>
-                <input type="text" value="<%= loi.landlordId %>" name="opp[landlordId]">
+                <input type="text" value="<%= loi.landlordId %>" name="opp[landlordId]" required>
             </div>
 
             <!-- Tenant Name -->
 
             <div class="field">
                 <label for="opp[tenantName]">Tenant's Name:</label>
-                <input type="text" value="<%= loi.tenantName %>" name="opp[tenantName]">
+                <input type="text" value="<%= loi.tenantName %>" name="opp[tenantName]" required>
             </div>
 
             <!-- Tenant ID -->
 
             <div class="field">
                 <label for="opp[tenantId]">Tenant's ID Number:</label>
-                <input type="text" value="<%= loi.tenantId %>" name="opp[tenantId]">
+                <input type="text" value="<%= loi.tenantId %>" name="opp[tenantId]" required>
             </div>
             
             <!--Monthly Rent  -->
             
             <div class="field">
                 <label for="opp[rentAmount]">Monthly Rent (S$):</label>
-                <input type="text" value="<%= loi.rentAmount %>" name="opp[rentAmount]">
+                <input type="number" value="<%= loi.rentAmount %>" name="opp[rentAmount]" required>
             </div>
                         
             <!--Bank Name  -->
             
             <div class="field">
                     <label for="opp[bank]">Landlord's Bank Name:</label>
-                    <input type="text" value="<%= loi.bank %>" name="opp[bank]">
+                    <input type="text" value="<%= loi.bank %>" name="opp[bank]" required>
             </div>
                         
             <!--Bank Account  -->
             
             <div class="field">
                     <label for="opp[account]">Landlord's Bank Acct. No.:</label>
-                    <input type="text" value="<%= loi.account %>" name="opp[account]">
+                    <input type="text" value="<%= loi.account %>" name="opp[account]" required>
                 </div>    
                 
             <!-- Lease Period -->
             
             <div class="field">
                 <label for="opp[leasePeriod]">Period of Lease (in months):</label>
-                <input type="text" value="<%= loi.leasePeriod %>" name="opp[leasePeriod]">
+                <input type="number" value="<%= loi.leasePeriod %>" name="opp[leasePeriod]" required>
             </div>
             
             <!-- Start Date -->
@@ -93,7 +93,7 @@
                     <label for="opp[startDate]"><i class="fa fa-calendar"></i>  Lease Start Date:</label>
                     <div class="ui calendar" id="ical2">
                             <div class="ui input icon ">
-                              <input type="text" value="<%= moment(loi.startDate).format('Do MMMM YYYY') %>" name="opp[startDate]">
+                              <input type="text" value="<%= moment(loi.startDate).format('Do MMMM YYYY') %>" name="opp[startDate]" required>
                             </div>
                     </div>
             </div>
