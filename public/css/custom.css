@@ -125,5 +125,7 @@ table {
 #noneYet {
     text-align: center;
     justify-content: center;
-    display: flex;
+    display: block;
+    color: grey;
+    font-weight: 400;
 }

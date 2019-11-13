@@ -75,7 +75,9 @@ var express                 = require('express'),
         account: String,
         startDate: Date,
         fullText: String,
+        agent: Object,
         created: {type:Date, default:Date.now}
+
     })
 
     var Loi = mongoose.model("Loi", loiSchema);
@@ -93,11 +95,12 @@ app.get("/", function(req,res){
 // INDEX ROUTE
 
 app.get("/records", function(req,res){
-    Loi.find({}, function(err,lois){
+    Loi.find({agent: req.user}, function(err,lois){
         if (err) {
             console.log(err);
         } else {
             res.render('records', {lois: lois, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            console.log(req.user);
         }
     })
 })
@@ -111,13 +114,16 @@ app.get("/records/new", function(req,res) {
 
 // EXECUTE - CREATE NEW TERMS (POST)
 app.post("/records", function(req,res){
-    
+
+    req.body.opp.agent = req.user;
+    console.log(req.body.opp);
+
     Loi.create(req.body.opp, function(err, newLoi){
         if (err) {
             res.render("new");
         } else {
             res.redirect("/records/"+newLoi._id+"/editnew");
-            // res.redirect('edit', {loi: newLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            console.log(newLoi);
         }
     })
 })
@@ -126,11 +132,22 @@ app.post("/records", function(req,res){
 // SHOW RECORD
 
 app.get("/records/:id", function(req,res){
-    Loi.findById(req.params.id, function(err, foundLoi){
+    Loi.findOne({_id: req.params.id}, function(err, foundLoi){
         if (err) {
             res.redirect("/records")
+            console.log(err);
         } else {
-            res.render("show", {loi:foundLoi})
+            
+            var idFromFoundLoi = foundLoi.agent._id,
+                idFromRequest = req.user._id,
+                idLoiString = idFromFoundLoi.toString(),
+                idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                res.render("show", {loi:foundLoi})
+            } else {
+                res.send("You are not authorized to view this record.");
+            }
         }
     })
 })
