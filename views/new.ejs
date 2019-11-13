@@ -120,19 +120,33 @@
     
     </div>
 
+    <h1 style="display: none">HELLO</h1>
+
     <!-- Boostrap, JQuery & Custom Scripts -->
 
     <% include partials/boilerScripts.ejs %>
 
     <script type="text/javascript" src="/js/calendar.js"></script>
     <script>
-    $('#ical').calendar({type: 'date'});
-    $( "#newForm" ).submit(function(event) {
-        $(this).append('<input type="hidden" name="opp[fullText]" value="empty"/>');
-        if ($("#inputDiplo").is(':checked') == false) {
-            $(this).append('<input type="hidden" name="opp[diplo]" value="no"/>');
-        }
-    });    
+    
+        $('#ical').calendar({type: 'date'});
+        $( "#newForm" ).submit(function(event) {
+
+            $(window).off('beforeunload');
+            
+            $(this).append('<input type="hidden" name="opp[fullText]" value="empty"/>');
+            
+            if ($("#inputDiplo").prop('checked') === false) {
+                $(this).append('<input type="hidden" name="opp[diplo]" value="no"/>');
+            }
+
+
+        }); 
+
+        $(window).on('beforeunload', function(){
+            return 'Are you sure you want to leave? Any progress made will be lost!';
+        });
+
     </script>
 
 </body>

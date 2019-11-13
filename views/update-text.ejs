@@ -33,14 +33,26 @@
     
         <% include partials/navbar.ejs %>
 
-        <form action="/records/<%= loi.id %>?_method=PUT" method="POST">
-            <input type="submit">
+        <form id="updateTextForm" action="/records/<%= loi.id %>?_method=PUT" method="POST">
+            <button class="ui green button btnFinalize"><i class="fa fa-check"></i> &nbsp Finalize & Save</button>
             <textarea name='opp[fullText]'>
                 <%= loi.fullText %>
             </textarea>
+            <button class="ui green button btnFinalize"><i class="fa fa-check"></i> &nbsp Finalize & Save</button>
         </form>
         
         <% include partials/boilerScripts.ejs %>
 
+        <script>
+        
+        $(window).on('beforeunload', function(){
+            return 'Please click the "Finalize & Save" button before leaving this page. Otherwise the file will not be usable.';
+        });
+
+        $( "#updateTextForm" ).submit(function(event) {
+            $(window).off('beforeunload');
+        })
+        
+        </script>
     </body>
 </html>

@@ -103,7 +103,7 @@
             <div class="ui segment">
                 <div class="field">
                   <div class="ui toggle checkbox">
-                    <input type="checkbox" name="opp[diplo]" value="yes" <% if (loi.diplo === "yes") {%> checked <% } %>>
+                    <input id="updateDiplo" type="checkbox" name="opp[diplo]" value="yes">
                     <label>Diplomatic Clause</label>
                   </div>
                 </div>
@@ -126,6 +126,27 @@
     <script type="text/javascript" src="/js/calendar.js"></script>
     <script>
     $('#ical2').calendar({type: 'date'});
+
+    // Reflect current diplo status
+    if ("<%= loi.diplo %>" == "yes") {
+        $("#updateDiplo").prop('checked', true);
+    }
+
+    // Change diplo status where initial val = yes, then changed to no
+    $( "#updateForm" ).submit(function(event) {
+        
+        $(window).off('beforeunload');
+
+        if ($("#updateDiplo").prop('checked') === false) {
+            $(this).append('<input type="hidden" name="opp[diplo]" value="no"/>');
+        }
+
+    }); 
+
+    $(window).on('beforeunload', function(){
+      return 'Are you sure you want to leave? Any changes made will be lost!';
+    });
+
     </script>
 
 </body>

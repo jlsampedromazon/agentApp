@@ -156,6 +156,7 @@ app.put("/records/:id", function(req,res){
     Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
         if (err) {
             res.redirect("/records");
+            console.log(err);
         } else {
             res.redirect("/records/"+req.params.id);
             console.log('PUT executed');
@@ -171,6 +172,7 @@ app.get("/records/:id/update-terms", function(req,res) {
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             res.redirect("/records");
+            console.log(err);
         } else {
             res.render("update-terms", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
         }
@@ -184,6 +186,7 @@ app.put("/records/:id/update-terms", function(req,res){
     Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
         if (err) {
             res.redirect("/records/"+req.params.id+"/update-terms");
+            console.log(err);
         } else {
             res.redirect("/records/"+req.params.id+"/edited-text");
         }
@@ -197,6 +200,7 @@ app.get("/records/:id/edited-text", function(req,res) {
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             res.redirect("/records/"+req.params.id+"/update-terms");
+            console.log(err);
         } else {
             res.render("edited-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
         }
@@ -220,8 +224,17 @@ app.get("/records/:id/update-text", function(req,res) {
 // GENERATE PDF
 
 app.post("/generate-pdf", function(req,res){
-    // console.log(req.body.opp.fullText);
 
+    // Save FullText to MongoDB
+    Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('PUT executed');
+        }
+    })
+
+    // Convert HTML to PDF with Headless Chrome
     var htmlToConvert = req.body.opp.fullText;
 
     a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
@@ -229,6 +242,7 @@ app.post("/generate-pdf", function(req,res){
         pdfWeb = result.pdf;
         res.redirect(pdfWeb);
     });
+
 })
 
 

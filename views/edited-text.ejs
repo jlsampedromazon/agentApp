@@ -18,11 +18,14 @@
     <% include partials/navbar.ejs %>
 
     <div id="showButtons">
-        <a id='linkRecords' href="#" class="ui black button showButton"><i class="fa fa-chevron-left"></i> &nbsp All Records</a>
-        <a id="linkEdit" href="#" class="ui orange button showButton"><i class="fa fa-edit"></i> &nbsp Edit Text</a>
+        <form id="saveText" action="/records/<%= loi.id %>?_method=PUT" method="POST">
+            <input id="hiddenTextSave" type="text" name='opp[fullText]'>
+            <button id="btnSubmitSave" class="ui green button"><i class="fa fa-save"></i> &nbsp Save Changes</button>
+        </form>
+        <a id="linkEdit" class="ui orange button showButton" href="/records/<%= loi._id %>/update-text" onclick="noAlert()"><i class="fa fa-edit"></i> &nbsp Edit Text</a>
         <form id="requestPdf" action="/generate-pdf" method="POST">
-            <input id="hiddenText" type="text" name='opp[fullText]'>
-            <button id="btnSubmit" class="ui red button" disabled><i class="fa fa-download"></i> &nbsp Download PDF</button>
+            <input id="hiddenTextPdf" type="text" name='opp[fullText]'>
+            <button id="btnSubmitPdf" class="ui red button"><i class="fa fa-download"></i> &nbsp Get PDF</button>
         </form>
     </div>
 
@@ -52,24 +55,28 @@
                     $("#spanDiplo").html("");
                 }
 
-            // Save fullText with new values from terms update form
-                var htmlInput   = $("#showWindow").html(),
-                    data        = {opp:{fullText: htmlInput}},
-                    url         = "/records/" + "<%= loi._id %>";
-
-                $.ajax({
-                    url: url, 
-                    type: "PUT",
-                    data: data,
-                    success: function() {console.log("AJAX put performed!");}
-                });
 
             // Prep HTML for PDF
-                
-                $("#hiddenText").val(htmlInput);
-                $("#btnSubmit").removeAttr("disabled");
-                $("#linkRecords").attr("href", "/records");
-                $("#linkEdit").attr("href", "/records/<%= loi._id %>/update-text");
+            
+            var htmlInput = $("#showWindow").html();
+            $("#hiddenTextPdf").val(htmlInput);
+            $("#hiddenTextSave").val(htmlInput);
+
+            $(window).on('beforeunload', function(){
+                return 'Please click the "Save Changes" button before leaving this page. Otherwise the file will not be usable.';
+            });
+
+            $( "#saveText" ).submit(function(event) {
+                noAlert();
+            })
+
+            $( "#requestPdf" ).submit(function(event) {
+                noAlert();
+            })
+
+            function noAlert() {
+                $(window).off('beforeunload');
+            }
 
     </script>
 

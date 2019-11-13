@@ -93,7 +93,7 @@ table {
     display: none;
 }
 
-#hiddenText {
+#hiddenTextPdf, #hiddenTextSave {
     display: none;
 }
 
@@ -102,6 +102,14 @@ table {
 }
 
 #requestPdf button {
+    width:100%;
+}
+
+#saveText {
+    width: 33%;
+}
+
+#saveText button {
     width:100%;
 }
 
