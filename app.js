@@ -413,7 +413,7 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
 
 // HELLOSIGN CALLBACKS
 
-         app.get("/hellosign", function(req,res){
+         app.post("/hellosign", function(req,res){
              console.log(req.body)
          })
 
