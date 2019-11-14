@@ -78,7 +78,17 @@ var express                 = require('express'),
 
     var Loi = mongoose.model("Loi", loiSchema);
 
+	// Create Agent Schema, including user details
+	var agentSchema = new mongoose.Schema({
+		fullName: String,
+		company: String,
+		username: String,
+		password: String
+	})
 
+	var Agent = mongoose.model("Agent", agentSchema);
+
+	
 // =============
 //   ROUTES
 // =============
@@ -343,7 +353,7 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
 
                 a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
                     console.log(result);
-                    pdfWeb = result.pdf;
+                    var pdfWeb = result.pdf;
                     res.redirect(pdfWeb);
                 });  
 
@@ -360,7 +370,7 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
     app.get("/register", isLoggedIn, function(req,res){
         idFromRequest = req.user._id,
         idReqString = idFromRequest.toString();
-        if (idReqString == "5dcbc12ba2ccd696827c78c5") {
+        if (idReqString == "5dcd3c65d9e92f123992d2c0") {
          res.render("register")
         } else {
             res.send("<h1>You are not authorized to access this site.</h1>")
@@ -369,20 +379,33 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
 
 // CREATE USER SIGN UP
     app.post("/register", isLoggedIn, function(req,res){
-        idFromRequest = req.user._id,
-        idReqString = idFromRequest.toString();
-        if (idReqString == "5dcbc12ba2ccd696827c78c5") {
+		
+		// // Check that user is the admin
+		idFromRequest = req.user._id,
+		idReqString = idFromRequest.toString();
+		
+		// 	If user is adming...	
+		if (idReqString == "5dcd3c65d9e92f123992d2c0") {
+			
+			// 	Register a new user for authentication purposes		
             User.register(new User({username: req.body.username}), req.body.password, function(err,user){
                 if (err) {
                     console.log(err);
                     return res.render("register");
                 } else {
-                    passport.authenticate("local")(req,res, function(){
-                        res.redirect("/secret");
-                    })
-                }
+					// Create a new agent profile for the record 					
+					Agent.create(req.body, function(err, newLoi){
+						if (err) {
+							res.render("register");
+						} else {
+							res.send("<h1>SUCCESS!</h1>")
+						}
+					})
+				}	
             });
-        }
+		} else {
+			res.send("You are not authorized to access this record.");
+		}
     });
 
 // LOGIN FORM
@@ -419,34 +442,165 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
              res.send("Hello API Event Received");
          })
 
+
+// SHOW FORM - E-SIGN (POST bc it saves the file)
+
+app.post("/records/:id/esigndetails", isLoggedIn, function(req,res) {
+	
+	// 	Check user is authorized
+    Loi.findById(req.params.id, function(err, foundLoi){
+        if (err) {
+            res.redirect("/records/"+req.params.id);
+            console.log(err);
+        } else {
+            
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+			
+			// If user is authorized...
+            if (idLoiString == idReqString) {
+				
+				// Save FullText to MongoDB
+                Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+                    if (err) {
+                        console.log(err);
+						res.redirect("/records/"+req.params.id)
+                    } else {
+                        console.log('PUT executed');
+						res.render("eSignForm", {loi:foundLoi});
+                    }
+                })
+                
+            } else {
+                res.send("You are not authorized to view this record.");
+            }    
+        }
+    })
+})
+
+
+
+// EXECUTE - E-SIGN
+
+app.post("/records/:id/esign", isLoggedIn, function(req,res){
+	
+	// Check if user is authorized 	
+    Loi.findById(req.params.id, function(err, foundLoi){
+        if (err) {
+            console.log(err);
+			res.redirect("records/" + foundLoi._id +"/esign");
+        } else {
+
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString(),
+				
+					agentUsername = req.user.username;
+			
+			// 	If the user is authorized...		
+            if (idLoiString == idReqString) {
+
+                // Convert HTML to PDF with Headless Chrome
+                var htmlToConvert = req.body.opp.fullText;
+
+                a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
+                    console.log(result);
+                    var pdfWeb = result.pdf;
+					
+				// 	Prepare eSignature email workflow
+					
+					Agent.findOne({username: agentUsername}, function(err, foundAgent){
+						if (err) {
+							console.log(err);
+							res.redirect("records/" + foundLoi._id +"/esign");
+						} else {
+							const opts = {
+							  test_mode: 1,
+							  clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
+							  subject: 'Tenancy LOI for ' + foundLoi.address,
+							  message: 'Kindly sign the LOI in relation to the tenancy of '+ foundLoi.address,
+							  signers: [
+
+								{
+								  email_address: req.body.tenantEmail ,
+								  name: "M. " + foundLoi.tenantName
+								},
+
+								{
+									email_address: foundAgent.username,
+									name: "M. " + foundAgent.fullName
+								},
+
+								{
+									email_address: req.body.landlordEmail,
+									name: "M. " + foundLoi.landlordName
+								}
+
+							  ],
+							  file_url: [pdfWeb]
+							};
+							
+							// 	Run HelloSign Email Workflow
+					
+							hellosign.signatureRequest.send(opts).then((hellores) => {
+								console.log(hellores);
+								res.send("<h1>Success!</h1>");
+								// hellosign.signatureRequest.get(signatureRequestId).then((sigStatusRes) => {
+								//   console.log(sigStatusRes);
+								// }).catch((err) => {
+								//   console.log(err);
+								// })
+							}).catch((err) => {
+							  	console.log(err);
+								res.redirect("records/" + foundLoi._id +"/esign");
+							});
+							
+						}
+					})
+				}).catch((err) => {
+					console.log(err);
+					res.redirect("records/" + foundLoi._id +"/esign")
+				});
+	
+            } else {
+                res.send("You are not authorized to access this record.");
+            }    
+        }
+    })
+
+})
+
 // HELLOSIGN GET PAGE
 
-         app.get("/hellosign", function(req,res){
-			const opts = {
-			  test_mode: 1,
-			  clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
-			  subject: 'The LOI we talked about',
-			  message: 'Please sign this NDA and then we can discuss more.',
-			  signers: [
-				{
-				  email_address: 'jose.sampedro@lexknights.com',
-				  name: 'Jose'
-				}
-			  ],
-			  files: ['sampleLoi.pdf']
-			};
+//          app.get("/hellosign", function(req,res){
+// 			const opts = {
+// 			  test_mode: 1,
+// 			  clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
+// 			  subject: 'The LOI we talked about',
+// 			  message: 'Please sign this NDA and then we can discuss more.',
+// 			  signers: [
+// 				{
+// 				  email_address: 'jose.sampedro@lexknights.com',
+// 				  name: 'Jose'
+// 				}
+// 			  ],
+// 			  files: ['sampleLoi.pdf']
+// 			};
 			 
-			hellosign.signatureRequest.createEmbedded(opts).then((hellores) => {
-			  const signature = hellores.signature_request.signatures[0];
-			  const signatureId = signature.signature_id;
-			  return hellosign.embedded.getSignUrl(signatureId);
-			}).then((hellores) => {
-			  	console.log('The sign url: ' + hellores.embedded.sign_url);
-				res.render("hellosign", {eSigURL: hellores.embedded.sign_url});
-			}).catch((err) => {
-			  console.log(err);
-			});
-         })
+// 			hellosign.signatureRequest.createEmbedded(opts).then((hellores) => {
+// 			  const signature = hellores.signature_request.signatures[0];
+// 			  const signatureId = signature.signature_id;
+// 			  return hellosign.embedded.getSignUrl(signatureId);
+// 			}).then((hellores) => {
+// 			  	console.log('The sign url: ' + hellores.embedded.sign_url);
+// 				res.render("hellosign", {eSigURL: hellores.embedded.sign_url});
+// 			}).catch((err) => {
+// 			  console.log(err);
+// 			});
+//          })
 
 // =============
 //   SERVER

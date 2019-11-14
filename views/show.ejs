@@ -24,6 +24,10 @@
             <input id="hiddenTextPdf" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
             <button id="btnDowload" class="ui red button"><i class="fa fa-download"></i> &nbsp Get PDF</button>
         </form>
+		<form id="requestEsig" action="/records/<%= loi._id %>/esigndetails" method="POST">
+            <input id="hiddenTextEsig" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
+            <button id="btnEsig" class="ui yellow button"><i class="fa fa-signature"></i> &nbsp eSign Letter</button>
+        </form>
     </div>
 
     <div class="ui main text container segment" id="showWindow">

@@ -84,7 +84,7 @@ table {
     padding: auto;
 }
 
-#btnDownload {
+#btnDownload, #btnEsig {
     padding: auto;
 }
 
@@ -99,7 +99,7 @@ table {
     display: none;
 }
 
-#hiddenTextPdf, #hiddenTextSave {
+#hiddenTextPdf, #hiddenTextSave, #hiddenTextEsig {
     display: none;
 }
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>LeaseAgreement.SG for Agents</title>
+    
+        <% include partials/boilerLinks.ejs %>
+		
+    </head>
+    <body>
+    
+    <% include partials/navbar.ejs %>
+
+    <div class="ui main text container segment">
+        
+        <div class="ui huge header"><i class="fa fa-envelope" aria-hidden="true"></i> Email Required for eSignature</div>
+
+        <form id="signMsgForm" class="ui form" action="/records/<%= loi._id %>/esign" method="POST">
+
+
+            <!-- Tenant Email Address -->
+
+            <div class="field">
+                <label for="tenantEmail">Tenant's Email:</label>
+                <input type="text" placeholder="Enter Tenant's Email Address..." name="tenantEmail" required>
+            </div>
+			
+			
+			<!-- Landlord Email Address -->
+
+            <div class="field">
+                <label for="landlordEmail">Landlord's Email:</label>
+                <input type="text" placeholder="Enter Landlord's Email Address..." name="landlordEmail" required>
+            </div>
+
+
+			<!-- Submit Button -->
+
+            <div id="submitDiv">
+
+                <input id="btnSubmitNew" class="ui button big" type="submit">
+
+            </div>
+            
+        </form>
+    
+    </div>
+
+
+    <!-- Boostrap, JQuery & Custom Scripts -->
+
+    <% include partials/boilerScripts.ejs %>
+
+    <script>
+    
+        $( "#signMsgForm" ).submit(function(event) {
+
+            $(window).off('beforeunload');
+            
+            $(this).append('<input type="hidden" name="opp[fullText]" value="<%= loi.fullText %>">');
+        
+        }); 
+
+        $(window).on('beforeunload', function(){
+            return 'Are you sure you want to leave? Any progress made will be lost!';
+        });
+
+    </script>
+
+</body>
+</html>
