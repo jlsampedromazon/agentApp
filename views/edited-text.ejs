@@ -23,7 +23,7 @@
             <button id="btnSubmitSave" class="ui green button"><i class="fa fa-save"></i> &nbsp Save Changes</button>
         </form>
         <a id="linkEdit" class="ui orange button showButton" href="/records/<%= loi._id %>/update-text" onclick="noAlert()"><i class="fa fa-edit"></i> &nbsp Edit Text</a>
-        <form id="requestPdf" action="/generate-pdf" method="POST">
+        <form id="requestPdf" action="/records/<%= loi._id %>/generate-pdf" method="POST">
             <input id="hiddenTextPdf" type="text" name='opp[fullText]'>
             <button id="btnSubmitPdf" class="ui red button"><i class="fa fa-download"></i> &nbsp Get PDF</button>
         </form>

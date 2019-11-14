@@ -51,11 +51,6 @@ var express                 = require('express'),
         res.locals.currentUser = req.user;
         next();
     })
-// EXPORTING DATE CAPABILITY
-
-    // exports.index = function(req, res) {
-    //     res.render('edit', { moment: moment });
-    // }
 
 // =============
 //   DB SCHEMAS
@@ -132,16 +127,16 @@ app.post("/records", function(req,res){
 // SHOW RECORD
 
 app.get("/records/:id", function(req,res){
-    Loi.findOne({_id: req.params.id}, function(err, foundLoi){
+    Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             res.redirect("/records")
             console.log(err);
         } else {
             
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
 
             if (idLoiString == idReqString) {
                 res.render("show", {loi:foundLoi})
@@ -159,8 +154,19 @@ app.get("/records/:id", function(req,res){
         Loi.findById(req.params.id, function(err, foundLoi){
             if (err) {
                 res.redirect("/records");
+                console.log(err);
             } else {
-                res.render("edit", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+
+                var     idFromFoundLoi = foundLoi.agent._id,
+                        idFromRequest = req.user._id,
+                        idLoiString = idFromFoundLoi.toString(),
+                        idReqString = idFromRequest.toString();
+
+                if (idLoiString == idReqString) {
+                    res.render("edit", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+                } else {
+                    res.send("You are not authorized to view this record.");
+                }    
             }
         })
     })
@@ -169,29 +175,58 @@ app.get("/records/:id", function(req,res){
 // EXECUTE - EDIT NEW TEXT (PUT)
 
 app.put("/records/:id", function(req,res){
-
-    Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+    
+    Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
-            res.redirect("/records");
+            res.redirect("/records/:id/update-terms");
             console.log(err);
         } else {
-            res.redirect("/records/"+req.params.id);
-            console.log('PUT executed');
+
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                
+                Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+                    if (err) {
+                        res.redirect("/records");
+                        console.log(err);
+                    } else {
+                        res.redirect("/records/"+req.params.id);
+                        console.log('PUT executed');
+                    }
+                })
+
+            } else {
+                res.send("You are not authorized to modify this record.");
+            }    
         }
     })
-
 
 }) 
 
 // SHOW FORM - UPDATE EXISTING TERMS (GET)
 
 app.get("/records/:id/update-terms", function(req,res) {
+
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             res.redirect("/records");
             console.log(err);
         } else {
-            res.render("update-terms", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                res.render("update-terms", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            } else {
+                res.send("You are not authorized to view this record.");
+            }    
         }
     })
 })
@@ -200,12 +235,30 @@ app.get("/records/:id/update-terms", function(req,res) {
 
 app.put("/records/:id/update-terms", function(req,res){
 
-    Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+    Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
-            res.redirect("/records/"+req.params.id+"/update-terms");
+            res.redirect("/records/:id/update-terms");
             console.log(err);
         } else {
-            res.redirect("/records/"+req.params.id+"/edited-text");
+
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                
+                Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+                    if (err) {
+                        res.redirect("/records/"+req.params.id+"/update-terms");
+                        console.log(err);
+                    } else {
+                        res.redirect("/records/"+req.params.id+"/edited-text");
+                    }
+                })            
+            } else {
+                res.send("You are not authorized to modify this record.");
+            }    
         }
     })
 }) 
@@ -219,7 +272,17 @@ app.get("/records/:id/edited-text", function(req,res) {
             res.redirect("/records/"+req.params.id+"/update-terms");
             console.log(err);
         } else {
-            res.render("edited-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                res.render("edited-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            } else {
+                res.send("You are not authorized to view this record.");
+            }    
         }
     })
 })
@@ -232,7 +295,17 @@ app.get("/records/:id/update-text", function(req,res) {
             console.log(err);
             res.redirect("/records/"+req.params.id+"/edited-text");
         } else {
-            res.render("update-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                res.render("update-text", {loi:foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter})
+            } else {
+                res.send("You are not authorized to view this record.");
+            }              
         }
     })
 })
@@ -240,29 +313,46 @@ app.get("/records/:id/update-text", function(req,res) {
 
 // GENERATE PDF
 
-app.post("/generate-pdf", function(req,res){
+app.post("/records/:id/generate-pdf", function(req,res){
 
-    // Save FullText to MongoDB
-    Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+    Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
+            res.redirect("/records/:id/update-terms");
             console.log(err);
         } else {
-            console.log('PUT executed');
+
+            var     idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+
+            if (idLoiString == idReqString) {
+                
+                // Save FullText to MongoDB
+                Loi.findByIdAndUpdate(req.params.id, req.body.opp, {omitUndefined:true}, function(err, updateLoi){
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('PUT executed');
+                    }
+                })
+
+                // Convert HTML to PDF with Headless Chrome
+                var htmlToConvert = req.body.opp.fullText;
+
+                a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
+                    console.log(result);
+                    pdfWeb = result.pdf;
+                    res.redirect(pdfWeb);
+                });  
+
+            } else {
+                res.send("You are not authorized to access this record.");
+            }    
         }
     })
 
-    // Convert HTML to PDF with Headless Chrome
-    var htmlToConvert = req.body.opp.fullText;
-
-    a2pClient.headlessChromeFromHtml(htmlToConvert).then(function(result) {
-        console.log(result);
-        pdfWeb = result.pdf;
-        res.redirect(pdfWeb);
-    });
-
 })
-
-
     // // // // // // // 
 
 
