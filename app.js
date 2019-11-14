@@ -83,13 +83,13 @@ var express                 = require('express'),
 // =============
 
 // Root path leads to index
-app.get("/", function(req,res){
+app.get("/", isLoggedIn, function(req,res){
     res.redirect("/records");
 })
 
 // INDEX ROUTE
 
-app.get("/records", function(req,res){
+app.get("/records", isLoggedIn, function(req,res){
     Loi.find({agent: req.user}, function(err,lois){
         if (err) {
             console.log(err);
@@ -102,13 +102,13 @@ app.get("/records", function(req,res){
 
 // SHOW FORM - CREATE NEW TERMS (GET)
 
-app.get("/records/new", function(req,res) {
+app.get("/records/new", isLoggedIn, function(req,res) {
     res.render("new");
 })
 
 
 // EXECUTE - CREATE NEW TERMS (POST)
-app.post("/records", function(req,res){
+app.post("/records", isLoggedIn, function(req,res){
 
     req.body.opp.agent = req.user;
     console.log(req.body.opp);
@@ -126,7 +126,7 @@ app.post("/records", function(req,res){
 
 // SHOW RECORD
 
-app.get("/records/:id", function(req,res){
+app.get("/records/:id", isLoggedIn, function(req,res){
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             res.redirect("/records")
@@ -149,7 +149,7 @@ app.get("/records/:id", function(req,res){
 
 
 // SHOW FORM - EDIT NEW TEXT (GET)
-    app.get("/records/:id/editnew", function(req,res) {
+    app.get("/records/:id/editnew", isLoggedIn, function(req,res) {
 
         Loi.findById(req.params.id, function(err, foundLoi){
             if (err) {
@@ -174,7 +174,7 @@ app.get("/records/:id", function(req,res){
 
 // EXECUTE - EDIT NEW TEXT (PUT)
 
-app.put("/records/:id", function(req,res){
+app.put("/records/:id", isLoggedIn, function(req,res){
     
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
@@ -209,7 +209,7 @@ app.put("/records/:id", function(req,res){
 
 // SHOW FORM - UPDATE EXISTING TERMS (GET)
 
-app.get("/records/:id/update-terms", function(req,res) {
+app.get("/records/:id/update-terms", isLoggedIn, function(req,res) {
 
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
@@ -233,7 +233,7 @@ app.get("/records/:id/update-terms", function(req,res) {
 
 // EXECUTE - UPDATE EXISTING TERMS (PUT)
 
-app.put("/records/:id/update-terms", function(req,res){
+app.put("/records/:id/update-terms", isLoggedIn, function(req,res){
 
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
@@ -265,7 +265,7 @@ app.put("/records/:id/update-terms", function(req,res){
 
 
 // SHOW OUTPUT - EDITED TEXT AFTER TERMS UPDATE (GET)
-app.get("/records/:id/edited-text", function(req,res) {
+app.get("/records/:id/edited-text", isLoggedIn, function(req,res) {
 
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
@@ -288,7 +288,7 @@ app.get("/records/:id/edited-text", function(req,res) {
 })
 
 // SHOW FORM - UPDATE EXISTING TEXT AFTER TERMS UPDATE (GET)
-app.get("/records/:id/update-text", function(req,res) {
+app.get("/records/:id/update-text", isLoggedIn, function(req,res) {
 
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
@@ -313,7 +313,7 @@ app.get("/records/:id/update-text", function(req,res) {
 
 // GENERATE PDF
 
-app.post("/records/:id/generate-pdf", function(req,res){
+app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
 
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
@@ -355,28 +355,33 @@ app.post("/records/:id/generate-pdf", function(req,res){
 })
     // // // // // // // 
 
-
-// SECRET ROUTE
-    app.get("/secret", isLoggedIn, function(req,res) {
-        res.render("secret");
-    })
-
 // SHOW SIGN UP FORM
-    app.get("/register", function(req,res){
-        res.render("register")
+    app.get("/register", isLoggedIn, function(req,res){
+        idFromRequest = req.user._id,
+        idReqString = idFromRequest.toString();
+        if (idReqString == "5dcbc12ba2ccd696827c78c5") {
+         res.render("register")
+        } else {
+            res.send("<h1>You are not authorized to access this site.</h1>")
+        }
     })
 
 // CREATE USER SIGN UP
-    app.post("/register", function(req,res){
-        User.register(new User({username: req.body.username}), req.body.password, function(err,user){
-            if (err) {
-                console.log(err);
-                return res.render("register");
-            } else {
-                passport.authenticate("local")(req,res, function(){
-                    res.redirect("/secret");
-            })}
-        });
+    app.post("/register", isLoggedIn, function(req,res){
+        idFromRequest = req.user._id,
+        idReqString = idFromRequest.toString();
+        if (idReqString == "5dcbc12ba2ccd696827c78c5") {
+            User.register(new User({username: req.body.username}), req.body.password, function(err,user){
+                if (err) {
+                    console.log(err);
+                    return res.render("register");
+                } else {
+                    passport.authenticate("local")(req,res, function(){
+                        res.redirect("/secret");
+                    })
+                }
+            });
+        }
     });
 
 // LOGIN FORM
@@ -386,7 +391,7 @@ app.post("/records/:id/generate-pdf", function(req,res){
 
 // POST LOG IN USER
     app.post("/login", passport.authenticate("local",{
-        successRedirect:"/secret",
+        successRedirect:"/records",
         failureRedirect:"/login"
     }), function(req,res){
     })
@@ -397,7 +402,7 @@ app.post("/records/:id/generate-pdf", function(req,res){
         res.redirect("/")
     })
 
-// Block Secret Page
+// FUNCTION: REQUIRE AUTHENTICATION
     function isLoggedIn(req,res,next){
         console.log(req.isAuthenticated());
         if(req.isAuthenticated()){

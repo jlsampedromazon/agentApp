@@ -1,11 +1,15 @@
         <!-- Navbar by Semantic UI -->
         <div class="ui fixed inverted menu">
                 <div class="container ui">
-                    <div class="header item">
+                    <div class="header item audiowide">
                         LexKnights
                     </div>
-                <a href="/records" class="item">Records</a>;
-                <a href="/records/new" class="item">New LOI</a>
+                    <% if (currentUser) { %>
+                        <a href="/records" class="item">Records</a>;
+                        <a href="/records/new" class="item">New LOI</a>
+                        <a href="/logout" class="item">Logout</a>
+                    <% } %>
+
                 </div>
-            </div>
+        </div>
             <!-- END of Navbar -->

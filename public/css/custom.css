@@ -7,7 +7,7 @@ body {
     padding-top: 70px;
 }
 
-.header {
+.audiowide {
     font-family: 'Audiowide', cursive;
 }
 
@@ -29,6 +29,12 @@ body {
 
 #btnSubmitNew {
     width: 100%;
+    color: #273755;
+    border: thin solid #273755;
+    background-color: white;
+    margin-right: 0;
+    margin-top: 15px;
+    
 }
 
 #mce_0 {
@@ -128,4 +134,26 @@ table {
     display: block;
     color: grey;
     font-weight: 400;
+}
+
+/* .positioner {
+    height: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+} */
+
+#loginLogo {
+    font-size: 3rem;
+    color: white;
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#loginByLexknights {
+    color: white;
+    display: block;
+    text-align: center;
+    margin-bottom: 70px;
 }
