@@ -411,6 +411,11 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
         res.redirect("/login");
          }}
 
+// HELLOSIGN CALLBACKS
+
+         app.get("/hellosign", function(req,res){
+             console.log(req.body)
+         })
 
 // =============
 //   SERVER
