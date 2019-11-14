@@ -11,7 +11,8 @@ var express                 = require('express'),
     moment                  = require('moment'),
     format                  = require('format-number'),
     numConverter            = require('number-to-words'),
-    Api2Pdf                 = require('api2pdf'),   
+    Api2Pdf                 = require('api2pdf'),
+	hellosign				= require('hellosign-sdk')({ key: '3438d68cdac5912219bdec06347561eed78279a42925fc7aafc40ee8b8e22873' }),
     
     a2pClient               = new Api2Pdf('1d3eeb76-f00f-42e9-b265-0a2925c28690'),
     numFormat               = format({integerSeparator: ',', prefix: 'S$'}),
@@ -416,6 +417,35 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
          app.post("/hellosign", function(req,res){
              console.log(req.body);
              res.send("Hello API Event Received");
+         })
+
+// HELLOSIGN GET PAGE
+
+         app.get("/hellosign", function(req,res){
+			const opts = {
+			  test_mode: 1,
+			  clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
+			  subject: 'The LOI we talked about',
+			  message: 'Please sign this NDA and then we can discuss more.',
+			  signers: [
+				{
+				  email_address: 'jose.sampedro@lexknights.com',
+				  name: 'Jose'
+				}
+			  ],
+			  files: ['sampleLoi.pdf']
+			};
+			 
+			hellosign.signatureRequest.createEmbedded(opts).then((hellores) => {
+			  const signature = hellores.signature_request.signatures[0];
+			  const signatureId = signature.signature_id;
+			  return hellosign.embedded.getSignUrl(signatureId);
+			}).then((hellores) => {
+			  	console.log('The sign url: ' + hellores.embedded.sign_url);
+				res.render("hellosign", {eSigURL: hellores.embedded.sign_url});
+			}).catch((err) => {
+			  console.log(err);
+			});
          })
 
 // =============
