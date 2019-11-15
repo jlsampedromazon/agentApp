@@ -83,7 +83,8 @@ var express                 = require('express'),
 		fullName: String,
 		company: String,
 		username: String,
-		password: String
+		password: String,
+		image: String
 	})
 
 	var Agent = mongoose.model("Agent", agentSchema);
@@ -205,7 +206,7 @@ app.put("/records/:id", isLoggedIn, function(req,res){
                         res.redirect("/records");
                         console.log(err);
                     } else {
-                        res.redirect("/records/"+req.params.id);
+                        res.redirect("/records");
                         console.log('PUT executed');
                     }
                 })
@@ -384,7 +385,7 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
 		idFromRequest = req.user._id,
 		idReqString = idFromRequest.toString();
 		
-		// 	If user is adming...	
+		// 	If user is admin...	
 		if (idReqString == "5dcd3c65d9e92f123992d2c0") {
 			
 			// 	Register a new user for authentication purposes		
@@ -490,7 +491,7 @@ app.post("/records/:id/esign", isLoggedIn, function(req,res){
     Loi.findById(req.params.id, function(err, foundLoi){
         if (err) {
             console.log(err);
-			res.redirect("records/" + foundLoi._id +"/esign");
+			res.redirect("/records/" + foundLoi._id +"/esign");
         } else {
 
             var     idFromFoundLoi = foundLoi.agent._id,
@@ -515,39 +516,52 @@ app.post("/records/:id/esign", isLoggedIn, function(req,res){
 					Agent.findOne({username: agentUsername}, function(err, foundAgent){
 						if (err) {
 							console.log(err);
-							res.redirect("records/" + foundLoi._id +"/esign");
+							res.redirect("/records/" + foundLoi._id +"/esign");
 						} else {
 							const opts = {
-							  test_mode: 1,
+							  test_mode: 0,
 							  clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
 							  subject: 'Tenancy LOI for ' + foundLoi.address,
 							  message: 'Kindly sign the LOI in relation to the tenancy of '+ foundLoi.address,
 							  signers: [
 
 								{
-								  email_address: req.body.tenantEmail ,
-								  name: "M. " + foundLoi.tenantName
+								 	email_address: req.body.tenantEmail ,
+								  	name: "M. " + foundLoi.tenantName,
+									order: 1
 								},
 
 								{
 									email_address: foundAgent.username,
-									name: "M. " + foundAgent.fullName
+									name: "M. " + foundAgent.fullName,
+									order: 0
 								},
 
 								{
 									email_address: req.body.landlordEmail,
-									name: "M. " + foundLoi.landlordName
+									name: "M. " + foundLoi.landlordName,
+									order: 2
 								}
 
 							  ],
-							  file_url: [pdfWeb]
+							  cc_email_addresses: ['operations@lexknights.com'],
+							use_text_tags: 1,
+							hide_text_tags: 1,
+							signing_options: {
+								"draw": true,
+								"type":true,
+								"upload": true,
+								"phone": false,
+								"default":"draw"
+							},
+							file_url: [pdfWeb]
 							};
 							
 							// 	Run HelloSign Email Workflow
 					
 							hellosign.signatureRequest.send(opts).then((hellores) => {
 								console.log(hellores);
-								res.send("<h1>Success!</h1>");
+								res.redirect("/records");
 								// hellosign.signatureRequest.get(signatureRequestId).then((sigStatusRes) => {
 								//   console.log(sigStatusRes);
 								// }).catch((err) => {
@@ -555,14 +569,14 @@ app.post("/records/:id/esign", isLoggedIn, function(req,res){
 								// })
 							}).catch((err) => {
 							  	console.log(err);
-								res.redirect("records/" + foundLoi._id +"/esign");
+								res.redirect("/records/" + foundLoi._id +"/esign");
 							});
 							
 						}
 					})
 				}).catch((err) => {
 					console.log(err);
-					res.redirect("records/" + foundLoi._id +"/esign")
+					res.redirect("/records/" + foundLoi._id +"/esign")
 				});
 	
             } else {

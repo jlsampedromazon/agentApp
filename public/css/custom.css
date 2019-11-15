@@ -175,3 +175,22 @@ table {
 	  color: white;
 	  text-align: center;
   }
+
+pre {
+	font-size: 12px;
+	font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+/* #mainRecordsDiv h1, #mainRecordsDiv h5  {
+	color: #273755;
+}
+
+.record h3, .record h5, .record p {
+		color: #273755;
+} */
+
+.sigTag {
+	color: white !important;
+	font-size: 3rem;
+	height: 3rem;
+}

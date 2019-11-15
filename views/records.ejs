@@ -17,14 +17,12 @@
 
     <% include partials/navbar.ejs %>
 
-
-    <div class="ui main text container mainDiv">
-        <% if (currentUser) { %>
+    <div id="mainRecordsDiv" class="ui main text container mainDiv">
             <h1 id="recordsHead">Welcome to DealPro!</h1>
-        <% } else { %>
-            <h1>WELCOME!</h1>
-        <% } %>
             <h5>This is your Dashboard. Click or tap on the boxes below to view each LOI.</h5>
+		<p>
+			<pre><i class="fa fa-user"> </i> Tenant Name 	<i class="fa fa-money-bill-wave"> </i> Monthly Rent</pre>
+		</p>
         
         <% if (lois.length > 0) {lois.forEach(function(loi){ %>
     
@@ -48,7 +46,7 @@
         <% })} else { %>
             <div id="noneYet" class="ui segment container">
                 <h3>You have not created any LOIs yet.</h3> 
-                <h3>Click "New LOI" in the Navigation Menu above to get started.</h3>
+                <h3>Click "New LOI" above to get started.</h3>
             </div>
        <% } %>
 
