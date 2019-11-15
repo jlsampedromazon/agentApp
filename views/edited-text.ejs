@@ -17,15 +17,21 @@
 
     <% include partials/navbar.ejs %>
 
-    <div id="showButtons">
-        <form id="saveText" action="/records/<%= loi.id %>?_method=PUT" method="POST">
+    <div id="controlsOne">
+        <form id="saveText" class="gridControl" action="/records/<%= loi.id %>?_method=PUT" method="POST">
             <input id="hiddenTextSave" type="text" name='opp[fullText]'>
-            <button id="btnSubmitSave" class="ui green button"><i class="fa fa-save"></i> &nbsp Save Changes</button>
+            <button id="btnSubmitSave" class="ui green button btnControl"><i class="fa fa-save"></i> &nbsp Save Changes</button>
         </form>
-        <a id="linkEdit" class="ui orange button showButton" href="/records/<%= loi._id %>/update-text" onclick="noAlert()"><i class="fa fa-edit"></i> &nbsp Edit Text</a>
-        <form id="requestPdf" action="/records/<%= loi._id %>/generate-pdf" method="POST">
+        <a id="linkEdit" class="ui orange button showButton gridControl" href="/records/<%= loi._id %>/update-text" onclick="noAlert()"><i class="fa fa-edit"></i> &nbsp Edit Text</a>
+	</div>
+	<div id="controlsTwo">
+        <form id="requestPdf" class="gridControl" action="/records/<%= loi._id %>/generate-pdf" method="POST">
             <input id="hiddenTextPdf" type="text" name='opp[fullText]'>
-            <button id="btnSubmitPdf" class="ui red button"><i class="fa fa-download"></i> &nbsp Get PDF</button>
+            <button id="btnSubmitPdf" class="ui red button btnControl"><i class="fa fa-download"></i> &nbsp Get PDF</button>
+        </form>
+		<form id="requestEsig" class="gridControl" action="/records/<%= loi._id %>/esigndetails" method="POST">
+            <input id="hiddenTextEsig" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
+            <button id="btnEsig" class="ui black button btnControl"><i class="fa fa-file-signature"></i> &nbsp eSign Letter</button>
         </form>
     </div>
 
