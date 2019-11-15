@@ -17,16 +17,18 @@
 
     <% include partials/navbar.ejs %>
 
-    <div id="showButtons">
-        <a href="/records" class="ui black button showButton"><i class="fa fa-chevron-left"></i> &nbsp All Records</a>
-        <a href="/records/<%= loi._id %>/update-terms" class="ui orange button showButton"><i class="fa fa-edit"></i> &nbsp Edit LOI</a>
-        <form id="requestPdf" action="/records/<%= loi._id %>/generate-pdf" method="POST">
+    <div id="controlsOne">
+        <a href="/records" class="ui black button gridControl"><i class="fa fa-chevron-left"></i> &nbsp All Records</a>
+        <a href="/records/<%= loi._id %>/update-terms" class="ui orange button gridControl"><i class="fa fa-edit"></i> &nbsp Edit LOI</a>
+	</div>
+	<div id="controlsTwo">
+        <form id="requestPdf" class="gridControl" action="/records/<%= loi._id %>/generate-pdf" method="POST">
             <input id="hiddenTextPdf" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button id="btnDowload" class="ui red button"><i class="fa fa-download"></i> &nbsp Get PDF</button>
+            <button id="btnDowload" class="ui red button btnControl"><i class="fa fa-download"></i> &nbsp Get PDF</button>
         </form>
-		<form id="requestEsig" action="/records/<%= loi._id %>/esigndetails" method="POST">
+		<form id="requestEsig" class="gridControl" action="/records/<%= loi._id %>/esigndetails" method="POST">
             <input id="hiddenTextEsig" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button id="btnEsig" class="ui yellow button"><i class="fa fa-signature"></i> &nbsp eSign Letter</button>
+            <button id="btnEsig" class="ui yellow button btnControl"><i class="fa fa-file-signature"></i> &nbsp eSign Letter</button>
         </form>
     </div>
 

@@ -69,19 +69,29 @@ table {
     text-decoration: underline;
 }
 
-#showButtons {
+#controlsOne, #controlsTwo {
     
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     width: 90%;
     margin: auto;
 
 }
 
-.showButton {
-    width: 33%;
+#controlsOne {
+	margin-bottom: 10px;
+}
+
+.gridControl {
+    width: 45%;
     padding: auto;
+	margin: 0 !important;
+}
+
+.btnControl {
+	width: 100%;
+	
 }
 
 #btnDownload, #btnEsig {
@@ -103,7 +113,7 @@ table {
     display: none;
 }
 
-#requestPdf {
+/* #requestPdf {
     width: 33%;
 }
 
@@ -118,7 +128,7 @@ table {
 #saveText button {
     width:100%;
 }
-
+ */
 .record:hover {
     cursor: pointer;
     background-color: azure;
@@ -157,3 +167,11 @@ table {
     text-align: center;
     margin-bottom: 70px;
 }
+
+  #legal {
+      font-size: 12px;
+      height: 180px;
+	  margin-top: 50px;
+	  color: white;
+	  text-align: center;
+  }
