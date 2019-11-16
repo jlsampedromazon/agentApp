@@ -61,15 +61,6 @@ table {
     display: block;
 } */
 
-#recordsHead {
-    margin-bottom: 28px;
-	background-color: #E5EDF6;
-	display: flex;
-	align-items:center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
 .record a {
     text-decoration: underline;
 }
@@ -198,16 +189,34 @@ pre {
 	color: white !important;
 }
 
+#recordsHead {
+    margin-bottom: 28px;
+	background-color: #E5EDF6;
+	display: flex;
+	align-items:center !important;
+	justify-content:center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 #agentWelcome {
 	display: inline;
 }
 
-#agentName, #agentGreet {
-	display: inline-block;
-}
 
 #agentPhoto {
 	display: inline;
 	max-height: 70px;
+	align-self: center;
+	margin-right: 20px;
+	border-radius: 50%;
+	margin-top: auto;
+	margin-bottom: auto;
+	border: 2px solid black;
 }
 
+
+#agentName {
+	font-weight: bold;
+	font-size: 2rem;
+}

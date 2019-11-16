@@ -80,6 +80,7 @@ var express                 = require('express'),
 
 	// Create Agent Schema, including user details
 	var agentSchema = new mongoose.Schema({
+		salutation: String,
 		fullName: String,
 		company: String,
 		username: String,

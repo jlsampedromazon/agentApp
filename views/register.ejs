@@ -22,7 +22,17 @@
                     <div class="ui huge header"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</div>
             
                         <form id="registerForm" class="ui form" action="/register" method="POST">
+							                
+                            <!-- Input: salutationsalutation -->
                 
+                            <div class="field">
+                                <label for="salutation">Salutation:</label>
+								<select name="salutation">
+								  <option value="Mr.">Mr.</option>
+								  <option value="Ms.">Ms.</option>
+								</select>                            
+							</div>
+                                 
                             <!-- Input: fullName -->
                 
                             <div class="field">
