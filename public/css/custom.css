@@ -220,3 +220,11 @@ pre {
 	font-weight: bold;
 	font-size: 2rem;
 }
+
+#agentProfilePosition {
+	min-width: 310px;
+}
+
+.menu a {
+	font-size:12px;
+}

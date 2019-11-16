@@ -113,7 +113,6 @@ app.get("/records", isLoggedIn, function(req,res){
 				if (err) {
 					console.log(err)
 				} else {
-					console.log(foundAgent);
 					res.render('records', {lois: lois, foundAgent:foundAgent, moment: moment, numFormat: numFormat, numConverter: numConverter});
 				}
 			})
@@ -438,7 +437,6 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function(req,res){
 
 // FUNCTION: REQUIRE AUTHENTICATION
     function isLoggedIn(req,res,next){
-        console.log(req.isAuthenticated());
         if(req.isAuthenticated()){
             return next();
         } else {
