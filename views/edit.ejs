@@ -53,7 +53,7 @@
             <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>RE: <span class="spanAddress" style="text-transform: uppercase"><%= loi.address %></span></strong></p>
             <p style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">I am pleased to inform you that <strong><span class="spanTenantName" style="text-transform: uppercase"><%= loi.tenantName %></span> (ID NO. <span class="spanTenantId" style="text-transform: uppercase"><%= loi.tenantId %></span>)</strong> indicated the intention to lease the above premises based on the following terms and conditions and subject to contract:</p>
             <ol style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">
-                <li style="margin-bottom: 12px;"><strong>Rental: </strong>Singapore Dollars <strong><span class="spanRentAmount" style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %> ONLY (<%- numFormat(loi.rentAmount) %>)</span></strong> per month exclusive of maintenance charges & GST (if any), payable monthly in advance. <span id='spanDiplo'><% if (loi.diplo == "yes") { %>The Diplomatic clause shall be applicable after <strong>TWELVE (12) MONTHS</strong> of occupation by the Tenant giving <strong>TWO (2) MONTHS</strong> notice or TWO (2) MONTHS rent in lieu of notice.<% } %></li>
+                <li style="margin-bottom: 12px;"><strong>Rental: </strong>Singapore Dollars <strong><span class="spanRentAmount" style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %> ONLY (<%- numFormat(loi.rentAmount) %>)</span></strong> per month exclusive of maintenance charges & GST (if any), payable monthly in advance. <span id='spanDiplo'><% if (loi.diplo == "yes") { %>The Diplomatic clause shall be applicable after <strong>TWELVE (12) MONTHS</strong> of occupation by the Tenant giving <strong>TWO (2) MONTHS</strong> notice or <strong>TWO (2) MONTHS</strong> rent in lieu of notice.<% } %></li>
                 <li style="margin-bottom: 12px;"><strong>Period of Lease: </strong><strong><span class="spanLeasePeriod" style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %> (<%= loi.leasePeriod %>) months</span></strong> with an option to renew for another <strong>TWELVE (12) MONTHS</strong> at a mutually agreed rental by both parties concerned.</span></li>
                 <li style="margin-bottom: 12px;"><strong>Commencement Date: </strong>The lease shall commence on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong> <em>(the "<strong>Commencement Date</strong>").</li>
                 <li style="margin-bottom: 12px;"><strong>Handover Date: </strong>The handover of the property shall take place on the Commencement Date.</li>
@@ -102,13 +102,13 @@
                     <tr style="border: 1px solid black">
                         <td style="border: 1px solid black; color: #d9d9d9">
                             <em>Agent Sign Here:</em>
-                            <p> </p>
                             <p class="sigTag"> [sig|req|signer0] </p>
+                            <p>  </p>
                         </td>
                         <td style="border: 1px solid black; color: #d9d9d9">
                             <em>Tenant Sign Here:</em>
-                            <p> </p>
                             <p class="sigTag"> [sig|req|signer1] </p>
+                            <p>  </p>
                         </td>
                     </tr>
                     
@@ -147,8 +147,8 @@
                             <tr style="border: 1px solid black">
                                 <td style="border: 1px solid black; color: #d9d9d9">
                                     <em>Landlord Sign Here:</em>
-                                    <p> </p>
                                     <p class="sigTag"> [sig|req|signer2] </p>
+                                    <p>  </p>
                                 </td>
                                 <td style="border: 1px solid black;">
                                     <p><strong>Name: </strong><span class="spanLandlordName"><%= loi.landlordName %></span></p>

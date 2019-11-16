@@ -102,12 +102,20 @@ app.get("/", isLoggedIn, function(req,res){
 // INDEX ROUTE
 
 app.get("/records", isLoggedIn, function(req,res){
+	console.log(req.user);
+
     Loi.find({agent: req.user}, function(err,lois){
         if (err) {
             console.log(err);
         } else {
-            res.render('records', {lois: lois, moment: moment, numFormat: numFormat, numConverter: numConverter})
-            console.log(req.user);
+            Agent.findOne({username: req.user.username}, function (err, foundAgent){
+				if (err) {
+					console.log(err)
+				} else {
+					console.log(foundAgent);
+					res.render('records', {lois: lois, foundAgent:foundAgent, moment: moment, numFormat: numFormat, numConverter: numConverter});
+				}
+			})
         }
     })
 })

@@ -16,9 +16,16 @@
 <body>
 
     <% include partials/navbar.ejs %>
+	<div id="recordsHead">
+			<img id="agentPhoto" src="<%- foundAgent.image %>">
+			<div id="agentWelcome">
+				<h3 id="agentGreet">Welcome to DealPro,</h3>
+				<h1 id="agentName">M. <%= foundAgent.fullName %></h1>
+			</div>
+
+	</div>
 
     <div id="mainRecordsDiv" class="ui main text container mainDiv">
-            <h1 id="recordsHead">Welcome to DealPro!</h1>
             <h5>This is your Dashboard. Click or tap on the boxes below to view each LOI.</h5>
 		<p>
 			<pre><i class="fa fa-user"> </i> Tenant Name 	<i class="fa fa-money-bill-wave"> </i> Monthly Rent</pre>
