@@ -2,13 +2,15 @@
         <div class="ui fixed inverted menu">
                 <div class="container ui">
                     <div class="header item audiowide">
-                        DealPro&trade;
+                        <a id="navLogo" href="/">DealPro&trade;</a>
                     </div>
                     <% if (currentUser) { %>
                         <a href="/records" class="item"><i class="fas fa-archive"></i> &nbsp; Records</a>;
                         <a href="/records/new" class="item"><i class="far fa-plus-square"></i> &nbsp; New LOI</a>
                         <a href="/logout" class="item"><i class="fas fa-sign-out-alt"></i> &nbsp; Logout</a>
-                    <% } %>
+                    <% } else { %>
+						<a href="#" class="item audiowide">[Private Beta]</a>
+					<% } %>
 
                 </div>
         </div>

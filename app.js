@@ -594,6 +594,14 @@ app.post("/records/:id/esign", isLoggedIn, function(req,res){
 
 })
 
+app.get("/privacy", function(req,res){
+	res.render("privacy");
+})
+
+app.get("/terms", function(req, res){
+	res.render("terms");
+})
+
 // HELLOSIGN GET PAGE
 
 //          app.get("/hellosign", function(req,res){
