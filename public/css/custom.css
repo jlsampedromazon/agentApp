@@ -4,7 +4,7 @@ html {
 
 body {
     height: 100%;
-    padding-top: 70px;
+    padding-top: 40px;
 }
 
 .audiowide {
@@ -233,3 +233,38 @@ pre {
 #navLogo {
 	font-size:14px;
 }
+
+/* JOIN VIEW */
+
+#thanks {
+	text-align: center;
+	font-weight: bold;
+}
+
+#aboutBeta {
+	text-decoration: underline;
+}
+
+.betaFeatures {
+	font-size: 14px;
+}
+
+#betaNote {
+	margin-bottom: 30px;
+}
+
+#bgDealPro {
+	    background-image: url("/img/blackVector.png"); /* The image used */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    height: 100%;
+	min-height: 650px;
+    
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+

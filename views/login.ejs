@@ -10,10 +10,11 @@
     
     </head>
     
-    <body style="background-color: #273755">
+    <body>
     
         <% include partials/navbar.ejs %>
-
+<div id="bgDealPro">
+	<div>
         <div id="loginLogo" class="audiowide"> DealPro </div>
         <div id="loginByLexknights" class="audiowide">by LexKnights</div>
 
@@ -47,9 +48,12 @@
 
                         </form>
                     </div>
-            </div>
+					<% include partials/footer.ejs %>
 
-		<% include partials/footer.ejs %>
+            </div>
+		</div>
+		</div>
+
         <% include partials/boilerScripts.ejs %>
 
     </body>

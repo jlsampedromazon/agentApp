@@ -29,8 +29,9 @@ body {
 
 #betaOne {
 	background-color: AliceBlue;
-	height:25%;
 	margin-bottom: 36.5px;
+	padding-top: 30px;
+	padding-bottom:30px;
 	
 	display: flex;
 	align-items: center;
@@ -48,16 +49,17 @@ body {
 }
 
 #betaLead, .betaRegister {
-	color: grey;
 	text-align: center;
 }
 
-#btnLogin {
+#btnLogin, #btnRegister {
 	color:white;
 	width: 90%;
 	margin-right:5%;
 	margin-left:5%;
-	margin-bottom: 16px
+	margin-bottom: 16px;
+	margin-top: 16px;
+
 }
 
 .betaRegister {
@@ -140,7 +142,7 @@ img {
 	padding:0;
 }
 
-#betaOne, #lexknightsBanner {
+#lexknightsBanner {
 	background-color: AliceBlue;
 	min-height:200px;
 	height: 20%;
@@ -168,4 +170,13 @@ img {
 	align-content: center;
 	padding-top:50px;
 	padding-bottom:50px;
+}
+
+#betaContent {
+	height: 100%;
+}
+
+#betaLead {
+	color: black !important;
+	font-weight: bold;
 }
