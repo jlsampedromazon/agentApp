@@ -1,0 +1,171 @@
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+	margin: 0;
+	padding:0;
+}
+
+.audiowide {
+    font-family: 'Audiowide', cursive;
+}
+
+#pageHead {
+    background-image: url("/img/blackVector.png"); /* The image used */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    height: 40%;
+	min-height: 200px;
+    
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	color: white;
+}
+
+#betaOne {
+	background-color: AliceBlue;
+	height:25%;
+	margin-bottom: 36.5px;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #767676;
+}
+
+#quote, #mission {
+	margin-bottom: 36.5px;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #767676;
+}
+
+#betaLead, .betaRegister {
+	color: grey;
+	text-align: center;
+}
+
+#btnLogin {
+	color:white;
+	width: 90%;
+	margin-right:5%;
+	margin-left:5%;
+	margin-bottom: 16px
+}
+
+.betaRegister {
+	font-size: 12px;
+}
+
+#betaOne .betaRegister {
+	margin:0;
+}
+
+.row {
+
+	text-align:center;
+	font-size: 14px;
+	margin:auto;
+	margin-bottom; 36.5px;
+}
+
+img {
+	width: 100%;
+	max-width: 100px;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.col-6 {
+	margin-bottom: 36.5px;
+	font-weight: bold;
+}
+
+#headerContent {
+	text-align: center;
+}
+
+#quoteContent, #missionContent {
+	text-align: center;
+	color: grey;
+}
+
+#missionContent h5 {
+		line-height: 3rem;
+}
+
+#topQuote {
+	margin-bottom: 1.5rem;
+}
+
+.quoteSource {
+	font-size: 12px;
+	font-style: italic;
+	line-height:2rem;
+	margin-bottom: 0;
+	
+}
+
+#founderPhoto {
+	border-radius: 10px;
+	margin-top: 12px;
+}
+
+ #salLogos {
+     max-width: 40%;
+	 min-width:300px;
+     height: auto;
+	 text-align: center;
+	 filter: contrast(50%);
+  }
+
+  #power {
+	color: #767676;
+      font-family: 'Audiowide', cursive;
+      letter-spacing: 8px;
+	  text-align: center;
+	  margin-bottom: 50px;
+  }
+
+#lexknightsBannerContent img {
+	display: block;
+	margin: auto;
+	padding:0;
+}
+
+#betaOne, #lexknightsBanner {
+	background-color: AliceBlue;
+	min-height:200px;
+	height: 20%;
+	
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+#footer {
+	background-color: black;
+}
+
+  #legalContent {
+      font-size: 12px;
+	  color: white;
+	  text-align: center;
+  }
+
+#legal{
+	display:flex;
+	justify-content: center;
+	align-content: center;
+	padding-top:50px;
+	padding-bottom:50px;
+}

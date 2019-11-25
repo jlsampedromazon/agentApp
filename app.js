@@ -602,6 +602,10 @@ app.get("/terms", function(req, res){
 	res.render("terms");
 })
 
+app.get("/test", function(req, res){
+	res.render("index");
+})
+
 // HELLOSIGN GET PAGE
 
 //          app.get("/hellosign", function(req,res){
