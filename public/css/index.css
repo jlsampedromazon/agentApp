@@ -83,7 +83,7 @@ body {
 	margin-bottom: 36.5px;
 }
 
-img {
+.icoFeature {
 	width: 100%;
 	max-width: 100px;
 	height: auto;
@@ -126,11 +126,11 @@ img {
 }
 
  #salLogos {
-     max-width: 450px;
-	 min-width:300px;
-     height: auto;
-	 text-align: center;
-	 filter: contrast(50%);
+	max-width: 90%;
+	min-width:300px;
+	height: auto;
+	text-align: center;
+	filter: contrast(50%);
   }
 
   #power {
@@ -138,7 +138,7 @@ img {
       font-family: 'Audiowide', cursive;
       letter-spacing: 8px;
 	  text-align: center;
-	  margin-bottom: 50px;
+	  margin-bottom: 30px;
   }
 
 #lexknightsBannerContent img {
@@ -200,4 +200,9 @@ img {
 
 #featureSection {
 	margin-bottom: 0;
+}
+
+#careerLogos {
+	width: 300px;
+	height: auto;
 }
