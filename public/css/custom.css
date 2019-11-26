@@ -4,11 +4,30 @@ html {
 
 body {
     height: 100%;
-    padding-top: 40px;
+    padding-top: 44px;
+    font-family: 'Lato', sans-serif;
+}
+
+.divWrapper {
+    height: 100%;
 }
 
 .audiowide {
     font-family: 'Audiowide', cursive;
+}
+
+.whiteFont {
+    color: white;
+}
+
+.centerText{
+    text-align: center;
+}
+
+.centerItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main.container {
@@ -155,7 +174,7 @@ table {
     display: block;
     text-align: center;
     margin-bottom: 30px;
-	margin-top:30px;
+	margin-top:70px;
 }
 
 #loginByLexknights {
@@ -238,7 +257,8 @@ pre {
 
 #thanks {
 	text-align: center;
-	font-weight: bold;
+    font-weight: bold;
+    color: white;
 }
 
 #aboutBeta {
@@ -246,7 +266,10 @@ pre {
 }
 
 .betaFeatures {
-	font-size: 14px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 50px;
 }
 
 #betaNote {
@@ -254,12 +277,12 @@ pre {
 }
 
 #bgDealPro {
-	    background-image: url("/img/blackVector.png"); /* The image used */
+	background-image: url("/img/blackVector.png"); /* The image used */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
-    height: 100%;
-	min-height: 650px;
+
+	min-height: 100%;
     
 	display: flex;
 	align-items: center;
@@ -267,4 +290,12 @@ pre {
 
 }
 
+/* Login */
 
+#redirectToJoin {
+    margin-top: 50px;
+}
+
+.btnMobileWidth {
+    width: 100%;
+}

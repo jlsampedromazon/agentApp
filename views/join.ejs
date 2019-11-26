@@ -1,85 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>DealPro | Dealtech Tool for Professional Dealmakers</title>
-    
-        <% include partials/boilerLinks.ejs %>
-    
-    </head>
-    
-    <body>
-    
-        <% include partials/navbar.ejs %>
-		
 
-		<div id="bgDealPro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DealPro | Dealtech Tool for Professional Dealmakers</title>
+
+    <% include partials/boilerLinks.ejs %>
+
+</head>
+
+<body>
+
+    <% include partials/navbar.ejs %>
+
+
+    <div id="bgDealPro">
+        <div class="divWrapper">
+
+            <div id="loginLogo" class="audiowide"> DealPro </div>
+            <div id="loginByLexknights" class="audiowide">by LexKnights</div>
+            <div id="thanks">Thank you for your interest in DealPro!</div>
+            <div class="betaFeatures">Fill in the form below to find out more about our beta.</div>
+
             <div id="mainText" class="ui main text container segment">
-            
+
                 <div class="ui huge header"><i class="fa fa-user-plus" aria-hidden="true"></i> Request to Join!</div>
-            
-                    <form id="registerForm" class="ui form" action="/join" method="POST">
-							                
-    <!-- Input: salutationsalutation -->
-                
-    <div class="field">
-        <label for="salutation">Salutation:</label>
-		<select name="salutation">
-				<option value="Mr.">Mr.</option>
-				<option value="Ms.">Ms.</option>
-		</select>                            
-	</div>
-                                 
-    <!-- Input: fullName -->
-                
-    <div class="field">
-        <label for="fullName">Full Name:</label>
-        <input type="text" placeholder="Enter your Full Name..." name="fullName" required>
-    </div>
-                                    
-    <!-- Input: company -->
-                
-    <div class="field">
-        <label for="company">Real Estate Agency:</label>
-        <input type="text" placeholder="Enter the name of your company..." name="company" required>
-    </div>
-						
-	<!-- Input: Username -->
-                
-    <div class="field">
-        <label for="username">Email Address:</label>
-        <input type="email" placeholder="Enter your email address..." name="username" required>
-    </div>						
-							
-	<!-- Input: Reg No. -->
-                
-	<div class="field">
-    	<label for="regNo">Agent Registration No. (Optional):</label>
-    	<input type="text" placeholder="Enter your agent registration number..." name="regNo">
-    </div>
-						
-    <!-- Input: Mobile Phone No. -->
-                
-    <div class="field">
-        <label for="mobile">Mobile Phone No. (Optional):</label>
-        <input type="number" placeholder="Enter your mobile number..." name="mobile" required>
-    </div>
 
-    <!-- Submit Button -->
+                <form id="registerForm" class="ui form" action="/join" method="POST">
 
-    <div id="submitDiv">
+                    <!-- Input: salutation -->
 
-            <input id="btnSubmitNew" class="ui button big" type="submit">
-                    
-    </div>
+                    <div class="field">
+                        <label for="salutation">Salutation:</label>
+                        <select name="salutation">
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                        </select>
+                    </div>
+
+                    <!-- Input: fullName -->
+
+                    <div class="field">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" placeholder="Enter your Full Name..." name="fullName" required>
+                    </div>
+
+                    <!-- Input: company -->
+
+                    <div class="field">
+                        <label for="company">Real Estate Agency:</label>
+                        <input type="text" placeholder="Enter the name of your company..." name="company" required>
+                    </div>
+
+                    <!-- Input: Username -->
+
+                    <div class="field">
+                        <label for="username">Email Address:</label>
+                        <input type="email" placeholder="Enter your email address..." name="username" required>
+                    </div>
+
+                    <!-- Input: Reg No. -->
+
+                    <div class="field">
+                        <label for="regNo">Agent Registration No. (Optional):</label>
+                        <input type="text" placeholder="Enter your agent registration number..." name="regNo">
+                    </div>
+
+                    <!-- Input: Mobile Phone No. -->
+
+                    <div class="field">
+                        <label for="mobile">Mobile Phone No. (Optional):</label>
+                        <input type="number" placeholder="Enter your mobile number..." name="mobile">
+                    </div>
+
+                    <!-- Submit Button -->
+
+                    <div id="submitDiv">
+
+                        <input id="btnSubmitNew" class="ui button big" type="submit">
+
+                    </div>
 
                 </form>
             </div>
-    </div>
-</div>
-        <% include partials/boilerScripts.ejs %>
 
-    </body>
+            <p id="redirectToJoin" class="whiteFont centerText">Already have an account with us yet?</p>
+            <div class="centerItem"><a href="/join" class="ui button primary big">Log-In</a></div>
+
+            <% include partials/footer.ejs %>
+
+        </div>
+    </div>
+
+    <% include partials/boilerScripts.ejs %>
+
+</body>
+
 </html>

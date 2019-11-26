@@ -1,60 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>DealPro | Dealtech Tool for Professional Dealmakers</title>
-    
-        <% include partials/boilerLinks.ejs %>
-    
-    </head>
-    
-    <body>
-    
-        <% include partials/navbar.ejs %>
-<div id="bgDealPro">
-	<div>
-        <div id="loginLogo" class="audiowide"> DealPro </div>
-        <div id="loginByLexknights" class="audiowide">by LexKnights</div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DealPro | Dealtech Tool for Professional Dealmakers</title>
+
+    <% include partials/boilerLinks.ejs %>
+
+</head>
+
+<body>
+
+    <% include partials/navbar.ejs %>
+    <div id="bgDealPro">
+        <div class="divWrapper">
+            <div id="loginLogo" class="audiowide"> DealPro </div>
+            <div id="loginByLexknights" class="audiowide">by LexKnights</div>
 
             <div class="ui main text container segment">
-            
-                    <div class="ui huge header"><i class="fa fa-user" aria-hidden="true"></i> Login</div>
-            
-                        <form id="loginForm" class="ui form" action="/login" method="POST">
-                
-                            <!-- Input: Username -->
-                
-                            <div class="field">
-                                <label for="username">Username:</label>
-                                <input type="email" placeholder="Enter your Username..." name="username" required>
-                            </div>
-                                    
-                            <!-- Input: Password -->
-                
-                            <div class="field">
-                                <label for="password">Password:</label>
-                                <input type="password" placeholder="Enter your Password..." name="password" required>
-                            </div>
 
-                            <!-- Submit Button -->
+                <div class="ui huge header"><i class="fa fa-user" aria-hidden="true"></i> Login</div>
 
-                            <div id="submitDiv">
+                <form id="loginForm" class="ui form" action="/login" method="POST">
 
-                                    <input id="btnSubmitNew" class="ui button big" type="submit">
-                    
-                            </div>
+                    <!-- Input: Username -->
 
-                        </form>
+                    <div class="field">
+                        <label for="username">Username:</label>
+                        <input type="email" placeholder="Enter your Username..." name="username" required>
                     </div>
-					<% include partials/footer.ejs %>
 
+                    <!-- Input: Password -->
+
+                    <div class="field">
+                        <label for="password">Password:</label>
+                        <input type="password" placeholder="Enter your Password..." name="password" required>
+                    </div>
+
+                    <!-- Submit Button -->
+
+                    <div id="submitDiv">
+
+                        <input id="btnSubmitNew" class="ui button big" type="submit">
+
+                    </div>
+
+                </form>
             </div>
-		</div>
-		</div>
 
-        <% include partials/boilerScripts.ejs %>
+            <p id="redirectToJoin" class="whiteFont centerText">Don't have an account with us yet?</p>
+            <div class="centerItem"><a href="/join" class="ui button green big">Request to Join!</a></div>
 
-    </body>
+            <% include partials/footer.ejs %>
+        
+        </div>
+    </div>
+    </div>
+
+    <% include partials/boilerScripts.ejs %>
+
+</body>
+
 </html>

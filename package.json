@@ -21,6 +21,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "mongoose": "^5.7.5",
+    "nodemailer": "^6.3.1",
     "number-to-words": "^1.2.4",
     "office-converter": "^1.0.2",
     "passport": "^0.4.0",
