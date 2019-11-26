@@ -30,6 +30,10 @@ body {
     align-items: center;
 }
 
+.fullHeight {
+height:100%
+}
+
 .main.container {
     margin: auto;
 }
@@ -95,7 +99,8 @@ table {
 }
 
 #controlsOne {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
+    margin-top: 30px;
 }
 
 .gridControl {
@@ -298,4 +303,10 @@ pre {
 
 .btnMobileWidth {
     width: 100%;
+}
+
+/* Update Terms */
+
+#termsWrap {
+    margin-top: 30px;
 }

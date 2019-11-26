@@ -197,3 +197,7 @@ img {
 	justify-content: center;
 	margin-bottom: 50px;
 }
+
+#featureSection {
+	margin-bottom: 0;
+}
