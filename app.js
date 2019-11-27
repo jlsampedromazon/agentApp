@@ -707,7 +707,7 @@ function isLoggedIn(req, res, next) {
     }
 }
 
-// EMAIL NOTIFICATION - ERROR
+// EMAIL NOTIFICATION - ERRORS AND USER EVENTS
 
 function adminNotification(type, obj, origin) {
     var strObject = JSON.stringify(obj);
@@ -716,21 +716,6 @@ function adminNotification(type, obj, origin) {
     transporter.sendMail(internalNotifications, function (err, info) {
         if (err) {
             console.log(err);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-}
-
-
-// EMAIL NOTIFICATION - USER EVENT
-function notifyUserEvent(obj, origin) {
-    var strObject = JSON.stringify(obj);
-    internalNotifications.text = strObject;
-    internalNotifications.subject = "DealPro: Event Notification - " + origin;
-    transporter.sendMail(internalNotifications, function (error, info) {
-        if (error) {
-            console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
         }
