@@ -161,7 +161,17 @@ app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
                 idReqString = idFromRequest.toString();
             // Render main text of LOI in text editor to finalize & save if agent is the author, otherwise don't allow
             if (idLoiString == idReqString) {
-                res.render("edit", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
+                // Find agent details and pass them to edit.ejs to populate agent signature block in LOI
+                Agent.findOne({ username: req.user.username }, function (err, foundAgent) {
+                    if (err) {
+                        console.log(err)
+                        adminNotification("Error", err, "GET Records - Agent not found");
+                        res.redirect("/");
+                    } else {
+                        res.render("edit", { loi: foundLoi, agent: foundAgent, moment: moment, numFormat: numFormat, numConverter: numConverter });
+                    }
+                })
+                
             } else {
                 res.send("You are not authorized to view this record.");
             }

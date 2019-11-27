@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 var agentSchema = new mongoose.Schema({
     salutation: String,
     fullName: String,
+    agentId: String,
     company: String,
+    license: String,
     username: String,
     password: String,
     image: String
