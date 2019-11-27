@@ -1,26 +1,29 @@
 // REQUIRE LIBRARIES & MODULES
-var express = require('express'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    passportLocalMongoose = require('passport-local-mongoose'),
-    User = require('./models/user'),
-    Joiner = require('./models/joiner'),
-    methodOverride = require("method-override"),
-    sanitizer = require("express-sanitizer"),
-    moment = require('moment'),
-    format = require('format-number'),
-    numConverter = require('number-to-words'),
-    Api2Pdf = require('api2pdf'),
-    hellosign = require('hellosign-sdk')({ key: '3438d68cdac5912219bdec06347561eed78279a42925fc7aafc40ee8b8e22873' }),
-    nodemailer = require('nodemailer')
 
-a2pClient = new Api2Pdf('1d3eeb76-f00f-42e9-b265-0a2925c28690'),
-    numFormat = format({ integerSeparator: ',', prefix: 'S$' }),
-    app = express();
+var express                 = require('express'),
+    mongoose                = require('mongoose'),
+    bodyParser              = require('body-parser'),
+    passport                = require('passport'),
+    LocalStrategy           = require('passport-local'),
+    passportLocalMongoose   = require('passport-local-mongoose'),
+    User                    = require('./models/user'),
+    Joiner                  = require('./models/joiner'),
+    Loi                     = require('./models/loi'),
+    Agent                   = require('./models/agent'),
+    methodOverride          = require("method-override"),
+    sanitizer               = require("express-sanitizer"),
+    moment                  = require('moment'),
+    format                  = require('format-number'),
+    numConverter            = require('number-to-words'),
+    Api2Pdf                 = require('api2pdf'),
+    hellosign               = require('hellosign-sdk')({ key: '3438d68cdac5912219bdec06347561eed78279a42925fc7aafc40ee8b8e22873' }),
+    nodemailer              = require('nodemailer')
 
-// EXPRESS CONFIG
+    a2pClient               = new Api2Pdf('1d3eeb76-f00f-42e9-b265-0a2925c28690'),
+    numFormat               = format({ integerSeparator: ',', prefix: 'S$' }),
+    app                     = express();
+
+// CONFIG EXPRESS
 
 app.set("view engine", "ejs");
 app.use(express.static('public'));
@@ -28,14 +31,15 @@ app.use(methodOverride("_method"));
 app.use(sanitizer());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// SET UP MONGOOSE
+// CONFIG MONGOOSE
+
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb+srv://jlsm:lk4577@cluster0-xu9pt.mongodb.net/test?retryWrites=true&w=majority");
 
-// TRIGGER AUTHENTICATION LIBRARIES
+// CONFIG AUTHENTICATION
 
 app.use(require("express-session")({
     secret: "mooncakes are yummy",
@@ -73,64 +77,34 @@ var internalNotifications = {
 };
 
 // =============
-//   DB SCHEMAS
-// =============
-
-// Create LOI Input Schema
-var loiSchema = new mongoose.Schema({
-    address: String,
-    landlordName: String,
-    tenantName: String,
-    landlordId: String,
-    tenantId: String,
-    rentAmount: String,
-    leasePeriod: String,
-    diplo: String,
-    bank: String,
-    account: String,
-    startDate: Date,
-    fullText: String,
-    agent: Object,
-    created: { type: Date, default: Date.now }
-
-})
-
-var Loi = mongoose.model("Loi", loiSchema);
-
-// Create Agent Schema, including user details
-var agentSchema = new mongoose.Schema({
-    salutation: String,
-    fullName: String,
-    company: String,
-    username: String,
-    password: String,
-    image: String
-})
-
-var Agent = mongoose.model("Agent", agentSchema);
-
-
-// =============
 //   ROUTES
 // =============
 
-// Root path leads to index
+
+// GET LANDING PAGE
 app.get("/", function (req, res) {
     res.render("index");
 })
 
-// INDEX ROUTE
+
+// GET INDEX (RECORDS) 
 
 app.get("/records", isLoggedIn, function (req, res) {
     console.log(req.user);
 
+    // Find all LOIs created by the relevant user
     Loi.find({ agent: req.user }, function (err, lois) {
         if (err) {
             console.log(err);
+            adminNotification("Error", err, "GET Records - LOI not found");
+            res.redirect("/");
         } else {
+            // Find agent salutation and full name to display on records dashboard
             Agent.findOne({ username: req.user.username }, function (err, foundAgent) {
                 if (err) {
                     console.log(err)
+                    adminNotification("Error", err, "GET Records - Agent not found");
+                    res.redirect("/");
                 } else {
                     res.render('records', { lois: lois, foundAgent: foundAgent, moment: moment, numFormat: numFormat, numConverter: numConverter });
                 }
@@ -139,78 +113,53 @@ app.get("/records", isLoggedIn, function (req, res) {
     })
 })
 
-// SHOW FORM - CREATE NEW TERMS (GET)
+
+// GET FORM TO INPUT NEW TERMS AND CREATE NEW LOI (WITHOUT MAIN TEXT)
 
 app.get("/records/new", isLoggedIn, function (req, res) {
     res.render("new");
 })
 
 
-// EXECUTE - CREATE NEW TERMS (POST)
+// POST TERMS TO CREATE NEW LOI (WITHOUT MAIN TEXT)
+
 app.post("/records", isLoggedIn, function (req, res) {
 
+    // Prepares to add agent name and ID to LOI record
     req.body.opp.agent = req.user;
     console.log(req.body.opp);
 
+    // Creates new LOI with key terms & agent (but leaves out text)
     Loi.create(req.body.opp, function (err, newLoi) {
         if (err) {
             res.render("new");
+            console.log(err);
+            adminNotification("Error", err, "POST LOI Terms - Failed to create LOI");
         } else {
             res.redirect("/records/" + newLoi._id + "/editnew");
             console.log(newLoi);
-            var strLOI = JSON.stringify(newLoi);
-            internalNotifications.text = strLOI;
-            internalNotifications.subject = "DealPro: New LOI Created";
-            transporter.sendMail(internalNotifications, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
+            adminNotification("Event", newLoi, "POST LOI Terms - New LOI Created");
         }
     })
 })
 
 
-// SHOW RECORD
+// GET TEXT EDITOR TO RENDER, EDIT AND SAVE MAIN TEXT OF NEW LOI
 
-app.get("/records/:id", isLoggedIn, function (req, res) {
-    Loi.findById(req.params.id, function (err, foundLoi) {
-        if (err) {
-            res.redirect("/records")
-            console.log(err);
-        } else {
-
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-
-            if (idLoiString == idReqString) {
-                res.render("show", { loi: foundLoi })
-            } else {
-                res.send("You are not authorized to view this record.");
-            }
-        }
-    })
-})
-
-
-// SHOW FORM - EDIT NEW TEXT (GET)
 app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
-
+    // Find LOI and extract agent details to first check is agent is the author
     Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
             res.redirect("/records");
             console.log(err);
+            adminNotification("Error", err, "GET New LOI on Text Editor - Failed to Find LOI");
         } else {
-
+            // Compare user credentials with LOI author (first need to convert obj into str)
             var idFromFoundLoi = foundLoi.agent._id,
                 idFromRequest = req.user._id,
                 idLoiString = idFromFoundLoi.toString(),
                 idReqString = idFromRequest.toString();
-
+            // Render main text of LOI in text editor to finalize & save if agent is the author, otherwise don't allow
             if (idLoiString == idReqString) {
                 res.render("edit", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
             } else {
@@ -221,27 +170,57 @@ app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
 })
 
 
-// EXECUTE - EDIT NEW TEXT (PUT)
+// GET DETAILS OF SELECTED RECORD
+
+app.get("/records/:id", isLoggedIn, function (req, res) {
+    // Find LOI and extract agent details to first check is agent is the author
+    Loi.findById(req.params.id, function (err, foundLoi) {
+        if (err) {
+            res.redirect("/records")
+            console.log(err);
+            adminNotification("Error", err, "GET Selected LOI Record - Failed to Find LOI");
+
+        } else {
+            // Compare user credentials with LOI author (first need to convert obj into str)
+            var idFromFoundLoi = foundLoi.agent._id,
+                idFromRequest = req.user._id,
+                idLoiString = idFromFoundLoi.toString(),
+                idReqString = idFromRequest.toString();
+            // Show LOI if agent is the author, otherwise don't allow
+            if (idLoiString == idReqString) {
+                res.render("show", { loi: foundLoi })
+            } else {
+                res.send("You are not authorized to view this record.");
+            }
+        }
+    })
+})
+
+
+// PUT UPDATE WITH MAIN TEXT FOR NEW OR EXISTING LOI 
 
 app.put("/records/:id", isLoggedIn, function (req, res) {
-
+    // Find LOI and extract agent details to first check is agent is the author
     Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
             res.redirect("/records/:id/update-terms");
             console.log(err);
-        } else {
+            adminNotification("Error", err, "PUT LOI Update  - Failed to Find LOI");
 
+        } else {
+            // Compare user credentials with LOI author (first need to convert obj into str)
             var idFromFoundLoi = foundLoi.agent._id,
                 idFromRequest = req.user._id,
                 idLoiString = idFromFoundLoi.toString(),
                 idReqString = idFromRequest.toString();
 
             if (idLoiString == idReqString) {
-
+                // Update record without overwritting null on unsubmitted fields (i.e. key terms)
                 Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
                     if (err) {
                         res.redirect("/records");
                         console.log(err);
+                        adminNotification("Error", err, "PUT LOI Update  - Failed to Update LOI");
                     } else {
                         res.redirect("/records");
                         console.log('PUT executed');
@@ -256,21 +235,23 @@ app.put("/records/:id", isLoggedIn, function (req, res) {
 
 })
 
-// SHOW FORM - UPDATE EXISTING TERMS (GET)
+
+// GET FORM TO UPDATE EXISTING LOI TERMS 
 
 app.get("/records/:id/update-terms", isLoggedIn, function (req, res) {
-
+    // Find LOI and extract agent details to first check is agent is the author
     Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
             res.redirect("/records");
             console.log(err);
+            adminNotification("Error", err, "GET Form to Update LOI Terms  - Failed to Find LOI");
         } else {
-
+            // Compare user credentials with LOI author (first need to convert obj into str)
             var idFromFoundLoi = foundLoi.agent._id,
                 idFromRequest = req.user._id,
                 idLoiString = idFromFoundLoi.toString(),
                 idReqString = idFromRequest.toString();
-
+            // Render form with pre-loaded values for exiting terms allowing user to modify or keep
             if (idLoiString == idReqString) {
                 res.render("update-terms", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
             } else {
@@ -280,27 +261,33 @@ app.get("/records/:id/update-terms", isLoggedIn, function (req, res) {
     })
 })
 
-// EXECUTE - UPDATE EXISTING TERMS (PUT)
 
+// PUT UPDATED TERMS FOR EXISTING LOI
+
+// [NOTE: This path re-directs back to update-terms upon error, unlike main text PUT]
 app.put("/records/:id/update-terms", isLoggedIn, function (req, res) {
-
+    // Find LOI and extract agent details to first check is agent is the author
     Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
             res.redirect("/records/:id/update-terms");
             console.log(err);
-        } else {
+            adminNotification("Error", err, "PUT Updated Terms for Existing LOI  - Failed to Find LOI");
 
+        } else {
+            // Compare user credentials with LOI author (first need to convert obj into str)
             var idFromFoundLoi = foundLoi.agent._id,
                 idFromRequest = req.user._id,
                 idLoiString = idFromFoundLoi.toString(),
                 idReqString = idFromRequest.toString();
 
             if (idLoiString == idReqString) {
-
+                
+                // Update record without overwritting null on unsubmitted fields (i.e. main text)
                 Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
                     if (err) {
                         res.redirect("/records/" + req.params.id + "/update-terms");
                         console.log(err);
+                        adminNotification("Error", err, "PUT Updated Terms for Existing LOI  - Failed to Update LOI");
                     } else {
                         res.redirect("/records/" + req.params.id + "/edited-text");
                     }
@@ -313,20 +300,23 @@ app.put("/records/:id/update-terms", isLoggedIn, function (req, res) {
 })
 
 
-// SHOW OUTPUT - EDITED TEXT AFTER TERMS UPDATE (GET)
-app.get("/records/:id/edited-text", isLoggedIn, function (req, res) {
+// GET VIEW OF MAIN TEXT AFTER KEY TERMS OF EXITING LOI HAVE BEEN EDITED
 
+// Front-end JS used to render main text with updated terms, then offer to save or actually edit main text (mainly bc front-end JS did not work inside TinyMCE, but also minimizes calls to it)
+app.get("/records/:id/edited-text", isLoggedIn, function (req, res) {
+    // Find LOI and extract agent details to first check is agent is the author
     Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
             res.redirect("/records/" + req.params.id + "/update-terms");
             console.log(err);
+            adminNotification("Error", err, "GET Main Text After Updating Key LOI Terms - Failed to Find LOI");
         } else {
-
+            // Compare user credentials with LOI author (first need to convert obj into str)
             var idFromFoundLoi = foundLoi.agent._id,
                 idFromRequest = req.user._id,
                 idLoiString = idFromFoundLoi.toString(),
                 idReqString = idFromRequest.toString();
-
+            // Show view of edited text in html reflecting updates to key terms
             if (idLoiString == idReqString) {
                 res.render("edited-text", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
             } else {
@@ -336,20 +326,23 @@ app.get("/records/:id/edited-text", isLoggedIn, function (req, res) {
     })
 })
 
-// SHOW FORM - UPDATE EXISTING TEXT AFTER TERMS UPDATE (GET)
-app.get("/records/:id/update-text", isLoggedIn, function (req, res) {
+// GET TEXT EDITOR TO EDIT AND SAVE MAIN TEXT OF EXISTING LOI AFTER TERMS UPDATE
 
+// [NOTE: This path re-directs back to view of updated main text upon error, unlike main text PUT]
+app.get("/records/:id/update-text", isLoggedIn, function (req, res) {
+    // Find LOI and extract agent details to first check is agent is the author
     Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
             console.log(err);
             res.redirect("/records/" + req.params.id + "/edited-text");
+            adminNotification("Error", err, "GET Text Editor for Existing LOI Post-Terms Update - Failed to Find LOI");
         } else {
-
+            // Compare user credentials with LOI author (first need to convert obj into str)
             var idFromFoundLoi = foundLoi.agent._id,
                 idFromRequest = req.user._id,
                 idLoiString = idFromFoundLoi.toString(),
                 idReqString = idFromRequest.toString();
-
+            // Render main text of updated LOI in text editor for user to edit & save
             if (idLoiString == idReqString) {
                 res.render("update-text", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
             } else {
@@ -358,6 +351,9 @@ app.get("/records/:id/update-text", isLoggedIn, function (req, res) {
         }
     })
 })
+
+
+//  CLEANUP CHECKPOINT: 26 NOV ****************************
 
 
 // GENERATE PDF
@@ -456,10 +452,12 @@ app.post("/register", isLoggedIn, function (req, res) {
     }
 });
 
+
 // LOGIN FORM
 app.get("/login", function (req, res) {
     res.render("login");
 })
+
 
 // POST LOG IN USER
 app.post("/login", passport.authenticate("local", {
@@ -481,20 +479,13 @@ app.post("/login", passport.authenticate("local", {
 
 })
 
+
 // LOG OUT ROUTE
 app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/")
 })
 
-// FUNCTION: REQUIRE AUTHENTICATION
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        res.redirect("/login");
-    }
-}
 
 // HELLOSIGN CALLBACKS
 
@@ -536,11 +527,10 @@ app.post("/records/:id/esigndetails", isLoggedIn, function (req, res) {
 
             } else {
                 res.send("You are not authorized to view this record.");
-            }
+            } 
         }
     })
 })
-
 
 
 // EXECUTE - E-SIGN
@@ -622,11 +612,6 @@ app.post("/records/:id/esign", isLoggedIn, function (req, res) {
                             hellosign.signatureRequest.send(opts).then((hellores) => {
                                 console.log(hellores);
                                 res.redirect("/records");
-                                // hellosign.signatureRequest.get(signatureRequestId).then((sigStatusRes) => {
-                                //   console.log(sigStatusRes);
-                                // }).catch((err) => {
-                                //   console.log(err);
-                                // })
                             }).catch((err) => {
                                 console.log(err);
                                 res.redirect("/records/" + foundLoi._id + "/esign");
@@ -698,34 +683,49 @@ app.post("/join", function (req, res) {
     })
 })
 
-// HELLOSIGN GET PAGE
+// =============
+//   FUNCTIONS
+// =============
 
-//          app.get("/hellosign", function(req,res){
-// 			const opts = {
-// 			  test_mode: 1,
-// 			  clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
-// 			  subject: 'The LOI we talked about',
-// 			  message: 'Please sign this NDA and then we can discuss more.',
-// 			  signers: [
-// 				{
-// 				  email_address: 'jose.sampedro@lexknights.com',
-// 				  name: 'Jose'
-// 				}
-// 			  ],
-// 			  files: ['sampleLoi.pdf']
-// 			};
+// REQUIRE AUTHENTICATION
 
-// 			hellosign.signatureRequest.createEmbedded(opts).then((hellores) => {
-// 			  const signature = hellores.signature_request.signatures[0];
-// 			  const signatureId = signature.signature_id;
-// 			  return hellosign.embedded.getSignUrl(signatureId);
-// 			}).then((hellores) => {
-// 			  	console.log('The sign url: ' + hellores.embedded.sign_url);
-// 				res.render("hellosign", {eSigURL: hellores.embedded.sign_url});
-// 			}).catch((err) => {
-// 			  console.log(err);
-// 			});
-//          })
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect("/login");
+    }
+}
+
+// EMAIL NOTIFICATION - ERROR
+
+function adminNotification(type, obj, origin) {
+    var strObject = JSON.stringify(obj);
+    internalNotifications.text = strObject;
+    internalNotifications.subject = "DealPro: " + type + " Notification - " + origin;
+    transporter.sendMail(internalNotifications, function (err, info) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+
+
+// EMAIL NOTIFICATION - USER EVENT
+function notifyUserEvent(obj, origin) {
+    var strObject = JSON.stringify(obj);
+    internalNotifications.text = strObject;
+    internalNotifications.subject = "DealPro: Event Notification - " + origin;
+    transporter.sendMail(internalNotifications, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
 
 // =============
 //   SERVER
@@ -735,3 +735,14 @@ app.post("/join", function (req, res) {
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log("Server Initialized!");
 });
+
+
+// ***************************** TECHNICAL DEBT - OUTSTANDING POINTS ***************************
+
+// * CAN WE USE ONE PUT ROUTE FOR ALL UPDATES TO EXISTING LOI ENTRIES - I.E. NEW TEXT, UPDATE TERMS, EXISTING TEXT EDIT?
+
+// * CAN WE USE ONE TEXT EDITOR VIEW FOR BOTH TEXT EDIT OF NEW AND EXISTING LOI'S?
+
+// * SHOULD WE FIND ALTERNATIVE TO MAKE FLOW CONSISTENT ON UPDATE - I.E. UDPATE TERMS THEN UDPATE TEXT THEN RECORDS?
+
+// * 
