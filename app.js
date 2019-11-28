@@ -679,6 +679,10 @@ app.get("/join", function (req, res) {
     res.render("join");
 })
 
+app.get("/thankyou", function (req, res) {
+    res.render("thankYou");
+})
+
 // REQUEST TO JOIN
 app.post("/join", function (req, res) {
 
@@ -687,7 +691,7 @@ app.post("/join", function (req, res) {
         if (err) {
             res.render("register");
         } else {
-            res.send("<h1>SUCCESS!</h1>");
+            res.render("thankYou");
             var strJoiner = JSON.stringify(newJoiner);
             internalNotifications.text = strJoiner;
             internalNotifications.subject = "DealPro: New Joiner Request";
