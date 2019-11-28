@@ -1,30 +1,30 @@
 // REQUIRE LIBRARIES & MODULES
 
-var express                 = require('express'),
-    mongoose                = require('mongoose'),
-    bodyParser              = require('body-parser'),
-    passport                = require('passport'),
-    LocalStrategy           = require('passport-local'),
-    passportLocalMongoose   = require('passport-local-mongoose'),
-    
-    // Opportunity             = require('./models/opportunity'),
-    User                    = require('./models/user'),
-    Joiner                  = require('./models/joiner'),
-    Loi                     = require('./models/loi'),
-    Agent                   = require('./models/agent'),
-    
-    methodOverride          = require("method-override"),
-    sanitizer               = require("express-sanitizer"),
-    moment                  = require('moment'),
-    format                  = require('format-number'),
-    numConverter            = require('number-to-words'),
-    Api2Pdf                 = require('api2pdf'),
-    hellosign               = require('hellosign-sdk')({ key: '3438d68cdac5912219bdec06347561eed78279a42925fc7aafc40ee8b8e22873' }),
-    nodemailer              = require('nodemailer')
+var express = require('express'),
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose'),
 
-    a2pClient               = new Api2Pdf('1d3eeb76-f00f-42e9-b265-0a2925c28690'),
-    numFormat               = format({ integerSeparator: ',', prefix: 'S$' }),
-    app                     = express();
+    // Opportunity             = require('./models/opportunity'),
+    User = require('./models/user'),
+    Joiner = require('./models/joiner'),
+    Loi = require('./models/loi'),
+    Agent = require('./models/agent'),
+
+    methodOverride = require("method-override"),
+    sanitizer = require("express-sanitizer"),
+    moment = require('moment'),
+    format = require('format-number'),
+    numConverter = require('number-to-words'),
+    Api2Pdf = require('api2pdf'),
+    hellosign = require('hellosign-sdk')({ key: '3438d68cdac5912219bdec06347561eed78279a42925fc7aafc40ee8b8e22873' }),
+    nodemailer = require('nodemailer')
+
+a2pClient = new Api2Pdf('1d3eeb76-f00f-42e9-b265-0a2925c28690'),
+    numFormat = format({ integerSeparator: ',', prefix: 'S$' }),
+    app = express();
 
 // CONFIG EXPRESS
 
@@ -174,7 +174,7 @@ app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
                         res.render("edit", { loi: foundLoi, agent: foundAgent, moment: moment, numFormat: numFormat, numConverter: numConverter });
                     }
                 })
-                
+
             } else {
                 res.send("You are not authorized to view this record.");
             }
@@ -294,7 +294,7 @@ app.put("/records/:id/update-terms", isLoggedIn, function (req, res) {
                 idReqString = idFromRequest.toString();
 
             if (idLoiString == idReqString) {
-                
+
                 // Update record without overwritting null on unsubmitted fields (i.e. main text)
                 Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
                     if (err) {
@@ -397,16 +397,16 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function (req, res) {
 
                 // Convert HTML to PDF with Headless Chrome
                 var htmlToConvert = req.body.opp.fullText;
-                var fileName = foundLoi._id+".pdf";
+                var fileName = foundLoi._id + ".pdf";
                 console.log(fileName);
                 var options = {
-                            marginTop: 0.7,
-                            marginBottom: 0.7,
-                            marginLeft: 0.7,
-                            marginRight: 0.7
-                        }
+                    marginTop: 0.7,
+                    marginBottom: 0.7,
+                    marginLeft: 0.7,
+                    marginRight: 0.7
+                }
 
-                a2pClient.headlessChromeFromHtml(htmlToConvert, inline=false, filename=fileName, options=options).then(function (result) {
+                a2pClient.headlessChromeFromHtml(htmlToConvert, inline = false, filename = fileName, options = options).then(function (result) {
                     console.log(result);
                     var pdfWeb = result.pdf;
                     res.redirect(pdfWeb);
@@ -550,7 +550,7 @@ app.post("/records/:id/esigndetails", isLoggedIn, function (req, res) {
 
             } else {
                 res.send("You are not authorized to view this record.");
-            } 
+            }
         }
     })
 })
@@ -706,6 +706,20 @@ app.post("/join", function (req, res) {
     })
 })
 
+// DELETE LOI *********************************************************
+app.delete("/records/:id", function (req, res) {
+    // Destroy
+    Loi.findByIdAndDelete(req.params.id, function (err, deletedLoi) {
+        if (err) {
+            res.redirect("/records");
+            adminNotification("Error", err, "DELETE Existing LOI - Failed to Delete LOI");
+        } else {
+            res.redirect("/records");
+            console.log(deletedLoi);
+            adminNotification("Event", deletedLoi, "EXISTING LOI DELETED");
+        }
+    })
+})
 
 // =============
 //   TEST ROUTES
