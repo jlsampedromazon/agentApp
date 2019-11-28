@@ -6,10 +6,13 @@ var express                 = require('express'),
     passport                = require('passport'),
     LocalStrategy           = require('passport-local'),
     passportLocalMongoose   = require('passport-local-mongoose'),
+    
+    // Opportunity             = require('./models/opportunity'),
     User                    = require('./models/user'),
     Joiner                  = require('./models/joiner'),
     Loi                     = require('./models/loi'),
     Agent                   = require('./models/agent'),
+    
     methodOverride          = require("method-override"),
     sanitizer               = require("express-sanitizer"),
     moment                  = require('moment'),
@@ -672,10 +675,6 @@ app.get("/terms", function (req, res) {
     res.render("terms");
 })
 
-app.get("/test", function (req, res) {
-    res.render("index");
-})
-
 app.get("/join", function (req, res) {
     res.render("join");
 })
@@ -702,6 +701,21 @@ app.post("/join", function (req, res) {
         }
     })
 })
+
+
+// =============
+//   TEST ROUTES
+// =============
+
+// app.get('/test', function(req,res){
+//     res.render("test");
+// })
+
+// app.post('/test', function(req,res){
+//     console.log(req.body);
+//     res.sendStatus(200);
+
+// })
 
 // =============
 //   FUNCTIONS

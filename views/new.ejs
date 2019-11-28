@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>DealPro | Dealtech Tool for Professional Dealmakers</title>
-    
-        <% include partials/boilerLinks.ejs %>
-        
-        <link rel="stylesheet" href="/css/calendar.min.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DealPro | Dealtech Tool for Professional Dealmakers</title>
+
+    <% include partials/boilerLinks.ejs %>
+
+    <link rel="stylesheet" href="/css/calendar.min.css">
 
 
-    </head>
-    <body>
-    
-        <% include partials/navbar.ejs %>
+</head>
+
+<body>
+
+    <% include partials/navbar.ejs %>
 
     <div id="termsWrap" class="ui main text container segment">
-        
+
         <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> New LOI</div>
 
         <form id="newForm" class="ui form" action="/records" method="POST">
@@ -59,54 +59,54 @@
                 <label for="opp[tenantId]">Tenant's ID Number:</label>
                 <input type="text" placeholder="Enter Passport, FIN or NRIC..." name="opp[tenantId]" required>
             </div>
-            
+
             <!--Monthly Rent  -->
-            
+
             <div class="field">
                 <label for="opp[rentAmount]">Monthly Rent (S$):</label>
                 <input type="number" placeholder="Enter number only..." name="opp[rentAmount]" required>
             </div>
-                        
+
             <!--Bank Name  -->
-            
+
             <div class="field">
-                    <label for="opp[bank]">Landlord's Bank Name:</label>
-                    <input type="text" placeholder="Enter Bank Name..." name="opp[bank]" required>
+                <label for="opp[bank]">Landlord's Bank Name:</label>
+                <input type="text" placeholder="Enter Bank Name..." name="opp[bank]" required>
             </div>
-                        
+
             <!--Bank Account  -->
-            
+
             <div class="field">
-                    <label for="opp[account]">Landlord's Bank Acct. No.:</label>
-                    <input type="text" placeholder="Enter Acct. No. (incl. dashes)..." name="opp[account]" required>
-                </div>    
-                
+                <label for="opp[account]">Landlord's Bank Acct. No.:</label>
+                <input type="text" placeholder="Enter Acct. No. (incl. dashes)..." name="opp[account]" required>
+            </div>
+
             <!-- Lease Period -->
-            
+
             <div class="field">
                 <label for="opp[leasePeriod]">Period of Lease (in months):</label>
                 <input type="number" placeholder="Enter lease duration..." name="opp[leasePeriod]" required>
             </div>
-            
+
             <!-- Start Date -->
-            
+
             <div class="field">
-                    <label for="opp[startDate]"><i class="fa fa-calendar"></i>  Lease Start Date:</label>
-                    <div class="ui calendar" id="ical">
-                            <div class="ui input icon ">
-                              <input type="text" placeholder="Enter Start Date..." name="opp[startDate]" required>
-                            </div>
+                <label for="opp[startDate]"><i class="fa fa-calendar"></i> Lease Start Date:</label>
+                <div class="ui calendar" id="ical">
+                    <div class="ui input icon ">
+                        <input type="text" placeholder="Enter Start Date..." name="opp[startDate]" required>
                     </div>
+                </div>
             </div>
-    
+
             <!-- Diplomatic Clause -->
 
             <div class="ui segment">
                 <div class="field">
-                  <div class="ui toggle checkbox">
-                    <input id="inputDiplo" type="checkbox" name="opp[diplo]" value="yes">
-                    <label>Diplomatic Clause</label>
-                  </div>
+                    <div class="ui toggle checkbox">
+                        <input id="inputDiplo" type="checkbox" name="opp[diplo]" value="yes">
+                        <label>Diplomatic Clause</label>
+                    </div>
                 </div>
             </div>
 
@@ -115,9 +115,9 @@
                 <input id="btnSubmitNew" class="ui button big" type="submit">
 
             </div>
-            
+
         </form>
-    
+
     </div>
 
     <!-- Boostrap, JQuery & Custom Scripts -->
@@ -126,26 +126,27 @@
 
     <script type="text/javascript" src="/js/calendar.js"></script>
     <script>
-    
-        $('#ical').calendar({type: 'date'});
-        $( "#newForm" ).submit(function(event) {
+
+        $('#ical').calendar({ type: 'date' });
+        $("#newForm").submit(function (event) {
 
             $(window).off('beforeunload');
-            
+
             $(this).append('<input type="hidden" name="opp[fullText]" value="empty"/>');
-            
+
             if ($("#inputDiplo").prop('checked') === false) {
                 $(this).append('<input type="hidden" name="opp[diplo]" value="no"/>');
             }
 
 
-        }); 
+        });
 
-        $(window).on('beforeunload', function(){
+        $(window).on('beforeunload', function () {
             return 'Are you sure you want to leave? Any progress made will be lost!';
         });
 
     </script>
 
 </body>
+
 </html>
