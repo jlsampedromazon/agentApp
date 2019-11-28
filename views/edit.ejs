@@ -50,7 +50,7 @@
             <p style="font-family: Arial, sans-serif; font-size: 12px">Dear Sir/Mdm,</p>
             <p style="font-family: Arial, sans-serif; font-size: 12px"><strong>RE: <span class="spanAddress" style="text-transform: uppercase"><%= loi.address %></span></strong></p>
             <p style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">I am pleased to inform you that <strong><span class="spanTenantName" style="text-transform: uppercase"><%= loi.tenantName %></span> (ID NO. <span class="spanTenantId" style="text-transform: uppercase"><%= loi.tenantId %></span>)</strong> indicated the intention to lease the above premises based on the following terms and conditions and subject to contract:</p>
-            <ol style="font-family: Arial, sans-serif; font-size: 12px; text-align: justify;">
+            <ol style="box-sizing: border-box; font-family: Arial, sans-serif; font-size: 12px; text-align: justify; padding-left: 20px;">
                 <li style="margin-bottom: 12px;"><strong>Rental: </strong>Singapore Dollars <strong><span class="spanRentAmount" style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %> ONLY (<%- numFormat(loi.rentAmount) %>)</span></strong> per month exclusive of maintenance charges & GST (if any), payable monthly in advance. <span id='spanDiplo'><% if (loi.diplo == "yes") { %>The Diplomatic clause shall be applicable after <strong>TWELVE (12) MONTHS</strong> of occupation by the Tenant giving <strong>TWO (2) MONTHS</strong> notice or <strong>TWO (2) MONTHS</strong> rent in lieu of notice.<% } %></li>
                 <li style="margin-bottom: 12px;"><strong>Period of Lease: </strong><strong><span class="spanLeasePeriod" style="text-transform: uppercase"><%- numConverter.toWords(loi.leasePeriod) %> (<%= loi.leasePeriod %>) months</span></strong> with an option to renew for another <strong>TWELVE (12) MONTHS</strong> at a mutually agreed rental by both parties concerned.</span></li>
                 <li style="margin-bottom: 12px;"><strong>Commencement Date: </strong>The lease shall commence on the <strong><span class="spanStartDate"><%= moment(loi.startDate).format('Do MMMM YYYY') %></span></strong> <em>(the "<strong>Commencement Date</strong>").</li>
@@ -66,13 +66,13 @@
                 <li style="margin-bottom: 12px;"><strong>Tenancy Matters: </strong>Tenancy is subject to contract and formal Tenancy Agreement must be finalized and signed by the Landlord and the Tenant within <strong>SEVEN (7) DAYS</strong> from the date of acceptance of this letter by the Landlord.  In the event that the terms and conditions in the Tenancy Agreement cannot be agreed upon by both parties within the stipulated time, the Landlord shall forthwith return the good faith deposit to the Tenant without any deduction or interest thereafter neither party shall have any claim against the other.</li>
                 <li style="margin-bottom: 12px;"><strong>"Good Faith" Deposit: </strong>The Tenant hereby makes a good faith deposit payment in the amount of Singapore Dollars <strong><span class='spanRentAmount'><span style="text-transform: uppercase"><%- numConverter.toWords(loi.rentAmount) %></span> ONLY (<%- numFormat(loi.rentAmount) %>)</span> to <span class="spanLandlordName"><%= loi.landlordName %></span> at <span id="spanBank"><%= loi.bank %></span> account <span id="spanAccount"><%= loi.account %></span></strong>. This good faith deposit shall form the first month advance rental upon execution of the Tenancy Agreement.</li>
                 <li style="margin-bottom: 12px;"><strong>Furniture, Fixtures & Fittings: </strong>The Landlord shall provide the following:
-                    <ol style="margin-top: 12px; list-style-type: lower-roman;">
+                    <ol style="box-sizing: border-box; margin-top: 12px; list-style-type: lower-roman; padding-left: 20px;">
                         <li style="margin-bottom: 12px;">To general clean and ensure fitted electrical appliances in good working condition.</li>
                         <li>To remove any furniture.</li>
                     </ol>
                 </li>
                 <li style="margin-bottom: 12px;"><strong>Tenancy Work: </strong>The Landlord shall carry out the following works prior to handover:
-                    <ol style="margin-top: 12px; list-style-type: lower-roman;">
+                    <ol style="box-sizing: border-box; margin-top: 12px; list-style-type: lower-roman; padding-left: 20px;">
                          <li style="margin-bottom: 12px;">Premises to be cleaned including all cabinets/wardrobes interior and all windows and to be in good move in condition.</li>
                          <li>Touch up paint to affected walls, if any.</li>
                     </ol>

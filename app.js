@@ -394,11 +394,21 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function (req, res) {
 
                 // Convert HTML to PDF with Headless Chrome
                 var htmlToConvert = req.body.opp.fullText;
+                var fileName = foundLoi._id+".pdf";
+                console.log(fileName);
+                var options = {
+                            marginTop: 0.7,
+                            marginBottom: 0.7,
+                            marginLeft: 0.7,
+                            marginRight: 0.7
+                        }
 
-                a2pClient.headlessChromeFromHtml(htmlToConvert).then(function (result) {
+                a2pClient.headlessChromeFromHtml(htmlToConvert, inline=false, filename=fileName, options=options).then(function (result) {
                     console.log(result);
                     var pdfWeb = result.pdf;
                     res.redirect(pdfWeb);
+                }).catch((err) => {
+                    console.log(err);
                 });
                 // Send Internal Notification
                 var strLOI = JSON.stringify(foundLoi);
