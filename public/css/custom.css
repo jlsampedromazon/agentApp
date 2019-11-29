@@ -129,7 +129,7 @@ table {
     display: none;
 }
 
-#hiddenTextPdf, #hiddenTextSave, #hiddenTextEsig {
+#hiddenTextPdf, #hiddenTextSave, #hiddenTextEsig, #hiddenTextEdit {
     display: none;
 }
 

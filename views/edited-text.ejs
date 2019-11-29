@@ -22,7 +22,10 @@
             <input id="hiddenTextSave" type="text" name='opp[fullText]'>
             <button id="btnSubmitSave" class="ui green button btnControl"><i class="fa fa-save"></i> &nbsp Save Changes</button>
         </form>
-        <a id="linkEdit" class="ui orange button showButton gridControl" href="/records/<%= loi._id %>/update-text" onclick="noAlert()"><i class="fa fa-edit"></i> &nbsp Edit Text</a>
+        <form id="editText" class="gridControl" action="/records/<%= loi.id %>/update-text?_method=PUT" method="POST">
+            <input id="hiddenTextEdit" type="text" name='opp[fullText]'>
+            <button id="btnSubmitEdit" class="ui orange button btnControl"><i class="fa fa-edit"></i> &nbsp Edit Text</button>
+        </form>
 	</div>
 	<div id="controlsTwo">
         <form id="requestPdf" class="gridControl" action="/records/<%= loi._id %>/generate-pdf" method="POST">
@@ -44,6 +47,8 @@
     <script>
 
             // Pass new values from terms update form
+
+
                 $(".spanLandlordName").text("<%= loi.landlordName %>");
                 $(".spanLandlordId").text("<%= loi.landlordId %>");
                 $(".spanTenantName").text("<%= loi.tenantName %>");
@@ -61,7 +66,7 @@
                     $("#spanDiplo").html("");
                 }
 
-
+            
             // Prep HTML for PDF
             
             var htmlInput = $("#showWindow").html();
@@ -80,9 +85,24 @@
                 noAlert();
             })
 
+            $( "#editText" ).submit(function(event) {
+                noAlert();
+            })
+
             function noAlert() {
                 $(window).off('beforeunload');
             }
+
+
+            var dataToSubmit = {fullText:htmlInput};
+            $.ajax({
+                url: "/records/<%= loi._id %>/savetext",
+                type: 'PUT',
+                data: dataToSubmit,
+                success: function(result) {
+                    console.log('Text Saved: '+ result)
+                }
+            });
 
     </script>
 

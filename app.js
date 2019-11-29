@@ -365,6 +365,42 @@ app.get("/records/:id/update-text", isLoggedIn, function (req, res) {
     })
 })
 
+// GET TEXT EDITOR TO EDIT AND SAVE MAIN TEXT OF EXISTING LOI AFTER TERMS UPDATE
+
+// [NOTE: This path re-directs back to view of updated main text upon error, unlike main text PUT]
+app.put("/records/:id/update-text", isLoggedIn, function (req, res) {
+        // 	Check user is authorized
+        Loi.findById(req.params.id, function (err, foundLoi) {
+            if (err) {
+                console.log(err);
+                adminNotification("Error", err, "PUT Save Text - Failed to Find LOI");
+            } else {
+    
+                var idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+    
+                // If user is authorized...
+                if (idLoiString == idReqString) {
+
+                    // Save FullText to MongoDB
+                    Loi.findByIdAndUpdate(req.params.id, req.body, { omitUndefined: true }, function (err, updateLoi) {
+                        if (err) {
+                            console.log(err);
+                            adminNotification("Error", err, "PUT Edit Full Text - Failed to Update LOI")
+                        } else {
+                            console.log('PUT Save Text executed: ' + updateLoi);
+                            res.render("update-text", { loi: updateLoi, moment: moment, numFormat: numFormat, numConverter: numConverter });
+                        }
+                    })
+                } else {
+                    res.send("You are not authorized to view this record.");
+                }           
+            }
+        })
+})
+
 
 //  CLEANUP CHECKPOINT: 26 NOV ****************************
 
@@ -724,6 +760,36 @@ app.delete("/records/:id", function (req, res) {
 // =============
 //   TEST ROUTES
 // =============
+
+app.put("/records/:id/savetext", function(req,res){
+        // 	Check user is authorized
+        Loi.findById(req.params.id, function (err, foundLoi) {
+            if (err) {
+                console.log(err);
+                adminNotification("Error", err, "PUT Save Text - Failed to Find LOI");
+            } else {
+    
+                var idFromFoundLoi = foundLoi.agent._id,
+                    idFromRequest = req.user._id,
+                    idLoiString = idFromFoundLoi.toString(),
+                    idReqString = idFromRequest.toString();
+    
+                // If user is authorized...
+                if (idLoiString == idReqString) {
+
+                    // Save FullText to MongoDB
+                    Loi.findByIdAndUpdate(req.params.id, req.body, { omitUndefined: true }, function (err, updateLoi) {
+                        if (err) {
+                            console.log(err);
+                            adminNotification("Error", err, "PUT Save Text - Failed to Update LOI")
+                        } else {
+                            console.log('PUT Save Text executed: ' + updateLoi);       
+                        }
+                    })
+                }            
+            }
+        })
+})
 
 // app.get('/test', function(req,res){
 //     res.render("test");
