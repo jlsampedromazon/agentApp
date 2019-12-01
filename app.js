@@ -698,9 +698,9 @@ app.put("/records/:id/savetext", function(req,res){
         })
 })
 
-app.get('/test', function(req,res){
-    res.render("test");
-})
+// app.get('/test', function(req,res){
+//     res.render("test");
+// })
 
 // app.post('/test', function(req,res){
 //     console.log(req.body);

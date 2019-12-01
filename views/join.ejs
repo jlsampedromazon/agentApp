@@ -28,7 +28,7 @@
 
                 <div class="ui huge header"><i class="fa fa-user-plus" aria-hidden="true"></i> Request to Join!</div>
 
-                <form id="registerForm" class="ui form" action="/join" method="POST">
+                <form id="registerForm" class="ui form" action="/join" method="POST"  onsubmit="showLoading()">
 
                     <!-- Input: salutation -->
 
@@ -79,7 +79,7 @@
 
                     <div id="submitDiv">
 
-                        <button id="btnSubmitNew" class="ui button positive big" type="submit" onclick="showLoading()">Submit</button>
+                        <button id="btnSubmitNew" class="ui button positive big" type="submit">Submit</button>
 
                     </div>
 
