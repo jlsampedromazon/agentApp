@@ -79,6 +79,15 @@ var internalNotifications = {
     text: 'You have an internal notification'
 };
 
+// CONFIG API2PDF
+// Set Document Margins
+var pdfOptions = {
+    marginTop: 0.7,
+    marginBottom: 0.7,
+    marginLeft: 0.7,
+    marginRight: 0.7
+}
+
 // =============
 //   ROUTES
 // =============
@@ -147,7 +156,7 @@ app.post("/records", isLoggedIn, function (req, res) {
 })
 
 
-// GET TEXT EDITOR TO RENDER, EDIT AND SAVE MAIN TEXT OF NEW LOI
+// GET TEXT EDITOR TO RENDER, ALLOW USER TO EDIT AND SAVE MAIN TEXT OF NEW LOI
 
 app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
     // Find LOI and extract agent details to first check is agent is the author
@@ -157,13 +166,8 @@ app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
             console.log(err);
             adminNotification("Error", err, "GET New LOI on Text Editor - Failed to Find LOI");
         } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-            // Render main text of LOI in text editor to finalize & save if agent is the author, otherwise don't allow
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
                 // Find agent details and pass them to edit.ejs to populate agent signature block in LOI
                 Agent.findOne({ username: req.user.username }, function (err, foundAgent) {
                     if (err) {
@@ -183,7 +187,7 @@ app.get("/records/:id/editnew", isLoggedIn, function (req, res) {
 })
 
 
-// GET DETAILS OF SELECTED RECORD
+// GET SELECTED LOI AND SHOW TEXT
 
 app.get("/records/:id", isLoggedIn, function (req, res) {
     // Find LOI and extract agent details to first check is agent is the author
@@ -194,13 +198,8 @@ app.get("/records/:id", isLoggedIn, function (req, res) {
             adminNotification("Error", err, "GET Selected LOI Record - Failed to Find LOI");
 
         } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-            // Show LOI if agent is the author, otherwise don't allow
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
                 res.render("show", { loi: foundLoi })
             } else {
                 res.send("You are not authorized to view this record.");
@@ -221,13 +220,8 @@ app.put("/records/:id", isLoggedIn, function (req, res) {
             adminNotification("Error", err, "PUT LOI Update  - Failed to Find LOI");
 
         } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
                 // Update record without overwritting null on unsubmitted fields (i.e. key terms)
                 Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
                     if (err) {
@@ -259,13 +253,8 @@ app.get("/records/:id/update-terms", isLoggedIn, function (req, res) {
             console.log(err);
             adminNotification("Error", err, "GET Form to Update LOI Terms  - Failed to Find LOI");
         } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-            // Render form with pre-loaded values for exiting terms allowing user to modify or keep
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
                 res.render("update-terms", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
             } else {
                 res.send("You are not authorized to view this record.");
@@ -287,13 +276,8 @@ app.put("/records/:id/update-terms", isLoggedIn, function (req, res) {
             adminNotification("Error", err, "PUT Updated Terms for Existing LOI  - Failed to Find LOI");
 
         } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
 
                 // Update record without overwritting null on unsubmitted fields (i.e. main text)
                 Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
@@ -324,40 +308,9 @@ app.get("/records/:id/edited-text", isLoggedIn, function (req, res) {
             console.log(err);
             adminNotification("Error", err, "GET Main Text After Updating Key LOI Terms - Failed to Find LOI");
         } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-            // Show view of edited text in html reflecting updates to key terms
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
                 res.render("edited-text", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
-            } else {
-                res.send("You are not authorized to view this record.");
-            }
-        }
-    })
-})
-
-// GET TEXT EDITOR TO EDIT AND SAVE MAIN TEXT OF EXISTING LOI AFTER TERMS UPDATE
-
-// [NOTE: This path re-directs back to view of updated main text upon error, unlike main text PUT]
-app.get("/records/:id/update-text", isLoggedIn, function (req, res) {
-    // Find LOI and extract agent details to first check is agent is the author
-    Loi.findById(req.params.id, function (err, foundLoi) {
-        if (err) {
-            console.log(err);
-            res.redirect("/records/" + req.params.id + "/edited-text");
-            adminNotification("Error", err, "GET Text Editor for Existing LOI Post-Terms Update - Failed to Find LOI");
-        } else {
-            // Compare user credentials with LOI author (first need to convert obj into str)
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-            // Render main text of updated LOI in text editor for user to edit & save
-            if (idLoiString == idReqString) {
-                res.render("update-text", { loi: foundLoi, moment: moment, numFormat: numFormat, numConverter: numConverter })
             } else {
                 res.send("You are not authorized to view this record.");
             }
@@ -375,14 +328,8 @@ app.put("/records/:id/update-text", isLoggedIn, function (req, res) {
                 console.log(err);
                 adminNotification("Error", err, "PUT Save Text - Failed to Find LOI");
             } else {
-    
-                var idFromFoundLoi = foundLoi.agent._id,
-                    idFromRequest = req.user._id,
-                    idLoiString = idFromFoundLoi.toString(),
-                    idReqString = idFromRequest.toString();
-    
-                // If user is authorized...
-                if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
 
                     // Save FullText to MongoDB
                     Loi.findByIdAndUpdate(req.params.id, req.body, { omitUndefined: true }, function (err, updateLoi) {
@@ -402,10 +349,7 @@ app.put("/records/:id/update-text", isLoggedIn, function (req, res) {
 })
 
 
-//  CLEANUP CHECKPOINT: 26 NOV ****************************
-
-
-// GENERATE PDF
+// GENERATE PDF OF SELECTED LOI
 
 app.post("/records/:id/generate-pdf", isLoggedIn, function (req, res) {
 
@@ -413,19 +357,16 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function (req, res) {
         if (err) {
             res.redirect("/records/:id/update-terms");
             console.log(err);
+            adminNotification("Error", err, "POST Generate PDF - Failed to Find LOI");
         } else {
-
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-
-            if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
 
                 // Save FullText to MongoDB
                 Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
                     if (err) {
                         console.log(err);
+                        adminNotification("Error", err, "POST Generate PDF - Failed to Update LOI");
                     } else {
                         console.log('PUT executed');
                     }
@@ -434,32 +375,18 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function (req, res) {
                 // Convert HTML to PDF with Headless Chrome
                 var htmlToConvert = req.body.opp.fullText;
                 var fileName = foundLoi._id + ".pdf";
-                console.log(fileName);
-                var options = {
-                    marginTop: 0.7,
-                    marginBottom: 0.7,
-                    marginLeft: 0.7,
-                    marginRight: 0.7
-                }
 
-                a2pClient.headlessChromeFromHtml(htmlToConvert, inline = false, filename = fileName, options = options).then(function (result) {
+                a2pClient.headlessChromeFromHtml(htmlToConvert, inline = false, filename = fileName, options = pdfOptions).then(function (result) {
                     console.log(result);
-                    var pdfWeb = result.pdf;
-                    res.redirect(pdfWeb);
+                    res.redirect(result.pdf);
+                    adminNotification("Event", result.pdf, "POST Generate PDF - PDF Generated Successfully!")
+
                 }).catch((err) => {
                     console.log(err);
+                    adminNotification("Error", err, "POST Generate PDF - Failed to Generate PDF");
                 });
-                // Send Internal Notification
-                var strLOI = JSON.stringify(foundLoi);
-                internalNotifications.text = strLOI;
-                internalNotifications.subject = "DealPro: PDF of LOI Generated";
-                transporter.sendMail(internalNotifications, function (error, info) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                });
+
+
             } else {
                 res.send("You are not authorized to access this record.");
             }
@@ -467,7 +394,140 @@ app.post("/records/:id/generate-pdf", isLoggedIn, function (req, res) {
     })
 
 })
-// // // // // // // 
+
+
+// SHOW FORM - E-SIGN (POST bc it saves the file)
+
+app.post("/records/:id/esigndetails", isLoggedIn, function (req, res) {
+
+    // 	Check user is authorized
+    Loi.findById(req.params.id, function (err, foundLoi) {
+        if (err) {
+            res.redirect("/records/" + req.params.id);
+            console.log(err);
+        } else {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
+
+                // Save FullText to MongoDB
+                Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
+                    if (err) {
+                        console.log(err);
+                        res.redirect("/records/" + req.params.id)
+                    } else {
+                        console.log('PUT executed');
+                        res.render("eSignForm", { loi: foundLoi });
+                    }
+                })
+
+            } else {
+                res.send("You are not authorized to view this record.");
+            }
+        }
+    })
+})
+
+
+// EXECUTE - E-SIGN
+
+app.post("/records/:id/esign", isLoggedIn, function (req, res) {
+
+    // Check if user is authorized 	
+    Loi.findById(req.params.id, function (err, foundLoi) {
+        if (err) {
+            console.log(err);
+            res.redirect("/records/" + foundLoi._id + "/esign");
+        } else {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
+
+                // Convert HTML to PDF with Headless Chrome
+
+                var htmlToConvert = req.body.opp.fullText;
+                var fileName = foundLoi._id + ".pdf";
+
+                a2pClient.headlessChromeFromHtml(htmlToConvert, inline = false, filename = fileName, options = pdfOptions).then(function (result) {
+                    console.log(result);
+                    var pdfWeb = result.pdf;
+
+                    // 	Prepare eSignature email workflow
+
+                    Agent.findOne({ username: req.user.username }, function (err, foundAgent) {
+                        if (err) {
+                            console.log(err);
+                            res.redirect("/records/" + foundLoi._id + "/esign");
+                        } else {
+                            const opts = {
+                                test_mode: 0,
+                                clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
+                                subject: 'Tenancy LOI for ' + foundLoi.address,
+                                message: 'Kindly sign the LOI in relation to the tenancy of ' + foundLoi.address,
+                                signers: [
+
+                                    {
+                                        email_address: req.body.tenantEmail,
+                                        name: "M. " + foundLoi.tenantName,
+                                        order: 1
+                                    },
+
+                                    {
+                                        email_address: foundAgent.username,
+                                        name: "M. " + foundAgent.fullName,
+                                        order: 0
+                                    },
+
+                                    {
+                                        email_address: req.body.landlordEmail,
+                                        name: "M. " + foundLoi.landlordName,
+                                        order: 2
+                                    }
+
+                                ],
+                                cc_email_addresses: ['operations@lexknights.com'],
+                                use_text_tags: 1,
+                                hide_text_tags: 1,
+                                signing_options: {
+                                    "draw": true,
+                                    "type": true,
+                                    "upload": true,
+                                    "phone": false,
+                                    "default": "draw"
+                                },
+                                file_url: [pdfWeb]
+                            };
+
+                            // 	Run HelloSign Email Workflow
+
+                            hellosign.signatureRequest.send(opts).then((hellores) => {
+                                console.log(hellores);
+                                res.redirect("/records");
+                                adminNotification("Event", result.pdf, "POST Request eSignature - eSig Requested Successfully!")
+                            }).catch((err) => {
+                                console.log(err);
+                                res.redirect("/records/" + foundLoi._id + "/esign");
+                            });
+
+                        }
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                    res.redirect("/records/" + foundLoi._id + "/esign")
+                    adminNotification("Error", err, "POST Request eSignature - Failed to request eSignature");
+                });
+
+            } else {
+                res.send("You are not authorized to access this record.");
+            }
+        }
+    })
+
+})
+
+//  CLEANUP CHECKPOINT: 1 DEC ****************************
+
+// ==========================
+//   ROUTES - AUTHENTICATION
+// ==========================
 
 // SHOW SIGN UP FORM
 app.get("/register", isLoggedIn, function (req, res) {
@@ -554,154 +614,7 @@ app.post("/hellosign", function (req, res) {
 })
 
 
-// SHOW FORM - E-SIGN (POST bc it saves the file)
 
-app.post("/records/:id/esigndetails", isLoggedIn, function (req, res) {
-
-    // 	Check user is authorized
-    Loi.findById(req.params.id, function (err, foundLoi) {
-        if (err) {
-            res.redirect("/records/" + req.params.id);
-            console.log(err);
-        } else {
-
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString();
-
-            // If user is authorized...
-            if (idLoiString == idReqString) {
-
-                // Save FullText to MongoDB
-                Loi.findByIdAndUpdate(req.params.id, req.body.opp, { omitUndefined: true }, function (err, updateLoi) {
-                    if (err) {
-                        console.log(err);
-                        res.redirect("/records/" + req.params.id)
-                    } else {
-                        console.log('PUT executed');
-                        res.render("eSignForm", { loi: foundLoi });
-                    }
-                })
-
-            } else {
-                res.send("You are not authorized to view this record.");
-            }
-        }
-    })
-})
-
-
-// EXECUTE - E-SIGN
-
-app.post("/records/:id/esign", isLoggedIn, function (req, res) {
-
-    // Check if user is authorized 	
-    Loi.findById(req.params.id, function (err, foundLoi) {
-        if (err) {
-            console.log(err);
-            res.redirect("/records/" + foundLoi._id + "/esign");
-        } else {
-
-            var idFromFoundLoi = foundLoi.agent._id,
-                idFromRequest = req.user._id,
-                idLoiString = idFromFoundLoi.toString(),
-                idReqString = idFromRequest.toString(),
-
-                agentUsername = req.user.username;
-
-            // 	If the user is authorized...		
-            if (idLoiString == idReqString) {
-
-                // Convert HTML to PDF with Headless Chrome
-                var htmlToConvert = req.body.opp.fullText;
-
-                a2pClient.headlessChromeFromHtml(htmlToConvert).then(function (result) {
-                    console.log(result);
-                    var pdfWeb = result.pdf;
-
-                    // 	Prepare eSignature email workflow
-
-                    Agent.findOne({ username: agentUsername }, function (err, foundAgent) {
-                        if (err) {
-                            console.log(err);
-                            res.redirect("/records/" + foundLoi._id + "/esign");
-                        } else {
-                            const opts = {
-                                test_mode: 0,
-                                clientId: 'b76c446c7b80c2faf32eb4d8cee91f8e',
-                                subject: 'Tenancy LOI for ' + foundLoi.address,
-                                message: 'Kindly sign the LOI in relation to the tenancy of ' + foundLoi.address,
-                                signers: [
-
-                                    {
-                                        email_address: req.body.tenantEmail,
-                                        name: "M. " + foundLoi.tenantName,
-                                        order: 1
-                                    },
-
-                                    {
-                                        email_address: foundAgent.username,
-                                        name: "M. " + foundAgent.fullName,
-                                        order: 0
-                                    },
-
-                                    {
-                                        email_address: req.body.landlordEmail,
-                                        name: "M. " + foundLoi.landlordName,
-                                        order: 2
-                                    }
-
-                                ],
-                                cc_email_addresses: ['operations@lexknights.com'],
-                                use_text_tags: 1,
-                                hide_text_tags: 1,
-                                signing_options: {
-                                    "draw": true,
-                                    "type": true,
-                                    "upload": true,
-                                    "phone": false,
-                                    "default": "draw"
-                                },
-                                file_url: [pdfWeb]
-                            };
-
-                            // 	Run HelloSign Email Workflow
-
-                            hellosign.signatureRequest.send(opts).then((hellores) => {
-                                console.log(hellores);
-                                res.redirect("/records");
-                            }).catch((err) => {
-                                console.log(err);
-                                res.redirect("/records/" + foundLoi._id + "/esign");
-                            });
-
-                            // Send Internal Notification
-                            var strLOI = JSON.stringify(foundLoi);
-                            internalNotifications.text = strLOI;
-                            internalNotifications.subject = "DealPro: eSig of LOI Requested";
-                            transporter.sendMail(internalNotifications, function (error, info) {
-                                if (error) {
-                                    console.log(error);
-                                } else {
-                                    console.log('Email sent: ' + info.response);
-                                }
-                            });
-
-                        }
-                    })
-                }).catch((err) => {
-                    console.log(err);
-                    res.redirect("/records/" + foundLoi._id + "/esign")
-                });
-
-            } else {
-                res.send("You are not authorized to access this record.");
-            }
-        }
-    })
-
-})
 
 app.get("/privacy", function (req, res) {
     res.render("privacy");
@@ -768,14 +681,8 @@ app.put("/records/:id/savetext", function(req,res){
                 console.log(err);
                 adminNotification("Error", err, "PUT Save Text - Failed to Find LOI");
             } else {
-    
-                var idFromFoundLoi = foundLoi.agent._id,
-                    idFromRequest = req.user._id,
-                    idLoiString = idFromFoundLoi.toString(),
-                    idReqString = idFromRequest.toString();
-    
-                // If user is authorized...
-                if (idLoiString == idReqString) {
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
 
                     // Save FullText to MongoDB
                     Loi.findByIdAndUpdate(req.params.id, req.body, { omitUndefined: true }, function (err, updateLoi) {
@@ -813,6 +720,14 @@ function isLoggedIn(req, res, next) {
     } else {
         res.redirect("/login");
     }
+}
+
+// CHECK AUTHOR
+
+function checkAuthor(idFromLoi, idFromRequest) {
+    idLoiString = idFromLoi.toString(),
+    idReqString = idFromRequest.toString();
+    return idLoiString == idReqString;
 }
 
 // EMAIL NOTIFICATION - ERRORS AND USER EVENTS
