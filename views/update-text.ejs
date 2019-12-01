@@ -32,11 +32,11 @@
         <% include partials/navbar.ejs %>
 
         <form id="updateTextForm" action="/records/<%= loi.id %>?_method=PUT" method="POST">
-            <button class="ui green button btnFinalize"><i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
+            <button class="ui green button btnFinalize" onclick="showLoading(this)"><i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
             <textarea name='opp[fullText]'>
                 <%= loi.fullText %>
             </textarea>
-            <button class="ui green button btnFinalize"><i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
+            <button class="ui green button btnFinalize" onclick="showLoading(this)"><i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
         </form>
         
         <% include partials/boilerScripts.ejs %>
@@ -52,5 +52,11 @@
         })
         
         </script>
+
+<script>
+        function showLoading(btnID) {
+            $(btnID).addClass("loading");
+        }
+    </script>
     </body>
 </html>

@@ -305,6 +305,9 @@
         </form>
     </div>
 
+    <button id="testbtn" class="ui violet basic button big" onclick="showLoading(this)">Submit</button>
+
+
     <!-- Landlord Form -->
 
     <div id="thisOne" style="display: none;" class="ui main text container segment">
@@ -350,6 +353,14 @@
 
             });
         });
+
+    </script>
+
+<script>
+        function showLoading(btnName) {
+
+            $(btnName).addClass("loading");
+        }
     </script>
 
 </body>

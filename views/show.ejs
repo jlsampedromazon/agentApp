@@ -30,7 +30,7 @@
         </form>
         <form id="requestEsig" class="gridControl" action="/records/<%= loi._id %>/esigndetails" method="POST">
             <input id="hiddenTextEsig" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button id="btnEsig" class="ui black button btnControl"><i class="fa fa-file-signature"></i> &nbsp eSign
+            <button id="btnEsig" class="ui black button btnControl" onclick="showLoading(this)"><i class="fa fa-file-signature"></i> &nbsp eSign
                 Letter</button>
         </form>
     </div>
@@ -42,7 +42,7 @@
         <form id="delete" action="/records/<%= loi._id %>?_method=DELETE" method="POST"
             onsubmit="return confirm('You are about to delete this document PERMANENTLY. Are you sure you want to proceed?');">
 
-            <button id="btnDelete" class="ui red button"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp;
+            <button id="btnDelete" class="ui red button" onclick="showLoading(this)"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp;
                 Delete LOI</button>
 
         </form>
@@ -50,6 +50,12 @@
 
 
     <% include partials/boilerScripts.ejs %>
+
+    <script>
+            function showLoading(btnID) {
+                $(btnID).addClass("loading");
+            }
+        </script>
 
 </body>
 

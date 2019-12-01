@@ -22,7 +22,7 @@
 
         <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> New LOI</div>
 
-        <form id="newForm" class="ui form" action="/records" method="POST">
+        <form id="newForm" class="ui form" action="/records" method="POST" onsubmit="showLoading()">
 
 
             <!-- Property Address -->
@@ -112,7 +112,7 @@
 
             <div id="submitDiv">
 
-                <input id="btnSubmitNew" class="ui violet basic button big" type="submit">
+                <button id="btnSubmitNew" class="ui violet basic button big" type="submit">Submit</button>
 
             </div>
 
@@ -145,6 +145,12 @@
             return 'Are you sure you want to leave? Any progress made will be lost!';
         });
 
+    </script>
+
+<script>
+        function showLoading() {
+            $("#btnSubmitNew").addClass("loading");
+        }
     </script>
 
 </body>

@@ -23,7 +23,7 @@
 
                 <div class="ui huge header"><i class="fa fa-user" aria-hidden="true"></i> Login</div>
 
-                <form id="loginForm" class="ui form" action="/login" method="POST">
+                <form id="loginForm" class="ui form" action="/login" method="POST"  onsubmit="showLoading()">
 
                     <!-- Input: Username -->
 
@@ -43,7 +43,7 @@
 
                     <div id="submitDiv">
 
-                        <input id="btnSubmitNew" class="ui button big" type="submit">
+                        <button id="btnSubmitNew" class="ui primary button" type="submit">Submit</button>
 
                     </div>
 
@@ -51,7 +51,7 @@
             </div>
 
             <p id="redirectToJoin" class="whiteFont centerText">Don't have an account with us yet?</p>
-            <div class="centerItem"><a href="/join" class="ui button green big">Request to Join!</a></div>
+            <div class="centerItem"><a href="/join" class="ui button inverted big">Request to Join!</a></div>
 
             <% include partials/footer.ejs %>
         
@@ -60,6 +60,12 @@
     </div>
 
     <% include partials/boilerScripts.ejs %>
+
+    <script>
+            function showLoading() {
+                $("#btnSubmitNew").addClass("loading");
+            }
+        </script>
 
 </body>
 

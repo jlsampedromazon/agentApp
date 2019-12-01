@@ -19,7 +19,7 @@
         
         <div class="ui huge header"><i class="fa fa-envelope" aria-hidden="true"></i> Email Required for eSignature</div>
 
-        <form id="signMsgForm" class="ui form" action="/records/<%= loi._id %>/esign" method="POST">
+        <form id="signMsgForm" class="ui form" action="/records/<%= loi._id %>/esign" method="POST" onsubmit="showLoading()">
 
 
             <!-- Tenant Email Address -->
@@ -42,7 +42,7 @@
 
             <div id="submitDiv">
 
-                <input id="btnSubmitNew" class="ui button big" type="submit">
+                <button id="btnSubmitNew" class="ui button primary big" type="submit">Submit</button>
 
             </div>
             
@@ -69,6 +69,12 @@
             return 'Are you sure you want to leave? Any progress made will be lost!';
         });
 
+    </script>
+
+<script>
+        function showLoading() {
+            $("#btnSubmitNew").addClass("loading");
+        }
     </script>
 
 </body>
