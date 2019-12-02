@@ -79,7 +79,7 @@
 
                     <div id="submitDiv">
 
-                        <button id="btnSubmitNew" class="ui button positive big" type="submit">Submit</button>
+                        <button id="btnSubmitNew" class="ui button positive big" type="submit"><i id="submitSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; Submit</button>
 
                     </div>
 
@@ -98,7 +98,7 @@
 
     <script>
         function showLoading() {
-            $("#btnSubmitNew").addClass("loading");
+            $("#submitSpinner").css("display","inline-block");
         }
     </script>
 

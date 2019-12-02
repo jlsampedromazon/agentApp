@@ -20,11 +20,11 @@
     <div id="controlsOne">
         <form id="saveText" class="gridControl" action="/records/<%= loi.id %>?_method=PUT" method="POST">
             <input id="hiddenTextSave" type="text" name='opp[fullText]'>
-            <button id="btnSubmitSave" class="ui green button btnControl" onclick="showLoading(this)"><i class="fa fa-save"></i> &nbsp Save Changes</button>
+            <button id="btnSubmitSave" class="ui green button btnControl" onclick="showLoading(this)" data-id="#submitSaveSpinner"><i id="submitSaveSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-save"></i> &nbsp Save Changes</button>
         </form>
         <form id="editText" class="gridControl" action="/records/<%= loi.id %>/update-text?_method=PUT" method="POST">
             <input id="hiddenTextEdit" type="text" name='opp[fullText]'>
-            <button id="btnSubmitEdit" class="ui orange button btnControl" onclick="showLoading(this)"><i class="fa fa-edit"></i> &nbsp Edit Text</button>
+            <button id="btnSubmitEdit" class="ui orange button btnControl" onclick="showLoading(this)" data-id="#submitEditSpinner"><i id="submitEditSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-edit"></i> &nbsp Edit Text</button>
         </form>
 	</div>
 	<div id="controlsTwo">
@@ -34,7 +34,7 @@
         </form>
 		<form id="requestEsig" class="gridControl" action="/records/<%= loi._id %>/esigndetails" method="POST">
             <input id="hiddenTextEsig" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button id="btnEsig" class="ui black button btnControl" onclick="showLoading(this)"><i class="fa fa-file-signature"></i> &nbsp eSign Letter</button>
+            <button id="btnEsig" class="ui black button btnControl" onclick="showLoading(this)" data-id="#submitEsigSpinner"><i id="submitEsigSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-file-signature"></i> &nbsp eSign Letter</button>
         </form>
     </div>
 
@@ -108,7 +108,8 @@
 
 <script>
         function showLoading(btnID) {
-            $(btnID).addClass("loading");
+            var spinName = $(btnID).attr("data-id");
+            $(spinName).css("display","inline-block");
         }
     </script>
 

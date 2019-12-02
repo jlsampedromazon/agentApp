@@ -326,3 +326,9 @@ pre {
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+/* Loading Buttons*/
+
+i.fa-spin {
+    display: none;
+}

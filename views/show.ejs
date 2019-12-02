@@ -18,8 +18,8 @@
     <% include partials/navbar.ejs %>
 
     <div id="controlsOne">
-        <a href="/records" class="ui grey button gridControl"><i class="fa fa-chevron-left"></i> &nbsp All Records</a>
-        <a href="/records/<%= loi._id %>/update-terms" class="ui orange button gridControl"><i class="fa fa-edit"></i>
+        <a href="/records" class="ui grey button gridControl" onclick="showLoading(this)" data-id="#recordsSpinner"><i id="recordsSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-chevron-left"></i> &nbsp All Records</a>
+        <a href="/records/<%= loi._id %>/update-terms" class="ui orange button gridControl" onclick="showLoading(this)" data-id="#udpateSpinner"><i id="udpateSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-edit"></i>
             &nbsp Edit LOI</a>
     </div>
     <div id="controlsTwo">
@@ -30,7 +30,7 @@
         </form>
         <form id="requestEsig" class="gridControl" action="/records/<%= loi._id %>/esigndetails" method="POST">
             <input id="hiddenTextEsig" type="text" value="<%= loi.fullText %>" name='opp[fullText]'>
-            <button id="btnEsig" class="ui black button btnControl" onclick="showLoading(this)"><i class="fa fa-file-signature"></i> &nbsp eSign
+            <button id="btnEsig" class="ui black button btnControl" onclick="showLoading(this)" onclick="showLoading(this)" data-id="#esignSpinner"><i id="esignSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-file-signature"></i> &nbsp eSign
                 Letter</button>
         </form>
     </div>
@@ -53,7 +53,8 @@
 
     <script>
             function showLoading(btnID) {
-                $(btnID).addClass("loading");
+                var spinName = $(btnID).attr("data-id");
+                $(spinName).css("display","inline-block");
             }
         </script>
 

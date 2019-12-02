@@ -32,11 +32,11 @@
         <% include partials/navbar.ejs %>
 
         <form id="updateTextForm" action="/records/<%= loi.id %>?_method=PUT" method="POST">
-            <button id="finSaveOne" class="ui green button btnFinalize" onclick="showLoading()"><i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
+            <button class="ui green button btnFinalize" onclick="showLoading()"><i id="finSaveOne" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
             <textarea name='opp[fullText]'>
                 <%= loi.fullText %>
             </textarea>
-            <button id="finSaveTwo" class="ui green button btnFinalize" onclick="showLoading()"><i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
+            <button class="ui green button btnFinalize" onclick="showLoading()"><i id="finSaveTwo" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-check"></i> &nbsp Finalize &amp; Save</button>
         </form>
         
         <% include partials/boilerScripts.ejs %>
@@ -55,8 +55,8 @@
 
 <script>
         function showLoading() {
-            $("#finSaveOne").addClass("loading");
-            $("#finSaveTwo").addClass("loading");
+            $("#finSaveOne").css("display","inline-block");
+            $("#finSaveTwo").css("display","inline-block");
         }
     </script>
     </body>
