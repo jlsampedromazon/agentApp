@@ -20,7 +20,7 @@
     <div id="controlsOne">
         <form id="saveText" class="gridControl" action="/records/<%= loi.id %>?_method=PUT" method="POST">
             <input id="hiddenTextSave" type="text" name='opp[fullText]'>
-            <button id="btnSubmitSave" class="ui green button btnControl" onclick="showLoading(this)" data-id="#submitSaveSpinner"><i id="submitSaveSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-save"></i> &nbsp Save Changes</button>
+            <button id="btnSubmitSave" class="ui green button btnControl" onclick="showLoading(this)" data-id="#submitSaveSpinner"><i id="submitSaveSpinner" class="fas fa-spinner fa-spin"></i> &nbsp; <i class="fa fa-save"></i> &nbsp Save</button>
         </form>
         <form id="editText" class="gridControl" action="/records/<%= loi.id %>/update-text?_method=PUT" method="POST">
             <input id="hiddenTextEdit" type="text" name='opp[fullText]'>
