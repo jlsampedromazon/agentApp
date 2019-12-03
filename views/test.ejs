@@ -313,7 +313,7 @@
 
 <div class="ui main text container segment gapToNav">
 
-        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Property</div>
+        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Landlord(s)</div>
 
         <form id="frmLandlord" class="ui form" action="/test" method="POST">
 
@@ -321,24 +321,22 @@
             <!-- Landlord Name -->
 
             <div class="field">
-                <label for="premises[streetAddress]">Street Address:</label>
-                <input id="streetAddress" type="text" placeholder="Enter Street Name & Number..."
-                    name="premises[streetAddress]" required>
+                <label for="landlord[landlordName]">Full Name:</label>
+                <input id="landlordName" type="number" placeholder="Enter Landlord's Full Name..." name="landlord[landlordName]" required>
             </div>
 
             <!-- Landlord ID -->
 
             <div class="field">
-                <label for="premises[postalCode]">Postal Code:</label>
-                <input id="postalCode" type="number" placeholder="Enter Postal Code..." name="premises[postalCode]"
-                    required>
+                <label for="landlord[landlordId]">NRIC / FIN:</label>
+                <input id="landlordId" type="number" placeholder="Enter Landlord's NRIC/FIN..." name="landlord[landlordId]" required>
             </div>
 
             <!-- Landlord Address -->
 
             <div class="field">
-                <label for="premises[city]">City:</label>
-                <input id="city" type="text" placeholder="Enter City Name..." name="premises[city]" required>
+                <label for="landlord[landlordAddress]">Mailing Address:</label>
+                <input id="landlordAddress" type="text" placeholder="Enter Landlord's Address..." name="landlord[landlordAddress]" required>
             </div>
 
             <div id="submitDiv">
