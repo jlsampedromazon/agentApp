@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DealPro | Dealtech for Professional Dealmakers</title>
+    
+    <% include partials/meta.ejs %>
+    <% include partials/semanticPlusFonts.ejs %>
 
-    <% include partials/boilerLinks.ejs %>
+    <link rel="stylesheet" href="/css/input.css" type="text/css">
+
 
 </head>
 
@@ -15,11 +19,11 @@
 
     <% include partials/navbar.ejs %>
 
-    <div id="termsWrap" class="ui main text container segment">
+    <div class="ui main text container segment gapToNav">
 
         <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Property</div>
 
-        <form id="formoid" class="ui form" action="/test" method="POST">
+        <form id="frmProperty" class="ui form" action="/test" method="POST">
 
 
             <!-- Street Address -->
@@ -33,8 +37,8 @@
             <!-- ZIP / Postal Code -->
 
             <div class="field">
-                <label for="premises[postalCode]">ZIP / Postal Code:</label>
-                <input id="postalCode" type="text" placeholder="Enter ZIP or Postal Code..." name="premises[postalCode]"
+                <label for="premises[postalCode]">Postal Code:</label>
+                <input id="postalCode" type="number" placeholder="Enter Postal Code..." name="premises[postalCode]"
                     required>
             </div>
 
@@ -300,12 +304,74 @@
                 </div>
             </div>
             <div id="submitDiv">
-                <input id="btnSubmitNew" class="ui button big" type="submit">
+                <input id="btnSubmit" class="ui button primary big" type="submit">
             </div>
         </form>
     </div>
 
-    <button id="testbtn" class="ui violet basic button big" onclick="showLoading(this)">Submit</button>
+<!-- LANDLORD -->
+
+<div class="ui main text container segment gapToNav">
+
+        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Property</div>
+
+        <form id="frmLandlord" class="ui form" action="/test" method="POST">
+
+
+            <!-- Landlord Name -->
+
+            <div class="field">
+                <label for="premises[streetAddress]">Street Address:</label>
+                <input id="streetAddress" type="text" placeholder="Enter Street Name & Number..."
+                    name="premises[streetAddress]" required>
+            </div>
+
+            <!-- Landlord ID -->
+
+            <div class="field">
+                <label for="premises[postalCode]">Postal Code:</label>
+                <input id="postalCode" type="number" placeholder="Enter Postal Code..." name="premises[postalCode]"
+                    required>
+            </div>
+
+            <!-- Landlord Address -->
+
+            <div class="field">
+                <label for="premises[city]">City:</label>
+                <input id="city" type="text" placeholder="Enter City Name..." name="premises[city]" required>
+            </div>
+
+            <div id="submitDiv">
+                <input id="btnSubmit" class="ui button primary big" type="submit">
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- Landlord Form -->
@@ -318,7 +384,10 @@
 
     <!-- Boostrap, JQuery & Custom Scripts -->
 
-    <% include partials/boilerScripts.ejs %>
+ 
+    <% include partials/mainScripts.ejs %>
+
+
     <script>
         $('.ui.dropdown').dropdown();
         $('.dropdown').dropdown('set selected', "sg");
@@ -356,12 +425,7 @@
 
     </script>
 
-<script>
-        function showLoading(btnName) {
 
-            $(btnName).addClass("loading");
-        }
-    </script>
 
 </body>
 
