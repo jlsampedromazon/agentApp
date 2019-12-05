@@ -19,11 +19,15 @@
 
     <% include partials/navbar.ejs %>
 
-    <div class="ui main text container segment gapToNav">
+    <!-- ************************************************************************************************ -->
+    <!-- ***************************************** PROPERTY**** ***************************************** -->
+    <!-- ************************************************************************************************ -->
+
+    <div id="propertyDiv" class="ui main text container segment gapToNav">
 
         <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Property</div>
 
-        <form id="frmProperty" class="ui form" action="/test" method="POST">
+        <div id="frmProperty" class="ui form">
 
 
             <!-- Street Address -->
@@ -303,33 +307,31 @@
                     </div>
                 </div>
             </div>
-            <div id="submitDiv">
-                <input id="btnSubmit" class="ui button primary big" type="submit">
+            <div id="submitPropertyDiv">
+                <button id="btnSubmitProperty" class="ui button primary big" type="submit">Submit</button>
             </div>
-        </form>
+        </div>
     </div>
 
-<!-- LANDLORD -->
+    <!-- ************************************************************************************************ -->
+    <!-- ***************************************** LANDLORD(S) ****************************************** -->
+    <!-- ************************************************************************************************ -->
 
-<div class="ui main text container segment gapToNav">
-
-        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Landlord(s)</div>
-
-        <form id="frmLandlord" class="ui form" action="/test" method="POST">
-
-
+<div id="landlordDiv" class="ui main text container segment gapToNav">
+    <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Landlord(s)</div>
+        <div class="ui form">
             <!-- Landlord Name -->
 
             <div class="field">
                 <label for="landlord[landlordName]">Full Name:</label>
-                <input id="landlordName" type="number" placeholder="Enter Landlord's Full Name..." name="landlord[landlordName]" required>
+                <input id="landlordName" type="text" placeholder="Enter Landlord's Full Name..." name="landlord[landlordName]" required>
             </div>
 
             <!-- Landlord ID -->
 
             <div class="field">
                 <label for="landlord[landlordId]">NRIC / FIN:</label>
-                <input id="landlordId" type="number" placeholder="Enter Landlord's NRIC/FIN..." name="landlord[landlordId]" required>
+                <input id="landlordId" type="text" placeholder="Enter Landlord's NRIC/FIN..." name="landlord[landlordId]" required>
             </div>
 
             <!-- Landlord Address -->
@@ -338,38 +340,218 @@
                 <label for="landlord[landlordAddress]">Mailing Address:</label>
                 <input id="landlordAddress" type="text" placeholder="Enter Landlord's Address..." name="landlord[landlordAddress]" required>
             </div>
-
-            <div id="submitDiv">
-                <input id="btnSubmit" class="ui button primary big" type="submit">
+            
+            <!-- Add Button -->
+            <div id="addDiv">
+                    <button id="btnAddLandlord" class="ui button basic positive big" onclick="addLandlord()">Add</button>
             </div>
-        </form>
+        </div>
+        <div id="displayLandlords" class="ui text container segment gapToNav">
+                <div id="landlordList">
+                    <div id="lblDelInstructions"><em>Click on a record to delete it.</em></div>
+                        <div id="warningNoLandlord" class="ui segment container record">
+                                <h3 class="centerText">No Landlord(s) added yet.</h3>
+                                <p>Fill in the details for each landlord & click add. Then submit below once all landlord(s) have been added</p>       
+                        </div>
+                </div>
+        </div>
+
+        <!-- Delete Button -->
+        <div id="deleteDiv">
+            <button id="btnDeleteLandlord" class="ui button basic red big" onclick="deleteLandlord()">Delete Entry</button>
+        </div>
+
+        <!-- Submit Button -->
+        <div id="submitDiv">
+            <button id="btnSubmitLandlord" class="ui button primary big" onclick="submitLandlord()">Submit</button>
+        </div>
+        </div>
+</div>
+
+
+
+    <!-- ************************************************************************************************ -->
+    <!-- ***************************************** TENANT(S) ******************************************** -->
+    <!-- ************************************************************************************************ -->
+
+<div id="tenantDiv" class="ui main text container segment gapToNav">
+        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> The Tenant(s)</div>
+            <div class="ui form">
+                <!-- Tenant Name -->
+    
+                <div class="field">
+                    <label for="tenant[tenantName]">Full Name:</label>
+                    <input id="tenantName" type="text" placeholder="Enter Tenant's Full Name..." name="tenant[tenantName]" required>
+                </div>
+    
+                <!-- Tenant ID -->
+    
+                <div class="field">
+                    <label for="tenant[tenantId]">NRIC / FIN:</label>
+                    <input id="tenantId" type="text" placeholder="Enter Tenant's NRIC/FIN..." name="tenant[tenantId]" required>
+                </div>
+    
+                <!-- Tenant Address -->
+    
+                <div class="field">
+                    <label for="tenant[tenantAddress]">Mailing Address:</label>
+                    <input id="tenantAddress" type="text" placeholder="Enter Tenant's Address..." name="tenant[tenantAddress]" required>
+                </div>
+                
+                <!-- Add Button -->
+                <div id="addDivTenant">
+                        <button id="btnAddTenant" class="ui button basic positive big" onclick="addTenant()">Add</button>
+                </div>
+            </div>
+            <div id="displayTenants" class="ui text container segment gapToNav">
+                    <div id="tenantList">
+                        <div id="lblTenantDelInstructions"><em>Click on a record to delete it.</em></div>
+                            <div id="warningNoTenant" class="ui segment container tenantRecord">
+                                    <h3 class="centerText">No Tenant(s) added yet.</h3>
+                                    <p>Fill in the details for each tenant & click add. Then submit below once all tenant(s) have been added</p>       
+                            </div>
+                    </div>
+            </div>
+    
+            <!-- Delete Button -->
+            <div id="deleteTenantDiv">
+                <button id="btnDeleteTenant" class="ui button basic red big" onclick="deleteTenant()">Delete Entry</button>
+            </div>
+    
+            <!-- Submit Button -->
+            <div id="submitTenantDiv">
+                <button id="btnSubmitTenant" class="ui button primary big" onclick="submitTenant()">Submit</button>
+            </div>
+            </div>
     </div>
 
 
+    <!-- ************************************************************************************************ -->
+    <!-- ***************************************** AGENCY TERMS ***************************************** -->
+    <!-- ************************************************************************************************ -->
+
+<section id="secAgency Terms">
+
+    <div id="agencyTermsDiv" class="ui main text container segment gapToNav">
+
+            <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> Agency Terms</div>
+    
+            <div id="frmAgencyTerms" class="ui form">
+    
+                <!-- Commission Type -->
+    
+                <div class="field">
+                    <label for="agencyTerms[commissionType]">Commission Type:</label>
+                    <select id="commissionType" class="ui dropdown" name="agencyTerms[commissionType]">
+                            <option value="fixed">Fixed Amount (S$)</option>
+                            <option value="monthlyRentBased">Based on Rent (# Months)</option>
+                    </select>
+                </div>
+
+                <!-- Commission Amount -->
+
+                <div class="field">
+                    <label for="agencyTerms[commissionAmout]">Commission Amount:</label>
+                    <input id="commissionAmount" type="number" placeholder="Enter No. of Month's Rent OR S$ Amount..." name="agencyTerms[commissionAmount]" required>
+                </div>
+
+                <hr>
+
+                <!-- Renewal Commission Type -->
+
+                <div class="field">
+                    <label for="agencyTerms[renewalCommissionType]">Renewal Commission Type:</label>
+                    <select id="renewalCommissionType" class="ui dropdown" name="agencyTerms[renewalCommissionType]">
+                        <option value="none">None</option>
+                        <option value="fixed">Fixed Amount (S$)</option>
+                        <option value="monthlyRentBased">Based on Rent (# Months)</option>
+                    </select>
+                </div>
+
+                <!-- Renewal Commission Amount -->
+
+                <div class="field">
+                    <label for="agencyTerms[renewalCommissionAmout]">Renewal Commission Amount:</label>
+                    <input id="renewalCommissionAmount" type="number" placeholder="Enter No. of Month's Rent OR S$ Amount..."
+                        name="agencyTerms[renewalCommissionAmount]" required>
+                </div>
+    
+                <hr>
+
+                <!-- Co-Broking Permission -->
+
+                <div class="ui segment">
+                        <div class="field">
+                            <div class="ui toggle checkbox">
+                                <input id="cobrokingPermit" type="checkbox" name="agencyTerms[cobrokingPermit]" value="yes">
+                                <label for="agencyTerms[cobrokingPermit]"><strong>Co-broking Permitted</strong></label>
+                            </div>
+                        </div>
+                    </div>
+
+                <hr>
+
+                <!-- Conflicts -->
+
+                <div class="field">
+                    <label for="agencyTerms[conflicts]">Conflicts / Potential Conflicts of Interest:</label>
+                    <textarea id="conflicts" name="agencyTerms[conflicts]" placeholder="Describe any conflicts / potential conflicts of interest here. If not applicable, leave blank."></textarea>
+                </div>
+
+                <hr>
+
+                <!-- Additional terms -->
+                
+                <div class="field">
+                    <label for="agencyTerms[addTerms]">Additional Terms (if any - otherwise leave blank):</label>
+                    <input id="addTerms" type="text" placeholder="Enter & add each term one-by-one..." name="agencyTerms[addTerms]" required>
+                </div>
+                
+                <!-- Add Button -->
+                <div id="addDivTerm">
+                    <button id="btnAddTerm" class="ui button basic positive big" onclick="addTerm()">Add</button>
+                </div>
+
+                <!-- List of Add Terms -->
+            
+                <div id="displayAddTerms" class="ui text container segment gapToNav">
+                        <div id="addTermsList">
+                            <div id="lblAddTermsDelInstructions"><em>Click on a record to delete it.</em></div>
+                            <div id="warningNoAddTerms" class="ui segment container termRecord">
+                                    <h3 class="centerText">No Additional Terms added.</h3>
+                                    <p>Enter each additional term above (if any). If no additional terms apply, leave blank and click submit below.</p>       
+                            </div>
+                        </div>
+                </div>
+            
+            <!-- Cancel Delete -->
+            <div id="btnCancelDelete" onclick="offDeleteMode()">Cancel Delete</div>
+            <!-- Delete Button -->
+            <div id="deleteAddTermDiv">
+                <button id="btnDeleteAddTerm" class="ui button basic red big" onclick="deleteAddTerm()">Delete Entry</button>
+            </div>
+        
+        </div>
+    </div>
+   
+   
+    <div id="agencyTermsDivSumbit" class="ui main text container segment gapToNav">
+
+        <!-- Submit Button -->
+        <div id="submitAgencyTermsDiv">
+                <button id="btnSubmitAgencyTerms" class="ui button primary big" onclick="submitAgencyTerms()">Submit</button>
+        </div>
+
+    </div>
+    <div id="gapToBottom"></div>
+</section>
 
 
 
 
+<% include partials/mainScripts.ejs %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script src="/js/landlord-tenantInputForms.js"></script>
 
 
     <!-- Landlord Form -->
@@ -382,48 +564,10 @@
 
     <!-- Boostrap, JQuery & Custom Scripts -->
 
- 
-    <% include partials/mainScripts.ejs %>
-
-
     <script>
         $('.ui.dropdown').dropdown();
         $('.dropdown').dropdown('set selected', "sg");
     </script>
-
-
-    <script type='text/javascript'>
-        /* attach a submit handler to the form */
-        $("#formoid").submit(function (event) {
-
-            /* stop form from submitting normally */
-            event.preventDefault();
-
-            /* get the action attribute from the <form action=""> element */
-            var $form = $(this),
-                url = $form.attr('action');
-
-            /* Send the data using post with element id name and name2*/
-            var data = {
-                opportunity: {
-                    streetAddress: $('#streetAddress').val(),
-                    postalCode: $('#postalCode').val(),
-                    city: $('#city').val(),
-                    country: $('#country').val()
-                }
-            }
-
-            $.post(url, data, function () {
-                console.log('posted!')
-                $('#thisOne').toggle();
-                $("#formoid").toggle();
-
-            });
-        });
-
-    </script>
-
-
 
 </body>
 
