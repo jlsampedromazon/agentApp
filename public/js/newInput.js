@@ -33,7 +33,7 @@ $("#btnSubmitProperty").prop("disabled", true)
     $("#btnAddLandlord").prop("disabled", true);
     $("#btnSubmitLandlord").prop("disabled", true);
     $("#btnDeleteLandlord").prop("disabled", true);
-    $("#lblDelInstructions").hide();
+    $("#lblLandlordDelInstructions").hide();
 
     // Button is enabled upon next key press after all inputs have a value
     $("div#landlordDiv input").keyup(function() {
@@ -51,7 +51,7 @@ function addLandlord() {
     var landlordId = $("#landlordId").val();
     var landlordAddress = $("#landlordAddress").val();
 
-    $("#landlordList").append('<div id="'+landlordId+'" class="ui segment container record"><h3>'+landlordName+'</h3><table style="width: 100%;"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><h5>'+landlordId+'</h5></td><td><p>'+landlordAddress+'</p></td></tr></tbody></table></div>');
+    $("#landlordList").append('<div id="'+landlordId+'" class="ui segment container landlordRecord"><h3>'+landlordName+'</h3><table style="width: 100%;"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><h5>'+landlordId+'</h5></td><td><p>'+landlordAddress+'</p></td></tr></tbody></table></div>');
 
     allLandlordsList[landlordId] = {landlordName: landlordName, landlordId: landlordId, landlordAddress: landlordAddress};
     allLandlordsListKeys.push(landlordId);
@@ -69,11 +69,12 @@ function addLandlord() {
 
 // DELETE A LANDLORD
 function deleteLandlord(){
-    $("#lblDelInstructions").show();
-    $(".record").toggleClass("deletableRecord");
+    $("#lblLandlordDelInstructions").show();
+    $(".btnLandlordCancelDelete").show();
+    $(".landlordRecord").toggleClass("deletableLandlordRecord");
     $("#btnDeleteLandlord").prop("disabled", true);
 
-    $(".record").on("click", function(){
+    $(".landlordRecord").on("click", function(){
         $(this).hide();
         var deleteRecordId = $(this).attr('id');
         delete allLandlordsList[deleteRecordId];
@@ -81,22 +82,24 @@ function deleteLandlord(){
         for( var i = 0; i < allLandlordsListKeys.length; i++){ 
             if ( allLandlordsListKeys[i] == deleteRecordId) {
                 allLandlordsListKeys.splice(i, 1); 
+            }
         }
+        offLandlordDeleteMode();  
+        console.log(allLandlordsListKeys);
+    })
 }
 
-        if (allLandlordsListKeys.length != 0) {
-            $("#btnDeleteLandlord").prop("disabled", false);
-        } else {
-            $("#warningNoLandlord").show();
-            $("#btnSubmitLandlord").prop("disabled", true);
-        }
+function offLandlordDeleteMode () {
+    $(".landlordRecord").toggleClass("deletableLandlordRecord");
+    $(".landlordRecord").unbind();
+    $("#lblLandlordDelInstructions").hide();
+    $(".btnLandlordCancelDelete").hide();
 
-        $(".record").toggleClass("deletableRecord");
-        $(".record").unbind();
-        $("#lblDelInstructions").hide();
-    
-    })
-
+    if (allLandlordsListKeys.length != 0) {
+        $("#btnDeleteLandlord").prop("disabled", false);
+    } else {
+        $("#warningNoLandlord").show();
+    }
 }
 
 // ********************
@@ -152,34 +155,37 @@ $("#btnDeleteTenant").prop("disabled", false);
 
 // DELETE A TENANT
 function deleteTenant(){
-$("#lblTenantDelInstructions").show();
-$(".tenantRecord").toggleClass("deletableTenantRecord");
-$("#btnDeleteTenant").prop("disabled", true);
+    $("#lblTenantDelInstructions").show();
+    $(".btnTenantCancelDelete").show();
+    $(".tenantRecord").toggleClass("deletableTenantRecord");
+    $("#btnDeleteTenant").prop("disabled", true);
 
-$(".tenantRecord").on("click", function(){
-    $(this).hide();
-    var deleteTenantRecordId = $(this).attr('id');
-    delete allTenantsList[deleteTenantRecordId];
-    
-    for( var i = 0; i < allTenantsListKeys.length; i++){ 
-        if ( allTenantsListKeys[i] == deleteTenantRecordId) {
-            allTenantsListKeys.splice(i, 1); 
-    }
+    $(".tenantRecord").on("click", function(){
+        $(this).hide();
+        var deleteTenantRecordId = $(this).attr('id');
+        delete allTenantsList[deleteTenantRecordId];
+
+        for( var i = 0; i < allTenantsListKeys.length; i++){ 
+            if ( allTenantsListKeys[i] == deleteTenantRecordId) {
+                allTenantsListKeys.splice(i, 1); 
+            }
+        }
+        offTenantDeleteMode();  
+        console.log(allTenantsListKeys);
+    })
 }
+
+function offTenantDeleteMode () {
+    $(".tenantRecord").toggleClass("deletableTenantRecord");
+    $(".tenantRecord").unbind();
+    $("#lblTenantDelInstructions").hide();
+    $(".btnTenantCancelDelete").hide();
 
     if (allTenantsListKeys.length != 0) {
         $("#btnDeleteTenant").prop("disabled", false);
     } else {
         $("#warningNoTenant").show();
-        $("#btnSubmitTenant").prop("disabled", true);
     }
-
-    $(".tenantRecord").toggleClass("deletableTenantRecord");
-    $(".tenantRecord").unbind();
-    $("#lblTenantDelInstructions").hide();
-
-})
-
 }
 
 // ********************
@@ -235,37 +241,33 @@ function addTerm() {
     
     }
     
-    // DELETE A TENANT
+    // DELETE AN ADDITIONAL TERM
     function deleteAddTerm(){
         
         // Turn on delete Mode
         $("#lblAddTermsDelInstructions").show();
-        $("#btnCancelDelete").show();
+        $(".btnAddTermCancelDelete").show();
         $(".termRecord").toggleClass("deletableAddTermRecord");
         $("#btnDeleteAddTerm").prop("disabled", true);
         $(".termRecord").on("click", function(){
             $(this).hide();
             var deleteAddTermRecordId = $(this).attr('id');
-            delete allAddTermsList[deleteAddTermRecordId];
+            
             for ( var i = 0; i < allAddTermsList.length; i++) { 
                 if ( allAddTermsList[i] == deleteAddTermRecordId) {
                     allAddTermsList.splice(i, 1); 
                 }
             }
-
-            offDeleteMode();
-            
-            
-            })
-    
-        console.log("hey")
+            offAddTermDeleteMode();
+            console.log(allAddTermsList);
+        })
     }
 
-    function offDeleteMode () {
+    function offAddTermDeleteMode () {
         $(".termRecord").toggleClass("deletableAddTermRecord");
         $(".termRecord").unbind();
         $("#lblAddTermsDelInstructions").hide();
-        $("#btnCancelDelete").hide();
+        $(".btnAddTermCancelDelete").hide();
 
         // Turn Off Delete Mode
         if (allAddTermsList.length != 0) {

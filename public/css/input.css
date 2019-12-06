@@ -30,13 +30,13 @@ body {
     padding-right: 10px !important;
 }
 
-.record, .tenantRecord, .termRecord {
+.landlordRecord, .tenantRecord, .termRecord {
     margin-left: 0 !important;
     margin-right:0 !important;
     margin-top: 0 !important;
 }
 
-#lblDelInstructions, #lblTenantDelInstructions, #lblAddTermsDelInstructions {
+#lblLandlordDelInstructions, #lblTenantDelInstructions, #lblAddTermsDelInstructions {
     text-align: center;
     width: 100%;
     color: red;
@@ -44,7 +44,7 @@ body {
     font-size: 14px;
 }
 
-.deletableRecord, .deletableTenantRecord, .deletableAddTermRecord {
+.deletableLandlordRecord, .deletableTenantRecord, .deletableAddTermRecord {
     background-color: MistyRose !important;
     color: red !important;
     border: 1px solid red !important;
@@ -58,7 +58,7 @@ hr {
     height: 14px;
 }
 
-#btnCancelDelete {
+.btnAddTermCancelDelete, .btnTenantCancelDelete, .btnLandlordCancelDelete {
     display: none;
     font-size: 14px;
     color: grey;
@@ -68,7 +68,7 @@ hr {
     margin-bottom: 14px;
 }
 
-#btnCancelDelete:hover {
+.btnAddTermCancelDelete:hover, .btnTenantCancelDelete:hover, .btnLandlordCancelDelete:hover {
     cursor: pointer;
 }
 
