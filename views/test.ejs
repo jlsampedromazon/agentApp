@@ -9,7 +9,7 @@
     
     <% include partials/meta.ejs %>
     <% include partials/semanticPlusFonts.ejs %>
-
+    <link rel="stylesheet" href="/css/calendar.min.css">
     <link rel="stylesheet" href="/css/input.css" type="text/css">
 
 
@@ -436,7 +436,7 @@
     <!-- ***************************************** AGENCY TERMS ***************************************** -->
     <!-- ************************************************************************************************ -->
 
-<section id="secAgency Terms">
+<section id="secAgencyTerms">
 
     <div id="agencyTermsDiv" class="ui main text container segment gapToNav">
 
@@ -553,6 +553,79 @@
 </section>
 
 
+    <!-- ************************************************************************************************ -->
+    <!-- ***************************************** LETTER OF INTENT ************************************* -->
+    <!-- ************************************************************************************************ -->
+
+<section id="secLoi">
+
+    <div id="loiDiv" class="ui main text container segment gapToNav">
+
+        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> LOI Terms</div>
+    
+        <form id="frmLoiTerms" class="ui form" onsubmit="createOpportunity()">
+    
+            <!--Monthly Rent  -->
+
+            <div class="field">
+                <label for="opp[rentAmount]">Monthly Rent (S$):</label>
+                <input type="number" placeholder="Enter number only..." name="opp[rentAmount]" required>
+            </div>
+
+            <!--Bank Name  -->
+
+            <div class="field">
+                <label for="opp[bank]">Landlord's Bank Name:</label>
+                <input type="text" placeholder="Enter Bank Name..." name="opp[bank]" required>
+            </div>
+
+            <!--Bank Account  -->
+
+            <div class="field">
+                <label for="opp[account]">Landlord's Bank Acct. No.:</label>
+                <input type="text" placeholder="Enter Acct. No. (incl. dashes)..." name="opp[account]" required>
+            </div>
+
+            <!-- Lease Period -->
+
+            <div class="field">
+                <label for="opp[leasePeriod]">Period of Lease (in months):</label>
+                <input type="number" placeholder="Enter lease duration..." name="opp[leasePeriod]" required>
+            </div>
+
+            <!-- Start Date -->
+
+            <div class="field">
+                <label for="opp[startDate]"><i class="fa fa-calendar"></i> Lease Start Date:</label>
+                <div class="ui calendar" id="ical">
+                    <div class="ui input icon ">
+                        <input type="text" placeholder="Enter Start Date..." name="opp[startDate]" autocomplete="off" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diplomatic Clause -->
+
+            <div class="ui segment">
+                <div class="field">
+                    <div class="ui toggle checkbox">
+                        <input id="inputDiplo" type="checkbox" name="opp[diplo]" value="yes">
+                        <label>Diplomatic Clause</label>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Submit Button -->
+            <div id="submitAgencyTermsDiv">
+                <button id="btnSubmitAgencyTerms" class="ui button primary big" type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+   
+    <div id="gapToBottom"></div>
+</section>
+
 
 
 <% include partials/mainScripts.ejs %>
@@ -569,10 +642,11 @@
     </div>
 
     <!-- Boostrap, JQuery & Custom Scripts -->
-
+    <script type="text/javascript" src="/js/calendar.js"></script>
     <script>
         $('.ui.dropdown').dropdown();
         $('.dropdown').dropdown('set selected', "sg");
+        $('#ical').calendar({ type: 'date' });
     </script>
 
 </body>
