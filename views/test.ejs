@@ -9,7 +9,7 @@
     
     <% include partials/meta.ejs %>
     <% include partials/semanticPlusFonts.ejs %>
-
+    <link rel="stylesheet" href="/css/calendar.min.css">
     <link rel="stylesheet" href="/css/input.css" type="text/css">
 
 
@@ -33,8 +33,8 @@
             <!-- Street Address -->
 
             <div class="field">
-                <label for="premises[streetAddress]">Street Address:</label>
-                <input id="streetAddress" type="text" placeholder="Enter Street Name & Number..."
+                <label for="premises[streetAddress]">Street Address, Building & Unit:</label>
+                <input id="streetAddress" type="text" placeholder="e.g. 36 Robinson Road, #02-01 City House"
                     name="premises[streetAddress]" required>
             </div>
 
@@ -50,7 +50,7 @@
 
             <div class="field">
                 <label for="premises[city]">City:</label>
-                <input id="city" type="text" placeholder="Enter City Name..." name="premises[city]" required>
+                <input id="city" type="text" placeholder="Enter City Name..." value="Singapore" name="premises[city]" required>
             </div>
 
             <!-- Country -->
@@ -308,7 +308,7 @@
                 </div>
             </div>
             <div id="submitPropertyDiv">
-                <button id="btnSubmitProperty" class="ui button primary big" type="submit">Submit</button>
+                <button id="btnSubmitProperty" class="ui button positive big" type="submit">Next &nbsp;> ></button>
             </div>
         </div>
     </div>
@@ -348,14 +348,17 @@
         </div>
         <div id="displayLandlords" class="ui text container segment gapToNav">
                 <div id="landlordList">
-                    <div id="lblDelInstructions"><em>Click on a record to delete it.</em></div>
+                    <div id="lblLandlordDelInstructions"><em>Click on a record to delete it.</em></div>
                         <div id="warningNoLandlord" class="ui segment container record">
                                 <h3 class="centerText">No Landlord(s) added yet.</h3>
                                 <p>Fill in the details for each landlord & click add. Then submit below once all landlord(s) have been added</p>       
                         </div>
                 </div>
         </div>
-
+        
+        <!-- Cancel Delete -->
+        <div class="btnLandlordCancelDelete" onclick="offLandlordDeleteMode()">Cancel Delete</div>
+        
         <!-- Delete Button -->
         <div id="deleteDiv">
             <button id="btnDeleteLandlord" class="ui button basic red big" onclick="deleteLandlord()">Delete Entry</button>
@@ -363,7 +366,7 @@
 
         <!-- Submit Button -->
         <div id="submitDiv">
-            <button id="btnSubmitLandlord" class="ui button primary big" onclick="submitLandlord()">Submit</button>
+            <button id="btnSubmitLandlord" class="ui button positive big" onclick="submitLandlord()">Next &nbsp;> ></button>
         </div>
         </div>
 </div>
@@ -412,7 +415,10 @@
                             </div>
                     </div>
             </div>
-    
+            
+            <!-- Cancel Delete -->
+            <div class="btnTenantCancelDelete" onclick="offTenantDeleteMode()">Cancel Delete</div>
+            
             <!-- Delete Button -->
             <div id="deleteTenantDiv">
                 <button id="btnDeleteTenant" class="ui button basic red big" onclick="deleteTenant()">Delete Entry</button>
@@ -420,7 +426,7 @@
     
             <!-- Submit Button -->
             <div id="submitTenantDiv">
-                <button id="btnSubmitTenant" class="ui button primary big" onclick="submitTenant()">Submit</button>
+                <button id="btnSubmitTenant" class="ui button positive big" onclick="submitTenant()">Next &nbsp;> ></button>
             </div>
             </div>
     </div>
@@ -430,7 +436,7 @@
     <!-- ***************************************** AGENCY TERMS ***************************************** -->
     <!-- ************************************************************************************************ -->
 
-<section id="secAgency Terms">
+<section id="secAgencyTerms">
 
     <div id="agencyTermsDiv" class="ui main text container segment gapToNav">
 
@@ -504,7 +510,7 @@
                 
                 <div class="field">
                     <label for="agencyTerms[addTerms]">Additional Terms (if any - otherwise leave blank):</label>
-                    <input id="addTerms" type="text" placeholder="Enter & add each term one-by-one..." name="agencyTerms[addTerms]" required>
+                    <textarea id="addTerms" rows="3" cols="50" placeholder="Enter & add each term one-by-one..." name="agencyTerms[addTerms]"></textarea>
                 </div>
                 
                 <!-- Add Button -->
@@ -525,7 +531,7 @@
                 </div>
             
             <!-- Cancel Delete -->
-            <div id="btnCancelDelete" onclick="offDeleteMode()">Cancel Delete</div>
+            <div class="btnAddTermCancelDelete" onclick="offAddTermDeleteMode()">Cancel Delete</div>
             <!-- Delete Button -->
             <div id="deleteAddTermDiv">
                 <button id="btnDeleteAddTerm" class="ui button basic red big" onclick="deleteAddTerm()">Delete Entry</button>
@@ -547,11 +553,84 @@
 </section>
 
 
+    <!-- ************************************************************************************************ -->
+    <!-- ***************************************** LETTER OF INTENT ************************************* -->
+    <!-- ************************************************************************************************ -->
+
+<section id="secLoi">
+
+    <div id="loiDiv" class="ui main text container segment gapToNav">
+
+        <div class="ui huge header"><i class="fa fa-edit" aria-hidden="true"></i> LOI Terms</div>
+    
+        <form id="frmLoiTerms" class="ui form" onsubmit="createOpportunity()">
+    
+            <!--Monthly Rent  -->
+
+            <div class="field">
+                <label for="opp[rentAmount]">Monthly Rent (S$):</label>
+                <input type="number" placeholder="Enter number only..." name="opp[rentAmount]" required>
+            </div>
+
+            <!--Bank Name  -->
+
+            <div class="field">
+                <label for="opp[bank]">Landlord's Bank Name:</label>
+                <input type="text" placeholder="Enter Bank Name..." name="opp[bank]" required>
+            </div>
+
+            <!--Bank Account  -->
+
+            <div class="field">
+                <label for="opp[account]">Landlord's Bank Acct. No.:</label>
+                <input type="text" placeholder="Enter Acct. No. (incl. dashes)..." name="opp[account]" required>
+            </div>
+
+            <!-- Lease Period -->
+
+            <div class="field">
+                <label for="opp[leasePeriod]">Period of Lease (in months):</label>
+                <input type="number" placeholder="Enter lease duration..." name="opp[leasePeriod]" required>
+            </div>
+
+            <!-- Start Date -->
+
+            <div class="field">
+                <label for="opp[startDate]"><i class="fa fa-calendar"></i> Lease Start Date:</label>
+                <div class="ui calendar" id="ical">
+                    <div class="ui input icon ">
+                        <input type="text" placeholder="Enter Start Date..." name="opp[startDate]" autocomplete="off" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diplomatic Clause -->
+
+            <div class="ui segment">
+                <div class="field">
+                    <div class="ui toggle checkbox">
+                        <input id="inputDiplo" type="checkbox" name="opp[diplo]" value="yes">
+                        <label>Diplomatic Clause</label>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Submit Button -->
+            <div id="submitAgencyTermsDiv">
+                <button id="btnSubmitAgencyTerms" class="ui button primary big" type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+   
+    <div id="gapToBottom"></div>
+</section>
+
 
 
 <% include partials/mainScripts.ejs %>
 
-<script src="/js/landlord-tenantInputForms.js"></script>
+<script src="/js/newInput.js"></script>
 
 
     <!-- Landlord Form -->
@@ -563,10 +642,11 @@
     </div>
 
     <!-- Boostrap, JQuery & Custom Scripts -->
-
+    <script type="text/javascript" src="/js/calendar.js"></script>
     <script>
         $('.ui.dropdown').dropdown();
         $('.dropdown').dropdown('set selected', "sg");
+        $('#ical').calendar({ type: 'date' });
     </script>
 
 </body>

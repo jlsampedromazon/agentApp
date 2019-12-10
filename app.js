@@ -656,16 +656,29 @@ app.post("/join", function (req, res) {
 })
 
 // DELETE LOI *********************************************************
-app.delete("/records/:id", function (req, res) {
-    // Destroy
-    Loi.findByIdAndDelete(req.params.id, function (err, deletedLoi) {
+app.delete("/records/:id", isLoggedIn, function (req, res) {
+    // 	Check user is authorized
+    Loi.findById(req.params.id, function (err, foundLoi) {
         if (err) {
-            res.redirect("/records");
-            adminNotification("Error", err, "DELETE Existing LOI - Failed to Delete LOI");
+            console.log(err);
+            adminNotification("Error", err, "DELETE LOI - Failed to Find LOI");
         } else {
-            res.redirect("/records");
-            console.log(deletedLoi);
-            adminNotification("Event", deletedLoi, "EXISTING LOI DELETED");
+            // Compare agent details to user credentials before proceeding
+            if (checkAuthor(foundLoi.agent._id, req.user._id)) {
+                // Destroy
+                Loi.findByIdAndDelete(req.params.id, function (err, deletedLoi) {
+                    if (err) {
+                        res.redirect("/records");
+                        adminNotification("Error", err, "DELETE Existing LOI - Failed to Delete LOI");
+                    } else {
+                        res.redirect("/records");
+                        console.log(deletedLoi);
+                        adminNotification("Event", deletedLoi, "EXISTING LOI DELETED");
+                    }
+                })
+            } else {
+                res.send("You are not authorized to access this record.");
+            }
         }
     })
 })
@@ -674,7 +687,7 @@ app.delete("/records/:id", function (req, res) {
 //   TEST ROUTES
 // =============
 
-app.put("/records/:id/savetext", function(req,res){
+app.put("/records/:id/savetext", isLoggedIn, function(req,res){
         // 	Check user is authorized
         Loi.findById(req.params.id, function (err, foundLoi) {
             if (err) {
@@ -698,8 +711,14 @@ app.put("/records/:id/savetext", function(req,res){
         })
 })
 
-app.get('/test', function(req,res){
-    res.render("test");
+app.get('/test', isLoggedIn, function(req,res){
+    idFromRequest = req.user._id,
+    idReqString = idFromRequest.toString();
+    if (idReqString == "5dcd3c65d9e92f123992d2c0") {
+        res.render("test")
+    } else {
+        res.send("<h1>You are not authorized to access this site.</h1>")
+    }
 })
 
 // app.post('/test', function(req,res){
