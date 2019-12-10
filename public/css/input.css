@@ -13,7 +13,7 @@ body {
     margin-top: 30px;
 }
 
-#btnSubmitLandlord, #btnAddLandlord, #btnDeleteLandlord, #btnSubmitProperty, #btnSubmitTenant, #btnAddTenant, #btnDeleteTenant, #btnAddTerm, #btnDeleteAddTerm, #btnSubmitAgencyTerms {
+#btnSubmitLandlord, #btnAddLandlord, #btnDeleteLandlord, #btnSubmitProperty, #btnSubmitTenant, #btnAddTenant, #btnDeleteTenant, #btnAddTerm, #btnDeleteAddTerm, #btnSubmitAgencyTerms, #btnSubmitLoiTerms {
     width: 100%;
 }
 

@@ -1,6 +1,94 @@
 
 // ********************
 // 
+// GLOBAL VARS
+// 
+// ********************
+
+    
+var strStreetAddress,
+    strFullAddress, 
+    objLandlords,
+    arrLandlordsKeys,
+    objTenants,
+    arrTenantsKeys;
+
+// ********************
+// 
+// SEQUENCE OF FORMS
+// 
+// ********************
+
+    $("#landlordDiv").hide();
+    $("#tenantDiv").hide();
+    $("#loiDiv").hide();
+
+    $("#btnSubmitProperty").click(function() {
+        $("#propertyDiv").hide();
+        $("#landlordDiv").show();
+
+        strStreetAddress = $("#streetAddress").val();
+        strFullAddress = $("#streetAddress").val() + ", " + $("#postalCode").val() + " " + $("#city").val();
+    })
+
+    $("#btnSubmitLandlord").click(function() {
+        $("#landlordDiv").hide();
+        $("#tenantDiv").show();
+
+        objLandlords = allLandlordsList;
+        arrLandlordsKeys = allLandlordsListKeys;
+    })
+    $("#btnSubmitTenant").click(function() {
+        $("#tenantDiv").hide();
+        $("#loiDiv").show();
+
+        objTenants = allTenantsList;
+        arrTenantsKeys = allTenantsListKeys;
+    })
+
+// ********************
+// 
+// PREP DATA FOR SUBMISSION
+// 
+// ********************
+
+$("#btnSubmitLoiTerms").click(function(){
+
+    var opp = {
+        streetAddress: strStreetAddress,
+        fullAddress: strFullAddress,
+        landlords: objLandlords,
+        landlordKeys: arrLandlordsKeys,
+        tenants: objTenants,
+        tenantKeys: arrTenantsKeys,
+        rentAmount: $("#rentAmount").val(),
+        leasePeriod: $("#leasePeriod").val(),
+        diplo: $("#inputDiplo").prop("checked"),
+        bank: $("#bank").val(),
+        account: $("#account").val(),
+        startDate: $("#startDate").val(),
+        fullText: "empty",
+    };
+
+    console.log(opp);
+
+    $.ajax({
+        url: "/test",
+        type: 'POST',
+        data: opp,
+        success: function(result) {
+            console.log('Opp Sent: '+ result)
+        }
+    });
+
+    window.location = "/records";
+})
+
+
+
+
+// ********************
+// 
 // PROPERTY FORM
 // 
 // ********************
@@ -9,7 +97,6 @@ $("#btnSubmitProperty").prop("disabled", true)
 
     // Button is enabled upon next key press after all inputs have a value
     $("div#propertyDiv input").keyup(function() {
-        console.log("key pressed");
         if ($("#streetAddress").val() != "" && $("#postalCode").val() != "" && $("#city").val() != "") {
             $("#btnSubmitProperty").prop("disabled", false);
         } else {
@@ -73,6 +160,7 @@ function deleteLandlord(){
     $(".btnLandlordCancelDelete").show();
     $(".landlordRecord").toggleClass("deletableLandlordRecord");
     $("#btnDeleteLandlord").prop("disabled", true);
+    $("#btnSubmitLandlord").prop("disabled", true);
 
     $(".landlordRecord").on("click", function(){
         $(this).hide();
@@ -97,6 +185,7 @@ function offLandlordDeleteMode () {
 
     if (allLandlordsListKeys.length != 0) {
         $("#btnDeleteLandlord").prop("disabled", false);
+        $("#btnSubmitLandlord").prop("disabled", false);
     } else {
         $("#warningNoLandlord").show();
     }
@@ -159,6 +248,8 @@ function deleteTenant(){
     $(".btnTenantCancelDelete").show();
     $(".tenantRecord").toggleClass("deletableTenantRecord");
     $("#btnDeleteTenant").prop("disabled", true);
+    $("#btnSubmitTenant").prop("disabled", true);
+
 
     $(".tenantRecord").on("click", function(){
         $(this).hide();
@@ -183,6 +274,8 @@ function offTenantDeleteMode () {
 
     if (allTenantsListKeys.length != 0) {
         $("#btnDeleteTenant").prop("disabled", false);
+        $("#btnSubmitTenant").prop("disabled", false);
+
     } else {
         $("#warningNoTenant").show();
     }

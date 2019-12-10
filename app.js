@@ -721,6 +721,19 @@ app.get('/test', isLoggedIn, function(req,res){
     }
 })
 
+app.post('/test', isLoggedIn, function(req,res){
+    var opp = req.body;
+    opp.agent = req.user;
+
+    idFromRequest = req.user._id,
+    idReqString = idFromRequest.toString();
+    if (idReqString == "5dcd3c65d9e92f123992d2c0") {
+        console.log(opp);
+    } else {
+        res.send("<h1>You are not authorized to access this site.</h1>")
+    }
+})
+
 // app.post('/test', function(req,res){
 //     console.log(req.body);
 //     res.sendStatus(200);
